@@ -1,5 +1,6 @@
 
 import { data, saveData } from '../data.js';
+import { t } from '../translations.js';
 
 export function renderCheatsheetsPage(element) {
     if (!data.cheatsheets) {
@@ -108,12 +109,12 @@ export function renderCheatsheetsPage(element) {
                     <button onclick="window.navigateTo('dashboard')" class="p-2 bg-white text-gray-500 rounded-xl hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                     </button>
-                    <h1 class="text-3xl font-bold text-dark">Cheatsheets</h1>
+                    <h1 class="text-3xl font-bold text-dark">${t('cheatsheets')}</h1>
                  </div>
                  
                  <button id="add-sheet-btn" class="px-4 py-2 bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors font-bold text-sm shadow-lg shadow-primary/30 flex items-center gap-2 transform hover:-translate-y-0.5 active:translate-y-0">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                    New Note
+                    ${t('new_note')}
                 </button>
             </header>
             
@@ -125,8 +126,8 @@ export function renderCheatsheetsPage(element) {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
                         </div>
-                        <h2 class="text-xl font-bold text-gray-400 mb-2">No Cheatsheets Yet</h2>
-                        <p class="text-gray-400 text-sm max-w-xs text-center">Create your first formula sheet, code snippet, or summary note.</p>
+                        <h2 class="text-xl font-bold text-gray-400 mb-2">${t('no_cheatsheets_yet')}</h2>
+                        <p class="text-gray-400 text-sm max-w-xs text-center">${t('create_first_sheet')}</p>
                     </div>
                 ` : `
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-2 pb-10">
@@ -151,10 +152,10 @@ export function renderCheatsheetsPage(element) {
                                         </div>
                                         
                                         <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button class="text-gray-300 hover:text-primary p-1.5 rounded-lg hover:bg-primary/10" onclick="event.stopPropagation(); editSheet(${sheet.id})" title="Edit Title">
+                                            <button class="text-gray-300 hover:text-primary p-1.5 rounded-lg hover:bg-primary/10" onclick="event.stopPropagation(); editSheet(${sheet.id})" title="${t('edit_title')}">
                                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
                                             </button>
-                                            <button class="text-gray-300 hover:text-primary p-1.5 rounded-lg hover:bg-primary/10" onclick="event.stopPropagation(); deleteSheet(${sheet.id})" title="Delete">
+                                            <button class="text-gray-300 hover:text-primary p-1.5 rounded-lg hover:bg-primary/10" onclick="event.stopPropagation(); deleteSheet(${sheet.id})" title="${t('delete')}">
                                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                                             </button>
                                         </div>
@@ -167,11 +168,11 @@ export function renderCheatsheetsPage(element) {
                                              ${hasImages ? `
                                                 <span class="flex items-center gap-1 text-[10px] font-bold text-gray-500 bg-gray-50 px-2 py-1 rounded">
                                                     <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                                                    Attachment
+                                                    ${t('attachment')}
                                                 </span>
                                             ` : ''}
                                         </div>
-                                        <span class="text-[10px] font-bold text-primary/60 uppercase tracking-wider group-hover:text-primary transition-colors">View details &rarr;</span>
+                                        <span class="text-[10px] font-bold text-primary/60 uppercase tracking-wider group-hover:text-primary transition-colors">${t('view_details')} &rarr;</span>
                                     </div>
                                 </div>
                             </div>
@@ -184,17 +185,17 @@ export function renderCheatsheetsPage(element) {
             <!-- Simple New Note Modal -->
             <div id="add-sheet-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-200">
                 <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 w-full max-w-sm transform scale-95 transition-all duration-200 p-6">
-                    <h3 class="text-xl font-bold text-dark mb-1">New Note</h3>
-                    <p class="text-sm text-gray-400 mb-6">Enter a title to get started.</p>
+                    <h3 class="text-xl font-bold text-dark mb-1" id="modal-title">${t('new_note')}</h3>
+                    <p class="text-sm text-gray-400 mb-6" id="modal-desc">${t('enter_title_start')}</p>
                     
                     <div class="mb-6">
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Title</label>
-                        <input type="text" id="new-sheet-title" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300" placeholder="e.g. Physics Formulas" autocomplete="off">
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('title')}</label>
+                        <input type="text" id="new-sheet-title" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300" placeholder="${t('new_note_placeholder')}" autocomplete="off">
                     </div>
 
                     <div class="flex gap-3">
-                        <button id="cancel-create-btn" class="flex-1 py-2.5 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-sm">Cancel</button>
-                        <button id="confirm-create-btn" class="flex-1 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-sm transform active:scale-95">Create</button>
+                        <button id="cancel-create-btn" class="flex-1 py-2.5 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-sm">${t('cancel')}</button>
+                        <button id="confirm-create-btn" class="flex-1 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-sm transform active:scale-95">${t('create_one')}</button>
                     </div>
                 </div>
             </div>
@@ -205,12 +206,12 @@ export function renderCheatsheetsPage(element) {
                     <div class="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                     </div>
-                    <h3 class="text-lg font-bold text-dark mb-1">Delete Note?</h3>
-                    <p class="text-sm text-gray-400 mb-6">This action cannot be undone.</p>
+                    <h3 class="text-lg font-bold text-dark mb-1">${t('delete_note_confirm')}</h3>
+                    <p class="text-sm text-gray-400 mb-6">${t('action_undone')}</p>
                     
                     <div class="flex gap-3">
-                         <button id="cancel-delete-btn" class="flex-1 py-2.5 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-sm">Cancel</button>
-                         <button id="confirm-delete-btn" class="flex-1 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-sm">Delete</button>
+                         <button id="cancel-delete-btn" class="flex-1 py-2.5 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-sm">${t('cancel')}</button>
+                         <button id="confirm-delete-btn" class="flex-1 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-sm">${t('delete')}</button>
                     </div>
                 </div>
             </div>
@@ -238,9 +239,9 @@ export function renderCheatsheetsPage(element) {
         // Open Modal (Create Mode)
         addBtn.addEventListener('click', () => {
             editingId = null;
-            modalTitle.textContent = 'New Note';
-            modalDesc.textContent = 'Enter a title to get started.';
-            createBtn.textContent = 'Create';
+            modalTitle.textContent = t('new_note');
+            modalDesc.textContent = t('enter_title_start');
+            createBtn.textContent = t('create_one');
 
             modal.classList.remove('invisible', 'opacity-0');
             modal.classList.add('visible', 'opacity-100');
@@ -306,9 +307,9 @@ export function renderCheatsheetsPage(element) {
             if (sheet) {
                 editingId = id;
                 titleInput.value = sheet.title;
-                modalTitle.textContent = 'Edit Note';
-                modalDesc.textContent = 'Update your note title.';
-                createBtn.textContent = 'Save';
+                modalTitle.textContent = t('edit_note');
+                modalDesc.textContent = t('update_note_title');
+                createBtn.textContent = t('save');
 
                 modal.classList.remove('invisible', 'opacity-0');
                 modal.classList.add('visible', 'opacity-100');

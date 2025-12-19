@@ -1,3 +1,5 @@
+import { t } from '../translations.js';
+
 export function renderPomodoro(element) {
     let timeLeft = 25 * 60; // 25 minutes in seconds
     let totalTime = 25 * 60;
@@ -81,7 +83,7 @@ export function renderPomodoro(element) {
                     new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg').play().catch(e => console.log('Audio play failed', e));
 
                     // Custom Web Notification
-                    const msg = mode === 'work' ? "Time for a break! Good job." : "Break is over! Back to work.";
+                    const msg = mode === 'work' ? t('time_break_msg') : t('break_over_msg');
                     showNotification(msg);
 
                     toggleTimer(); // Reset UI state
@@ -98,7 +100,7 @@ export function renderPomodoro(element) {
                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             </div>
             <div>
-                 <h4 class="font-bold text-dark text-sm">Timer Complete</h4>
+                 <h4 class="font-bold text-dark text-sm">${t('timer_complete')}</h4>
                  <p class="text-xs text-gray-500">${msg}</p>
             </div>
             <button class="text-gray-300 hover:text-dark ml-2" onclick="this.parentElement.remove()">
@@ -151,13 +153,13 @@ export function renderPomodoro(element) {
             <div class="w-full flex justify-between items-center shrink-0 mb-4">
                  <h3 class="text-lg font-bold text-dark flex items-center gap-2">
                     <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    Focus Timer
+                     ${t('focus_timer')}
                 </h3>
                 
                 <!-- Single Toggle Button -->
                 <button id="pomodoro-mode-toggle" class="flex items-center gap-1 px-3 py-1 bg-gray-50 text-gray-600 rounded-lg text-xs font-bold hover:bg-gray-100 transition-colors shrink-0 border border-transparent hover:border-gray-200">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                    <span>Work</span>
+                    <span>${t('work')}</span>
                 </button>
             </div>
 
@@ -216,7 +218,7 @@ export function renderPomodoro(element) {
     // Initial State
     modeBtn.innerHTML = `
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-        <span>Work</span>
+        <span>${t('work')}</span>
     `;
 
     modeBtn.addEventListener('click', () => {
@@ -224,14 +226,14 @@ export function renderPomodoro(element) {
             switchMode('break');
             modeBtn.innerHTML = `
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" /></svg>
-                <span>Break</span>
+                <span>${t('break')}</span>
             `;
             // Removed color change logic, keeping it default gray
         } else {
             switchMode('work');
             modeBtn.innerHTML = `
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                <span>Work</span>
+                <span>${t('work')}</span>
             `;
         }
     });

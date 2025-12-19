@@ -6,7 +6,10 @@ const defaultData = {
         department: "", // Dynamic
         avatar: "", // No default avatar
         isSetup: false,
-        isPremium: false
+        isPremium: false,
+        language: 'en', // Default Language
+        themePreference: 'emerald',
+        bgPreference: 'default'
     },
     stats: {
         courses: { total: 0, new: 0 },

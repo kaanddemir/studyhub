@@ -1,4 +1,6 @@
 
+import { t } from '../translations.js';
+
 export function renderBookmarks(container) {
   container.innerHTML = `
       <div class="h-full flex flex-col p-5">
@@ -7,7 +9,7 @@ export function renderBookmarks(container) {
             <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
             </svg>
-            Bookmarks
+            ${t('bookmarks')}
           </h3>
         </div>
         <div class="flex-1 flex flex-col gap-3 overflow-y-auto custom-scrollbar min-h-0">
@@ -22,7 +24,7 @@ export function renderBookmarks(container) {
             </div>
             <div>
               <h4 class="font-bold text-dark text-sm">Gemini</h4>
-              <p class="text-xs text-gray-500">Google AI Assistant</p>
+              <p class="text-xs text-gray-500">${t('google_ai_desc')}</p>
             </div>
             <svg class="w-4 h-4 text-gray-300 group-hover:text-primary ml-auto transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -39,7 +41,7 @@ export function renderBookmarks(container) {
             </div>
             <div>
               <h4 class="font-bold text-dark text-sm">ChatGPT</h4>
-              <p class="text-xs text-gray-500">OpenAI Chat</p>
+              <p class="text-xs text-gray-500">${t('openai_chat_desc')}</p>
             </div>
              <svg class="w-4 h-4 text-gray-300 group-hover:text-primary ml-auto transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -56,8 +58,8 @@ export function renderBookmarks(container) {
                </svg>
             </div>
             <div>
-              <h4 class="font-bold text-dark text-sm">Learning</h4>
-              <p class="text-xs text-gray-500">YouTube</p>
+              <h4 class="font-bold text-dark text-sm">${t('learning')}</h4>
+              <p class="text-xs text-gray-500">${t('youtube_desc')}</p>
             </div>
              <svg class="w-4 h-4 text-gray-300 group-hover:text-primary ml-auto transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />

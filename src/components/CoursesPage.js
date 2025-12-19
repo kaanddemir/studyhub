@@ -1,4 +1,5 @@
 import { data, saveData } from '../data.js';
+import { t } from '../translations.js';
 
 export function renderCoursesPage(element) {
     // Ensure courses array exists
@@ -118,12 +119,12 @@ export function renderCoursesPage(element) {
                     <button onclick="window.navigateTo('dashboard')" class="p-2 bg-white text-gray-500 rounded-xl hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                     </button>
-                    <h1 class="text-3xl font-bold text-dark">My Courses</h1>
+                    <h1 class="text-3xl font-bold text-dark">${t('my_courses')}</h1>
                  </div>
                  
                  <button id="add-course-btn" class="px-4 py-2 bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors font-bold text-sm shadow-lg shadow-primary/30 flex items-center gap-2 transform hover:-translate-y-0.5 active:translate-y-0">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                    New Course
+                    ${t('new_course')}
                 </button>
             </header>
             
@@ -135,8 +136,8 @@ export function renderCoursesPage(element) {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                             </svg>
                         </div>
-                        <h2 class="text-xl font-bold text-gray-400 mb-2">No Courses Yet</h2>
-                        <p class="text-gray-400 text-sm max-w-xs text-center">Add your first course to get started tracking your progress.</p>
+                        <h2 class="text-xl font-bold text-gray-400 mb-2">${t('no_courses_yet')}</h2>
+                        <p class="text-gray-400 text-sm max-w-xs text-center">${t('no_courses_desc')}</p>
                     </div>
                 ` : `
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-2 pb-10">
@@ -169,21 +170,21 @@ export function renderCoursesPage(element) {
                                 </div>
 
                                 <!-- Body -->
-                                <div class="px-6 pb-6 pt-2 flex flex-col flex-1">
+                                    <div class="px-6 pb-6 pt-2 flex flex-col flex-1">
                                     <div class="flex items-center gap-2 mb-1">
                                         ${course.code ? `<span class="px-2.5 py-0.5 rounded-md bg-gray-50 text-gray-400 text-[10px] font-bold tracking-wider uppercase border border-gray-100">${course.code}</span>` : ''}
                                         <span class="h-1 w-1 rounded-full bg-gray-300"></span>
-                                        <span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest">COURSE</span>
+                                        <span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest">${t('course_caps')}</span>
                                     </div>
                                     
                                     <h3 class="text-xl font-bold text-dark truncate leading-tight mb-2" title="${course.name}">${course.name}</h3>
                                     
                                     <div class="mt-auto flex items-center justify-between pt-3 border-t border-gray-50/50">
                                         <div class="text-xs text-gray-400 line-clamp-1 max-w-[60%]">
-                                            ${course.note || '<span class="opacity-50 italic">No details added</span>'}
+                                            ${course.note || `<span class="opacity-50 italic">${t('no_details')}</span>`}
                                         </div>
                                         <span class="text-[10px] font-bold text-primary/60 uppercase tracking-wider group-hover:text-primary transition-colors flex items-center gap-1">
-                                            View details &rarr;
+                                            ${t('view_details')} &rarr;
                                         </span>
                                     </div>
                                 </div>
@@ -199,8 +200,8 @@ export function renderCoursesPage(element) {
                     <!-- Wizard Header -->
                     <div class="bg-gray-50 px-6 py-4 border-b border-gray-100 flex justify-between items-center">
                         <div>
-                            <h3 class="text-lg font-bold text-dark" id="modal-title">New Course Setup</h3>
-                            <p class="text-xs text-gray-400" id="wizard-step-indicator">Step 1 of 2: Basic Info</p>
+                            <h3 class="text-lg font-bold text-dark" id="modal-title">${t('new_course_setup')}</h3>
+                            <p class="text-xs text-gray-400" id="wizard-step-indicator">${t('step_1_basic')}</p>
                         </div>
                         <button id="close-modal-btn" class="p-1 rounded-full hover:bg-gray-200 text-gray-400 transition-colors">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -217,11 +218,11 @@ export function renderCoursesPage(element) {
                         <!-- Step 1: Basic Info -->
                         <div id="step-1" class="wizard-step space-y-4">
                             <div>
-                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Course Name <span class="text-red-400">*</span></label>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('course_name')} <span class="text-red-400">*</span></label>
                                 <input type="text" id="course-name-input" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300" placeholder="e.g. Advanced Calculus">
                             </div>
                              <div>
-                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Course Code (Optional)</label>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('course_code')} (${t('optional')})</label>
                                 <input type="text" id="course-code-input" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300 uppercase" placeholder="e.g. MATH 201">
                             </div>
                         </div>
@@ -230,39 +231,39 @@ export function renderCoursesPage(element) {
                         <div id="step-2" class="wizard-step hidden space-y-4">
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Instructor</label>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('instructor')}</label>
                                     <input type="text" id="course-instructor-input" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300" placeholder="e.g. Dr. Smith">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Email</label>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('email')}</label>
                                     <input type="email" id="course-email-input" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300" placeholder="mail@uni.edu">
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Schedule</label>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('schedule_time')}</label>
                                     <input type="text" id="course-schedule-input" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300" placeholder="e.g. Mon 09:00">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Location</label>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('location_platform')}</label>
                                     <input type="text" id="course-location-input" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300" placeholder="e.g. Room 101">
                                 </div>
                             </div>
                              <div>
-                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Note (Optional)</label>
-                                <textarea id="course-note-input" rows="2" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300 resize-none text-sm" placeholder="Any initial thoughts..."></textarea>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('note_optional')}</label>
+                                <textarea id="course-note-input" rows="2" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300 resize-none text-sm" placeholder="${t('note_placeholder')}"></textarea>
                             </div>
                         </div>
                     </div>
 
                     <!-- Footer Buttons -->
                     <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-between">
-                         <button id="prev-step-btn" class="px-4 py-2 text-gray-400 hover:text-dark font-bold text-sm transition-colors hidden">Back</button>
+                         <button id="prev-step-btn" class="px-4 py-2 text-gray-400 hover:text-dark font-bold text-sm transition-colors hidden">${t('back')}</button>
                          <button id="next-step-btn" class="px-6 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-sm ml-auto">
-                            Next Step
+                            ${t('next_step')}
                         </button>
                         <button id="finish-step-btn" class="px-6 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-sm ml-auto hidden">
-                            Create Course
+                            ${t('create_course')}
                         </button>
                     </div>
                 </div>
@@ -274,12 +275,12 @@ export function renderCoursesPage(element) {
                     <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                     </div>
-                    <h3 class="text-lg font-bold text-dark mb-1">Delete Course?</h3>
-                    <p class="text-sm text-gray-400 mb-6">This action cannot be undone.</p>
+                    <h3 class="text-lg font-bold text-dark mb-1">${t('delete_course_confirm')}</h3>
+                    <p class="text-sm text-gray-400 mb-6">${t('action_undone')}</p>
                     
                     <div class="flex gap-3">
-                         <button id="cancel-delete-btn" class="flex-1 py-2.5 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-sm">Cancel</button>
-                         <button id="confirm-delete-btn" class="flex-1 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-sm">Delete</button>
+                         <button id="cancel-delete-btn" class="flex-1 py-2.5 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-sm">${t('cancel')}</button>
+                         <button id="confirm-delete-btn" class="flex-1 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-sm">${t('delete')}</button>
                     </div>
                 </div>
             </div>
@@ -329,7 +330,7 @@ export function renderCoursesPage(element) {
             nextBtn.classList.remove('hidden');
             finishBtn.classList.add('hidden');
 
-            stepIndicator.textContent = 'Step 1 of 2: Basic Info';
+            stepIndicator.textContent = t('step_1_basic');
             progressBar.style.width = '50%';
 
             // Clear inputs
@@ -350,8 +351,8 @@ export function renderCoursesPage(element) {
         // Open Modal (New)
         const openModal = () => {
             editingCourseId = null;
-            if (modalTitle) modalTitle.textContent = "New Course Setup";
-            if (finishBtn) finishBtn.textContent = "Create Course";
+            if (modalTitle) modalTitle.textContent = t('new_course_setup');
+            if (finishBtn) finishBtn.textContent = t('create_course');
 
             resetWizard();
             modal.classList.remove('invisible', 'opacity-0');
@@ -367,8 +368,8 @@ export function renderCoursesPage(element) {
             if (!course) return;
 
             editingCourseId = id;
-            if (modalTitle) modalTitle.textContent = "Edit Course Setup";
-            if (finishBtn) finishBtn.textContent = "Save Changes";
+            if (modalTitle) modalTitle.textContent = t('edit_course_setup');
+            if (finishBtn) finishBtn.textContent = t('save');
 
             resetWizard();
 
@@ -417,7 +418,7 @@ export function renderCoursesPage(element) {
             nextBtn.classList.add('hidden');
             finishBtn.classList.remove('hidden');
 
-            stepIndicator.textContent = 'Step 2 of 2: Logistics';
+            stepIndicator.textContent = t('step_2_logistics');
             progressBar.style.width = '100%';
         });
 
@@ -430,7 +431,7 @@ export function renderCoursesPage(element) {
             nextBtn.classList.remove('hidden');
             finishBtn.classList.add('hidden');
 
-            stepIndicator.textContent = 'Step 1 of 2: Basic Info';
+            stepIndicator.textContent = t('step_1_basic');
             progressBar.style.width = '50%';
         });
 

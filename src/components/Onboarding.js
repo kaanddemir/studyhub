@@ -1,4 +1,5 @@
 import { data, saveData } from '../data.js';
+import { t } from '../translations.js';
 
 export function renderOnboarding(element, onComplete) {
     let currentStep = 1;
@@ -61,7 +62,7 @@ export function renderOnboarding(element, onComplete) {
                         <div class="h-2 w-20 bg-gray-100 rounded-full overflow-hidden shrink-0">
                             <div class="h-full bg-primary transition-all duration-500 ease-out" style="width: ${(currentStep / 3) * 100}%"></div>
                         </div>
-                        <span class="text-xs font-bold text-gray-400 w-12 text-right">Step ${currentStep}/3</span>
+                        <span class="text-xs font-bold text-gray-400 w-12 text-right">${t('step')} ${currentStep}/3</span>
                     </div>
                 </div>
 
@@ -70,41 +71,41 @@ export function renderOnboarding(element, onComplete) {
                     
                     <!-- Step 1: Profile -->
                     <div class="step-content ${currentStep === 1 ? 'block animate-fade-in-right' : 'hidden'}">
-                        <h2 class="text-2xl font-bold text-dark mb-2">Let's get to know you</h2>
-                        <p class="text-gray-500 mb-8">Tell us what to call you.</p>
+                        <h2 class="text-2xl font-bold text-dark mb-2">${t('lets_known_you')}</h2>
+                        <p class="text-gray-500 mb-8">${t('call_you')}</p>
                         
                         <div class="space-y-6">
                             <!-- Name Input -->
                             <div>
-                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Full Name</label>
-                                <input type="text" id="input-name" value="${data.user.name || ''}" class="w-full text-lg px-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder-gray-300 font-bold text-dark" placeholder="e.g. Alex Student">
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">${t('full_name')}</label>
+                                <input type="text" id="input-name" value="${data.user.name || ''}" class="w-full text-lg px-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder-gray-300 font-bold text-dark" placeholder="${t('name_placeholder')}">
                             </div>
                         </div>
                     </div>
 
                     <!-- Step 2: Academics -->
                     <div class="step-content ${currentStep === 2 ? 'block animate-fade-in-right' : 'hidden'}">
-                         <h2 class="text-2xl font-bold text-dark mb-2">Academic Profile</h2>
-                        <p class="text-gray-500 mb-8">This helps us personalize your dashboard.</p>
+                         <h2 class="text-2xl font-bold text-dark mb-2">${t('academic_profile')}</h2>
+                        <p class="text-gray-500 mb-8">${t('personalize_dashboard')}</p>
 
                         <div class="space-y-5">
                              <div>
-                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">University / School</label>
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">${t('university')}</label>
                                 <div class="relative group">
                                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                         <svg class="w-5 h-5 text-gray-300 group-focus-within:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                                     </div>
-                                    <input type="text" id="input-university" value="${data.user.university || ''}" class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-dark placeholder-gray-300" placeholder="e.g. Stanford University">
+                                    <input type="text" id="input-university" value="${data.user.university || ''}" class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-dark placeholder-gray-300" placeholder="${t('uni_placeholder')}">
                                 </div>
                             </div>
 
                              <div>
-                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Department / Major</label>
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">${t('department')}</label>
                                 <div class="relative group">
                                      <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                         <svg class="w-5 h-5 text-gray-300 group-focus-within:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
                                     </div>
-                                    <input type="text" id="input-dept" value="${data.user.department || ''}" class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-dark placeholder-gray-300" placeholder="e.g. Computer Science">
+                                    <input type="text" id="input-dept" value="${data.user.department || ''}" class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-dark placeholder-gray-300" placeholder="${t('dept_placeholder')}">
                                 </div>
                             </div>
                         </div>
@@ -112,11 +113,11 @@ export function renderOnboarding(element, onComplete) {
 
                     <!-- Step 3: Customization -->
                     <div class="step-content ${currentStep === 3 ? 'block animate-fade-in-right' : 'hidden'}">
-                         <h2 class="text-2xl font-bold text-dark mb-1">Make it yours</h2>
-                        <p class="text-gray-500 mb-4">Choose a base color and tweak it.</p>
+                         <h2 class="text-2xl font-bold text-dark mb-1">${t('make_yours')}</h2>
+                        <p class="text-gray-500 mb-4">${t('choose_base_color')}</p>
 
                         <div>
-                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Base Color</label>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">${t('base_color')}</label>
                             <div class="grid grid-cols-6 gap-3">
                                 ${Object.keys(themes).map(theme => {
             const rgbVal = themes[theme].split(' ').join(',');
@@ -142,8 +143,8 @@ export function renderOnboarding(element, onComplete) {
                                     <button class="bg-pref-btn group relative p-3 rounded-2xl border-2 transition-all text-left flex flex-col gap-2 ${bgPreference === 'default' ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-gray-100 bg-white hover:border-gray-200'}" data-bg="default">
                                         <div class="w-8 h-8 rounded-full bg-gray-100 border border-gray-200 mb-1"></div>
                                         <div>
-                                            <span class="block text-sm font-bold text-dark">Default</span>
-                                            <span class="text-[10px] text-gray-400 font-medium">Clean Gray/White</span>
+                                            <span class="block text-sm font-bold text-dark">${t('default')}</span>
+                                            <span class="text-[10px] text-gray-400 font-medium">${t('clean_gray')}</span>
                                         </div>
                                         ${bgPreference === 'default' ? '<div class="absolute top-3 right-3 text-primary"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></div>' : ''}
                                     </button>
@@ -151,8 +152,8 @@ export function renderOnboarding(element, onComplete) {
                                     <button class="bg-pref-btn group relative p-3 rounded-2xl border-2 transition-all text-left flex flex-col gap-2 ${bgPreference === 'theme' ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-gray-100 bg-white hover:border-gray-200'}" data-bg="theme">
                                         <div class="w-8 h-8 rounded-full border border-primary/20 mb-1 bg-primary/20"></div>
                                         <div>
-                                            <span class="block text-sm font-bold text-dark">Theme Tint</span>
-                                            <span class="text-[10px] text-gray-400 font-medium">Pastel Look</span>
+                                            <span class="block text-sm font-bold text-dark">${t('theme_tint')}</span>
+                                            <span class="text-[10px] text-gray-400 font-medium">${t('pastel_look')}</span>
                                         </div>
                                         ${bgPreference === 'theme' ? '<div class="absolute top-3 right-3 text-primary"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></div>' : ''}
                                     </button>
@@ -164,8 +165,8 @@ export function renderOnboarding(element, onComplete) {
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-dark text-sm">Preview Mode</h4>
-                                    <p class="text-xs text-gray-500">The entire app adapts to your adjustments immediately.</p>
+                                    <h4 class="font-bold text-dark text-sm">${t('preview_mode')}</h4>
+                                    <p class="text-xs text-gray-500">${t('preview_mode_desc')}</p>
                                 </div>
                             </div>
                         </div>
@@ -176,11 +177,11 @@ export function renderOnboarding(element, onComplete) {
                 <!-- Footer / Navigation -->
                 <div class="px-10 py-6 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
                     <button id="btn-back" class="px-6 py-2.5 rounded-xl font-bold text-gray-400 hover:text-dark hover:bg-white transition-all ${currentStep === 1 ? 'invisible' : ''}">
-                        Back
+                        ${t('back')}
                     </button>
                     
                     <button id="btn-next" class="px-8 py-3 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:bg-primary-dark transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2">
-                        ${currentStep === 3 ? 'Get Started' : 'Next Step'}
+                        ${currentStep === 3 ? t('get_started') : t('next_step')}
                         ${currentStep !== 3 ? '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>' : ''}
                     </button>
                 </div>

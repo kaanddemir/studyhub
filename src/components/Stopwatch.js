@@ -1,4 +1,6 @@
 
+import { t } from '../translations.js';
+
 export function renderStopwatch(container) {
     if (!container) return;
 
@@ -14,7 +16,7 @@ export function renderStopwatch(container) {
                     <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    Stopwatch
+                    ${t('stopwatch')}
                 </h3>
             </div>
 
@@ -27,11 +29,11 @@ export function renderStopwatch(container) {
                 <!-- Controls -->
                 <div class="flex items-center gap-4 w-full justify-center">
                     <button id="sw-btn-reset" class="px-6 py-3 rounded-xl bg-gray-100 text-gray-500 font-bold hover:bg-gray-200 transition-colors text-sm">
-                        Reset
+                        ${t('reset')}
                     </button>
 
                     <button id="sw-btn-toggle" class="px-8 py-3 rounded-xl bg-primary text-white font-bold hover:opacity-90 shadow-lg shadow-primary/30 hover:shadow-xl hover:scale-105 transition-all text-sm min-w-[100px]">
-                        Start
+                        ${t('start')}
                     </button>
                 </div>
             </div>
@@ -72,7 +74,7 @@ export function renderStopwatch(container) {
             startTime = Date.now() - elapsed;
             intervalId = setInterval(update, 30);
             isRunning = true;
-            btnToggle.innerText = "Stop";
+            btnToggle.innerText = t('stop');
             btnToggle.classList.remove('bg-primary', 'hover:opacity-90');
             btnToggle.classList.add('bg-primary', 'hover:opacity-90');
         }
@@ -81,8 +83,9 @@ export function renderStopwatch(container) {
     btnReset.onclick = () => {
         if (isRunning) {
             clearInterval(intervalId);
+            clearInterval(intervalId);
             isRunning = false;
-            btnToggle.innerText = "Start";
+            btnToggle.innerText = t('start');
             btnToggle.classList.remove('bg-primary', 'hover:opacity-90');
             btnToggle.classList.add('bg-primary', 'hover:opacity-90');
         }

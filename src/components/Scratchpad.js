@@ -1,4 +1,6 @@
 
+import { t } from '../translations.js';
+
 export function renderScratchpad(container) {
     if (!container) return;
 
@@ -17,13 +19,13 @@ export function renderScratchpad(container) {
                 <div class="flex items-center justify-between mb-2">
                      <h3 class="text-lg font-bold text-dark flex items-center gap-2">
                         <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
-                        Scratchpad
+                        ${t('scratchpad')}
                     </h3>
                     
                     <!-- View Toggle -->
                     <button id="sp-btn-browse" class="px-3 py-1 bg-gray-50 text-gray-600 rounded-lg text-xs font-bold hover:bg-gray-100 transition-colors flex items-center gap-1 border border-transparent hover:border-gray-200 shrink-0">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
-                        <span>Browse</span>
+                        <span>${t('scratchpad_browse')}</span>
                     </button>
                 </div>
 
@@ -37,10 +39,10 @@ export function renderScratchpad(container) {
                     </div>
                     <div class="w-px h-5 bg-gray-200 mx-1"></div>
                     <div class="flex gap-1">
-                            <button id="sp-save-gallery" class="p-1.5 text-gray-400 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors" title="Save to Gallery">
+                            <button id="sp-save-gallery" class="p-1.5 text-gray-400 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors" title="${t('scratchpad_save_gallery')}">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" /></svg>
                             </button>
-                            <button id="sp-clear-canvas" class="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Clear">
+                            <button id="sp-clear-canvas" class="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="${t('scratchpad_clear')}">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                         </button>
                     </div>
@@ -63,7 +65,7 @@ export function renderScratchpad(container) {
                         <!-- Items populated by JS -->
                     </div>
                     <div class="p-2 border-t border-gray-100 flex justify-center text-xs text-gray-400">
-                        Select an image to load
+                        ${t('scratchpad_select_image')}
                     </div>
                 </div>
 
@@ -92,7 +94,7 @@ export function renderScratchpad(container) {
             viewGallery.classList.add('translate-x-0');
             viewCanvas.classList.remove('translate-x-0');
             viewCanvas.classList.add('-translate-x-full'); // Move left
-            btnBrowse.innerHTML = `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg><span>Draw</span>`;
+            btnBrowse.innerHTML = `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg><span>${t('scratchpad_draw')}</span>`;
 
             // Hide Tools
             const tools = container.querySelector('#sp-tools-header');
@@ -104,7 +106,7 @@ export function renderScratchpad(container) {
             viewCanvas.classList.add('translate-x-0');
             viewGallery.classList.remove('translate-x-0');
             viewGallery.classList.add('translate-x-full'); // Move right
-            btnBrowse.innerHTML = `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg><span>Browse</span>`;
+            btnBrowse.innerHTML = `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg><span>${t('scratchpad_browse')}</span>`;
 
             // Show Tools
             const tools = container.querySelector('#sp-tools-header');
@@ -259,7 +261,7 @@ export function renderScratchpad(container) {
                 <div class="col-span-2 flex flex-col items-center justify-center text-gray-300 h-full w-full absolute top-0 left-0 pointer-events-none">
                      <div class="flex flex-col items-center justify-center h-full pb-8">
                         <svg class="w-10 h-10 mb-2 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                        <p class="text-xs">No saved sketches</p>
+                        <p class="text-xs">${t('scratchpad_no_sketches')}</p>
                     </div>
                 </div>
             `;

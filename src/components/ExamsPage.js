@@ -1,5 +1,6 @@
 
 import { data, saveData } from '../data.js';
+import { t } from '../translations.js';
 
 export function renderExamsPage(container) {
     if (!container) return;
@@ -17,11 +18,11 @@ export function renderExamsPage(container) {
                         <button onclick="window.navigateTo('dashboard')" class="p-2 bg-white text-gray-500 rounded-xl hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                         </button>
-                        <h1 class="text-3xl font-bold text-dark">Exams</h1>
+                        <h1 class="text-3xl font-bold text-dark">${t('exams_title')}</h1>
                     </div>
                     <button id="add-exam-btn" class="px-4 py-2 bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors font-bold text-sm shadow-lg shadow-primary/30 flex items-center gap-2 transform hover:-translate-y-0.5 active:translate-y-0">
                          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                        Add Exam
+                        ${t('add_exam')}
                     </button>
                 </header>
 
@@ -33,8 +34,8 @@ export function renderExamsPage(container) {
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                                 </svg>
                             </div>
-                            <h2 class="text-xl font-bold text-gray-400 mb-2">No Exams Yet</h2>
-                            <p class="text-gray-400 text-sm max-w-xs text-center">Relax! You have no upcoming exams scheduled. Add one to start tracking.</p>
+                            <h2 class="text-xl font-bold text-gray-400 mb-2">${t('no_exams_yet')}</h2>
+                            <p class="text-gray-400 text-sm max-w-xs text-center">${t('no_exams_desc')}</p>
                         </div>
                     ` : `
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 content-start pb-10">
@@ -65,10 +66,10 @@ export function renderExamsPage(container) {
                                 <div class="flex-1 p-4 flex flex-col h-full relative">
                                     <!-- Actions (Top Right Absolute) -->
                                     <div class="absolute top-2 right-2 flex gap-1 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <button class="text-gray-300 hover:text-primary transition-colors p-1 rounded-md hover:bg-primary/10 edit-exam-btn" data-id="${exam.id}" title="Edit Exam">
+                                        <button class="text-gray-300 hover:text-primary transition-colors p-1 rounded-md hover:bg-primary/10 edit-exam-btn" data-id="${exam.id}" title="${t('edit_exam')}">
                                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
                                         </button>
-                                        <button class="text-gray-300 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-red-50 delete-exam-btn" data-id="${exam.id}" title="Delete Exam">
+                                        <button class="text-gray-300 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-red-50 delete-exam-btn" data-id="${exam.id}" title="${t('delete_exam')}">
                                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                                         </button>
                                     </div>
@@ -83,7 +84,7 @@ export function renderExamsPage(container) {
                                     <div class="mt-auto pt-2 border-t border-dashed border-primary/20 flex items-center justify-between w-full">
                                         <div class="flex items-center gap-2">
                                             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-50 text-gray-500 uppercase tracking-wide border border-gray-100">${exam.type}</span>
-                                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${statusColor}">${daysLeft > 0 ? `${daysLeft} DAYS LEFT` : (daysLeft === 0 ? 'TODAY' : 'PASSED')}</span>
+                                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${statusColor}">${daysLeft > 0 ? `${daysLeft} ${t('days_left')}` : (daysLeft === 0 ? t('today_caps') : t('passed_caps'))}</span>
                                         </div>
                                         <div class="flex items-center gap-1 text-gray-400 text-xs">
                                             <svg class="w-3.5 h-3.5 text-primary/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
@@ -104,8 +105,8 @@ export function renderExamsPage(container) {
                     <!-- Wizard Header -->
                     <div class="bg-gray-50 px-6 py-4 border-b border-gray-100 flex justify-between items-center">
                         <div>
-                            <h3 class="text-lg font-bold text-dark" id="modal-title">New Exam Setup</h3>
-                            <p class="text-xs text-gray-400" id="wizard-step-indicator">Step 1 of 2: Basic Info</p>
+                            <h3 class="text-lg font-bold text-dark" id="modal-title">${t('new_exam_setup')}</h3>
+                            <p class="text-xs text-gray-400" id="wizard-step-indicator">${t('step_1_basic')}</p>
                         </div>
                         <button id="close-modal-btn" class="p-1 rounded-full hover:bg-gray-200 text-gray-400 transition-colors">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -122,16 +123,16 @@ export function renderExamsPage(container) {
                         <!-- Step 1: Basic Details -->
                         <div id="step-1" class="wizard-step space-y-4">
                             <div>
-                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Course Name <span class="text-red-400">*</span></label>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('course_name')} <span class="text-red-400">*</span></label>
                                 <input type="text" id="ex-name" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300" placeholder="e.g. Calculus I">
                             </div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Course Code <span class="text-red-400">*</span></label>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('course_code')} <span class="text-red-400">*</span></label>
                                     <input type="text" id="ex-code" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300" placeholder="e.g. MATH 101">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Exam Type</label>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('exam_type')}</label>
                                     <select id="ex-type" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium outline-none">
                                         <option value="Midterm">Midterm</option>
                                         <option value="Final">Final</option>
@@ -146,16 +147,16 @@ export function renderExamsPage(container) {
                         <div id="step-2" class="wizard-step hidden space-y-4">
                              <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Date <span class="text-red-400">*</span></label>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('date')} <span class="text-red-400">*</span></label>
                                     <input type="date" id="ex-date" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-sm">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Time <span class="text-red-400">*</span></label>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('time')} <span class="text-red-400">*</span></label>
                                     <input type="time" id="ex-time" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-sm">
                                 </div>
                             </div>
                              <div>
-                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Location / Platform</label>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('location_platform')}</label>
                                 <input type="text" id="ex-loc" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300" placeholder="e.g. Room 204 or Online">
                             </div>
                         </div>
@@ -163,12 +164,12 @@ export function renderExamsPage(container) {
 
                     <!-- Footer Buttons -->
                     <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-between">
-                         <button id="prev-step-btn" class="px-4 py-2 text-gray-400 hover:text-dark font-bold text-sm transition-colors hidden">Back</button>
+                         <button id="prev-step-btn" class="px-4 py-2 text-gray-400 hover:text-dark font-bold text-sm transition-colors hidden">${t('back')}</button>
                          <button id="next-step-btn" class="px-6 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-sm ml-auto">
-                            Next Step
+                            ${t('next_step')}
                         </button>
                         <button id="finish-step-btn" class="px-6 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-sm ml-auto hidden">
-                            Add Exam
+                            ${t('add_exam')}
                         </button>
                     </div>
                 </div>
@@ -180,12 +181,12 @@ export function renderExamsPage(container) {
                     <div class="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                     </div>
-                    <h3 class="text-lg font-bold text-dark mb-1">Delete Exam?</h3>
-                    <p class="text-sm text-gray-400 mb-6">This action cannot be undone.</p>
+                    <h3 class="text-lg font-bold text-dark mb-1">${t('delete_exam_confirm')}</h3>
+                    <p class="text-sm text-gray-400 mb-6">${t('action_undone')}</p>
                     
                     <div class="flex gap-3">
-                         <button id="cancel-delete-btn" class="flex-1 py-2.5 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-sm">Cancel</button>
-                         <button id="confirm-delete-btn" class="flex-1 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-sm">Delete</button>
+                         <button id="cancel-delete-btn" class="flex-1 py-2.5 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-sm">${t('cancel')}</button>
+                         <button id="confirm-delete-btn" class="flex-1 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-sm">${t('delete')}</button>
                     </div>
                 </div>
             </div>
@@ -227,7 +228,7 @@ export function renderExamsPage(container) {
             prevBtn.classList.add('hidden');
             nextBtn.classList.remove('hidden');
             finishBtn.classList.add('hidden');
-            stepIndicator.textContent = 'Step 1 of 2: Basic Info';
+            stepIndicator.textContent = t('step_1_basic');
             progressBar.style.width = '50%';
 
             // Clear inputs
@@ -246,8 +247,8 @@ export function renderExamsPage(container) {
 
         const openModal = () => {
             editingExamId = null;
-            if (modalTitle) modalTitle.textContent = "New Exam Setup";
-            if (finishBtn) finishBtn.textContent = "Add Exam";
+            if (modalTitle) modalTitle.textContent = t('new_exam_setup');
+            if (finishBtn) finishBtn.textContent = t('add_exam');
 
             resetWizard();
             modal.classList.remove('invisible', 'opacity-0');
@@ -261,8 +262,8 @@ export function renderExamsPage(container) {
             if (!exam) return;
 
             editingExamId = id;
-            if (modalTitle) modalTitle.textContent = "Edit Exam";
-            if (finishBtn) finishBtn.textContent = "Save Changes";
+            if (modalTitle) modalTitle.textContent = t('edit_exam_setup');
+            if (finishBtn) finishBtn.textContent = t('save');
 
             resetWizard();
 
@@ -317,7 +318,7 @@ export function renderExamsPage(container) {
             prevBtn.classList.remove('hidden');
             nextBtn.classList.add('hidden');
             finishBtn.classList.remove('hidden');
-            stepIndicator.textContent = 'Step 2 of 2: Logistics';
+            stepIndicator.textContent = t('step_2_logistics');
             progressBar.style.width = '100%';
         });
 
@@ -327,7 +328,7 @@ export function renderExamsPage(container) {
             prevBtn.classList.add('hidden');
             nextBtn.classList.remove('hidden');
             finishBtn.classList.add('hidden');
-            stepIndicator.textContent = 'Step 1 of 2: Basic Info';
+            stepIndicator.textContent = t('step_1_basic');
             progressBar.style.width = '50%';
         });
 

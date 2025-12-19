@@ -1,4 +1,5 @@
 import { data, saveData } from '../data.js'
+import { t } from '../translations.js'
 import { getStatsCardsHTML } from './StatsCards.js'
 import { renderChart } from './Chart.js'
 import { renderCalendar, renderTodoList } from './Schedule.js'
@@ -27,33 +28,33 @@ export function renderDashboard(element) {
 
         const summaryEl = document.getElementById('header-summary');
         if (summaryEl) {
-            summaryEl.innerHTML = `You have <span class="font-bold text-dark">${data.courses.length} classes</span> & <span class="font-bold text-dark">${todoCount} to-dos</span>`;
+            summaryEl.innerHTML = `${t('summary_prefix')} <span class="font-bold text-dark">${data.courses.length} ${t('classes')}</span> & <span class="font-bold text-dark">${todoCount} ${t('todos')}</span> ${t('summary_suffix')}`;
         }
     };
     // Widget Management System
     let draggedItem = null;
     const widgetCache = new Map(); // Stores elements that are hidden
     const allWidgetDefinitions = [
-        { id: 'stats-card-0', name: 'Total Courses' },
-        { id: 'stats-card-1', name: 'Completed' },
-        { id: 'stats-card-2', name: 'StudyAI' },
-        { id: 'chart-container', name: 'Hours Spent' },
-        { id: 'time-container', name: 'Time' },
-        { id: 'notes-container', name: 'Quick Notes' },
-        { id: 'scratchpad-container', name: 'Scratchpad' }, // New Widget
-        { id: 'pomodoro-container', name: 'Focus Timer' },
-        { id: 'profile-container', name: 'Profile' },
-        { id: 'exam-schedule-container', name: 'Calendar' },
-        { id: 'todo-container', name: 'Todo List' },
-        { id: 'calculator-card', name: 'Calculator' },
-        { id: 'bookmarks-container', name: 'Bookmarks' },
-        { id: 'grade-calc-container', name: 'Grade Calculation' },
-        { id: 'stopwatch-container', name: 'Stopwatch' },
-        { id: 'games-container', name: 'Mini Games' },
-        { id: 'habit-container', name: 'Daily Habits' },
+        { id: 'stats-card-0', name: t('total_courses') },
+        { id: 'stats-card-1', name: t('completed') },
+        { id: 'stats-card-2', name: t('studyai') },
+        { id: 'chart-container', name: t('hours_spent') },
+        { id: 'time-container', name: t('time') },
+        { id: 'notes-container', name: t('quick_notes') },
+        { id: 'scratchpad-container', name: t('scratchpad') }, // New Widget
+        { id: 'pomodoro-container', name: t('focus_timer') },
+        { id: 'profile-container', name: t('profile') },
+        { id: 'exam-schedule-container', name: t('calendar') },
+        { id: 'todo-container', name: t('todo_list') },
+        { id: 'calculator-card', name: t('calculator') },
+        { id: 'bookmarks-container', name: t('bookmarks') },
+        { id: 'grade-calc-container', name: t('grade_calculation') },
+        { id: 'stopwatch-container', name: t('stopwatch') },
+        { id: 'games-container', name: t('mini_games') },
+        { id: 'habit-container', name: t('daily_habits') },
 
-        { id: 'weekly-schedule-container', name: 'Weekly Schedule' },
-        { id: 'photo-container', name: 'Photo Frame' }
+        { id: 'weekly-schedule-container', name: t('weekly_schedule') },
+        { id: 'photo-container', name: t('photo_frame') }
     ];
 
     const saveLayout = () => {
@@ -249,7 +250,7 @@ export function renderDashboard(element) {
                 addPhotoItem.draggable = true;
                 addPhotoItem.innerHTML = `
                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                   Add Photo Widget
+                   ${t('add_photo_widget')}
                 `;
 
                 // Generator Click
@@ -297,7 +298,7 @@ export function renderDashboard(element) {
 
                 if (unusedWidgets.length === 0) {
                     const msg = document.createElement('div');
-                    msg.innerHTML = 'All widgets are active';
+                    msg.innerHTML = t('all_widgets_active');
                     msg.className = 'text-xs text-gray-400 text-center py-2';
                     list.appendChild(msg);
                 } else {
@@ -324,7 +325,7 @@ export function renderDashboard(element) {
                                 item.remove(); // Remove item from list
                                 if (list.children.length === 1) { // 1 because AddPhotoItem is always there
                                     const msg = document.createElement('div');
-                                    msg.innerHTML = 'All widgets are active';
+                                    msg.innerHTML = t('all_widgets_active');
                                     msg.className = 'text-xs text-gray-400 text-center py-2';
                                     list.appendChild(msg);
                                 }
@@ -434,7 +435,7 @@ export function renderDashboard(element) {
 
         if (field === 'name') {
             const greeting = document.getElementById('header-greeting');
-            if (greeting) greeting.innerHTML = `Hello, ${value}!`; // Use innerHTML to preserve potential formatting if we add it later, though textContent is safer. existing was text key.
+            if (greeting) greeting.innerHTML = `${t('hello')}, ${value}!`; // Use innerHTML to preserve potential formatting if we add it later, though textContent is safer. existing was text key.
         }
 
         if (field === 'avatar') {
@@ -464,7 +465,7 @@ export function renderDashboard(element) {
                 headerBtn.classList.add('bg-amber-100', 'text-amber-600', 'border-amber-200', 'shadow-amber-500/10');
                 headerBtn.innerHTML = `
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
-                    <span>Premium Active</span>
+                    <span>${t('premium_active')}</span>
                 `;
                 headerBtn.onclick = null; // Disable modal on click or redirect to settings
             } else {
@@ -472,7 +473,7 @@ export function renderDashboard(element) {
                 headerBtn.classList.remove('bg-amber-100', 'text-amber-600', 'border-amber-200', 'shadow-amber-500/10');
                 headerBtn.innerHTML = `
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
-                    <span>Premium</span>
+                    <span>${t('premium')}</span>
                  `;
                 headerBtn.onclick = window.togglePremiumModal;
             }
@@ -552,7 +553,7 @@ export function renderDashboard(element) {
                 const importedData = JSON.parse(e.target.result);
                 // Basic validation
                 if (importedData.user && importedData.stats) {
-                    if (confirm('This will overwrite your current data. Are you sure?')) {
+                    if (confirm(t('overwrite_confirm'))) {
                         // Mutate properties of data object to keep reference
                         Object.keys(data).forEach(key => delete data[key]); // clear
                         Object.assign(data, importedData); // fill
@@ -561,11 +562,11 @@ export function renderDashboard(element) {
                         location.reload(); // Reload to apply everything
                     }
                 } else {
-                    alert('Invalid backup file. Missing critical data.');
+                    alert(t('invalid_backup'));
                 }
             } catch (err) {
                 console.error(err);
-                alert('Error parsing backup file.');
+                alert(t('parse_error'));
             }
         };
         reader.readAsText(file);
@@ -618,8 +619,8 @@ export function renderDashboard(element) {
                 <div class="space-y-4">
                      <!-- Theme Color Section -->
                      <div class="p-4 rounded-xl border border-gray-100 bg-gray-50/50">
-                        <h4 class="font-bold text-dark text-sm mb-1">Theme Color</h4>
-                        <p class="text-xs text-gray-500 mb-3">Personalize your accent color.</p>
+                        <h4 class="font-bold text-dark text-sm mb-1">${t('theme_color')}</h4>
+                        <p class="text-xs text-gray-500 mb-3">${t('personalize_accent')}</p>
                         
                         <div class="grid grid-cols-6 gap-2">
                             ${themeButtons}
@@ -627,30 +628,30 @@ export function renderDashboard(element) {
 
                         <!-- Background Preference -->
                         <div class="mt-4 pt-4 border-t border-gray-200/50">
-                            <h4 class="font-bold text-dark text-sm mb-2">Background Style</h4>
+                            <h4 class="font-bold text-dark text-sm mb-2">${t('background_style')}</h4>
                              <div class="flex gap-2">
                                 <button onclick="changeBgPreference('default')" class="flex-1 py-2 rounded-xl text-xs font-bold transition-all border ${data.user.bgPreference === 'default' ? 'bg-white border-primary text-primary shadow-sm' : 'bg-gray-100/50 border-transparent text-gray-500 hover:bg-gray-100'}">
-                                    Default
+                                    ${t('default')}
                                 </button>
                                 <button onclick="changeBgPreference('theme')" class="flex-1 py-2 rounded-xl text-xs font-bold transition-all border ${data.user.bgPreference === 'theme' ? 'bg-primary/10 border-primary text-primary shadow-sm' : 'bg-gray-100/50 border-transparent text-gray-500 hover:bg-gray-100'}">
-                                    Tinted
+                                    ${t('tinted')}
                                 </button>
                             </div>
                         </div>
                     </div>
 
                     <div class="p-4 rounded-xl border border-gray-100 bg-gray-50/50">
-                        <h4 class="font-bold text-dark text-sm mb-1">Layout Settings</h4>
-                        <p class="text-xs text-gray-500 mb-4">Customize how your dashboard looks.</p>
+                        <h4 class="font-bold text-dark text-sm mb-1">${t('layout_settings')}</h4>
+                        <p class="text-xs text-gray-500 mb-4">${t('layout_desc')}</p>
                         
                         <div class="flex flex-col gap-3">
                             <button onclick="manualSaveLayout()" class="flex items-center justify-between w-full p-3 bg-white border border-gray-200 rounded-lg hover:border-primary/50 hover:shadow-sm transition-all group">
-                                <span class="text-sm font-medium text-gray-700 group-hover:text-primary">Save Current Layout</span>
+                                <span class="text-sm font-medium text-gray-700 group-hover:text-primary">${t('save_layout')}</span>
                                 <svg id="settings-save-icon" class="w-4 h-4 text-gray-400 group-hover:text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" /></svg>
                             </button>
                             
                             <button onclick="confirmResetLayout()" class="flex items-center justify-between w-full p-3 bg-red-50 border border-red-200 rounded-lg hover:border-red-300 hover:bg-red-100 hover:shadow-md transition-all group">
-                                <span class="text-sm font-bold text-red-700">Reset Default Layout</span>
+                                <span class="text-sm font-bold text-red-700">${t('reset_layout')}</span>
                                 <svg class="w-4 h-4 text-red-500 group-hover:text-red-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
                             </button>
                         </div>
@@ -661,55 +662,77 @@ export function renderDashboard(element) {
                         ${!data.user.isPremium ? `
                             <div class="absolute top-2 right-2 flex items-center gap-1 bg-white/80 backdrop-blur px-2 py-0.5 rounded-md border border-gray-100 shadow-sm z-10">
                                 <svg class="w-3 h-3 text-amber-500" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
-                                <span class="text-[10px] font-bold text-gray-500">Premium</span>
+                                <span class="text-[10px] font-bold text-gray-500">${t('premium')}</span>
                             </div>
                         ` : ''}
                         
                         <h4 class="font-bold text-dark text-sm mb-1 flex items-center gap-2">
-                             Data Backup & Restore
+                             ${t('data_backup')}
                         </h4>
-                        <p class="text-xs text-gray-500 mb-4">Export your data to JSON or restore from a backup.</p>
+                        <p class="text-xs text-gray-500 mb-4">${t('data_desc')}</p>
                         
                         <div class="flex gap-3">
                             <button onclick="exportData()" class="flex-1 py-2.5 bg-white border border-gray-200 rounded-xl text-xs font-bold text-gray-600 hover:text-primary hover:border-primary transition-all flex items-center justify-center gap-2 shadow-sm ${!data.user.isPremium ? 'opacity-70' : ''}">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                                Export Data
+                                ${t('export_data')}
                             </button>
                              <button onclick="triggerImportData()" class="flex-1 py-2.5 bg-white border border-gray-200 rounded-xl text-xs font-bold text-gray-600 hover:text-primary hover:border-primary transition-all flex items-center justify-center gap-2 shadow-sm ${!data.user.isPremium ? 'opacity-70' : ''}">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
-                                Import Data
+                                ${t('import_data')}
                             </button>
                         </div>
                     </div>
                 </div>
             `;
         } else if (activeSettingsTab === 'language') {
-            contentArea.innerHTML = `
-                 <div class="space-y-3">
-                    <!-- English (Active) -->
-                    <div class="flex items-center justify-between p-3 bg-primary/5 border border-primary/20 rounded-xl cursor-default">
-                        <div class="flex items-center gap-3">
-                            <div>
-                                <p class="text-sm font-bold text-dark">English</p>
-                                <p class="text-[10px] text-gray-500">Default</p>
-                            </div>
-                        </div>
-                        <div class="w-4 h-4 rounded-full bg-primary flex items-center justify-center">
-                            <svg class="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
-                        </div>
-                    </div>
+            // Add new language changing function
+            window.changeLanguage = (lang) => {
+                data.user.language = lang;
+                saveData();
+                location.reload(); // Reload to apply translations
+            };
 
-                    <!-- Turkish (Coming Soon) -->
-                    <div class="flex items-center justify-between p-3 bg-gray-50 border border-gray-200 rounded-xl opacity-60 cursor-not-allowed grayscale">
-                        <div class="flex items-center gap-3">
-                            <div>
-                                <p class="text-sm font-bold text-gray-600">Turkish</p>
-                                <p class="text-[10px] text-gray-400">Coming Soon</p>
+            const currentLang = data.user.language || 'tr';
+
+            contentArea.innerHTML = `
+                     <div class="space-y-3">
+                        <!-- English -->
+                         <div onclick="changeLanguage('en')" class="flex items-center justify-between p-3 border rounded-xl cursor-pointer transition-all ${currentLang === 'en' ? 'bg-primary/5 border-primary/20 shadow-sm' : 'bg-white border-gray-200 hover:bg-gray-50'}">
+                            <div class="flex items-center gap-3">
+                                <div>
+                                    <p class="text-sm font-bold text-dark">English</p>
+                                    <p class="text-[10px] text-gray-500">${t('default')}</p>
+                                </div>
+                            </div>
+                            <div class="w-4 h-4 rounded-full flex items-center justify-center ${currentLang === 'en' ? 'bg-primary' : 'border border-gray-300'}">
+                                ${currentLang === 'en' ? '<svg class="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>' : ''}
                             </div>
                         </div>
-                    </div>
-                 </div>
-            `;
+
+                        <!-- Turkish -->
+                        <div onclick="changeLanguage('tr')" class="flex items-center justify-between p-3 border rounded-xl cursor-pointer transition-all ${currentLang === 'tr' ? 'bg-primary/5 border-primary/20 shadow-sm' : 'bg-white border-gray-200 hover:bg-gray-50'}">
+                            <div class="flex items-center gap-3">
+                                <div>
+                                    <p class="text-sm font-bold text-dark">Türkçe</p>
+                                    <p class="text-[10px] text-gray-500">Türkçe</p>
+                                </div>
+                            </div>
+                            <div class="w-4 h-4 rounded-full flex items-center justify-center ${currentLang === 'tr' ? 'bg-primary' : 'border border-gray-300'}">
+                                ${currentLang === 'tr' ? '<svg class="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>' : ''}
+                            </div>
+                        </div>
+
+                        <!-- German (Coming Soon) -->
+                        <div class="flex items-center justify-between p-3 bg-gray-50 border border-gray-200 rounded-xl opacity-60 cursor-not-allowed grayscale">
+                            <div class="flex items-center gap-3">
+                                <div>
+                                    <p class="text-sm font-bold text-gray-600">German</p>
+                                    <p class="text-[10px] text-gray-400">${t('coming_soon')}</p>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                `;
         } else if (activeSettingsTab === 'profile') {
             const avatars = ['🎓', '🚀', '⭐', '🧠', '🦁', '⚡'];
 
@@ -732,7 +755,7 @@ export function renderDashboard(element) {
                             `).join('')}
                             
                             <div class="w-px h-6 bg-gray-200 mx-1"></div>
-                             <button onclick="updateProfileField('avatar', null)" class="w-9 h-9 rounded-xl flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all" title="Remove Avatar">
+                             <button onclick="updateProfileField('avatar', null)" class="w-9 h-9 rounded-xl flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all" title="${t('remove_avatar')}">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                             </button>
                         </div>
@@ -740,18 +763,18 @@ export function renderDashboard(element) {
 
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1.5 ml-1">Full Name</label>
-                            <input type="text" oninput="updateProfileField('name', this.value)" value="${data.user.name || ''}" class="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-bold text-dark text-sm" placeholder="Your Name">
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1.5 ml-1">${t('full_name')}</label>
+                            <input type="text" oninput="updateProfileField('name', this.value)" value="${data.user.name || ''}" class="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-bold text-dark text-sm" placeholder="${t('your_name_placeholder')}">
                         </div>
                         
                         <div>
-                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">University</label>
-                            <input type="text" oninput="updateProfileField('university', this.value)" value="${data.user.university || ''}" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-dark text-sm placeholder-gray-400" placeholder="University Name">
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">${t('university')}</label>
+                            <input type="text" oninput="updateProfileField('university', this.value)" value="${data.user.university || ''}" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-dark text-sm placeholder-gray-400" placeholder="${t('uni_name_placeholder')}">
                         </div>
 
                          <div>
-                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Department</label>
-                            <input type="text" oninput="updateProfileField('department', this.value)" value="${data.user.department || ''}" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-dark text-sm placeholder-gray-400" placeholder="Major / Dept">
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">${t('department')}</label>
+                            <input type="text" oninput="updateProfileField('department', this.value)" value="${data.user.department || ''}" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-dark text-sm placeholder-gray-400" placeholder="${t('major_placeholder')}">
                         </div>
                     </div>
 
@@ -759,12 +782,12 @@ export function renderDashboard(element) {
                     ${data.user.isPremium ? `
                         <div class="px-4 py-3 bg-amber-50 rounded-xl border border-amber-100 flex items-center justify-between">
                              <div>
-                                <p class="text-[10px] font-bold text-amber-600 uppercase tracking-wider mb-0.5">Current Plan</p>
+                                <p class="text-[10px] font-bold text-amber-600 uppercase tracking-wider mb-0.5">${t('current_plan')}</p>
                                 <p class="text-sm font-bold text-dark flex items-center gap-2">
-                                    Premium Plan
+                                    ${t('premium_plan')}
                                     <span class="px-2 py-0.5 rounded-md bg-amber-200 text-amber-700 text-[10px] flex items-center gap-1">
                                         <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        Active
+                                        ${t('active')}
                                     </span>
                                 </p>
                             </div>
@@ -772,20 +795,20 @@ export function renderDashboard(element) {
                     ` : `
                         <div class="px-4 py-3 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-between">
                              <div>
-                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">Current Plan</p>
+                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">${t('current_plan')}</p>
                                 <p class="text-sm font-bold text-dark flex items-center gap-2">
-                                    Basic Plan
-                                    <span class="px-2 py-0.5 rounded-md bg-gray-200 text-gray-500 text-[10px]">Free</span>
+                                    ${t('basic_plan')}
+                                    <span class="px-2 py-0.5 rounded-md bg-gray-200 text-gray-500 text-[10px]">${t('free')}</span>
                                 </p>
                             </div>
                             <button onclick="togglePremiumModal()" class="px-3 py-1.5 bg-white border border-gray-200 text-xs font-bold text-primary rounded-lg shadow-sm hover:bg-gray-50 transition-all">
-                                Upgrade
+                                ${t('upgrade')}
                             </button>
                         </div>
                     `}
                     
                     <div class="pt-2 text-center">
-                         <p class="text-[10px] text-gray-400">Changes are saved automatically.</p>
+                         <p class="text-[10px] text-gray-400">${t('changes_saved')}</p>
                     </div>
                 </div>
             `;
@@ -794,20 +817,20 @@ export function renderDashboard(element) {
                 <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100 text-center">
                     <img src="/logo.png" class="w-16 h-16 mx-auto mb-3 rounded-2xl shadow-sm hover:scale-105 transition-transform duration-300" alt="StudyHub Logo">
                     <h4 class="font-bold text-dark text-lg mb-1">StudyHub</h4>
-                    <p class="text-xs text-gray-500 mb-4">Version 1.0.0 • Basic Edition</p>
+                    <p class="text-xs text-gray-500 mb-4">${t('version')} 1.0.0 • ${t('basic_edition')}</p>
                 </div>
             `;
         } else if (activeSettingsTab === 'developer') {
             contentArea.innerHTML = `
                 <div class="space-y-4">
                      <div class="p-4 rounded-xl border border-gray-100 bg-gray-50/50">
-                        <h4 class="font-bold text-dark text-sm mb-1">Developer Mode</h4>
-                        <p class="text-xs text-gray-500 mb-4">Experimental features and overrides.</p>
+                        <h4 class="font-bold text-dark text-sm mb-1">${t('developer_mode')}</h4>
+                        <p class="text-xs text-gray-500 mb-4">${t('dev_desc')}</p>
                         
                         <div class="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg">
                             <div>
-                                <p class="text-sm font-bold text-dark">Enable Premium</p>
-                                <p class="text-[10px] text-gray-500">Unlocks all premium features.</p>
+                                <p class="text-sm font-bold text-dark">${t('enable_premium')}</p>
+                                <p class="text-[10px] text-gray-500">${t('unlock_desc')}</p>
                             </div>
                             
                             <button onclick="toggleDevPremium()" class="w-12 h-6 rounded-full transition-colors relative ${data.user.isPremium ? 'bg-primary' : 'bg-gray-300'}">
@@ -825,22 +848,22 @@ export function renderDashboard(element) {
     <!-- Header -->
     <header class="sticky top-0 z-30 bg-transparent backdrop-blur-xl px-8 pt-8 pb-4 flex flex-col md:flex-row justify-between items-center mb-2 gap-4 border-b border-transparent transition-all">
       <div class="w-full md:w-auto">
-        <h1 id="header-greeting" class="text-3xl font-bold text-dark">Hello, ${data.user.name}!</h1>
-        <p id="header-summary" class="text-gray-500 mt-1">Loading summary...</p>
+        <h1 id="header-greeting" class="text-3xl font-bold text-dark">${t('hello')}, ${data.user.name}!</h1>
+        <p id="header-summary" class="text-gray-500 mt-1">${t('loading_summary')}</p>
       </div>
       <div class="flex items-center gap-4 w-full md:w-auto justify-end">
         
         <!-- Manage Widgets Button -->
         <div class="relative">
-            <button id="manage-widgets-btn" onclick="toggleManageDropdown()" class="w-12 h-12 flex items-center justify-center bg-white text-gray-400 rounded-full hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100" title="Manage Widgets">
+            <button id="manage-widgets-btn" onclick="toggleManageDropdown()" class="w-12 h-12 flex items-center justify-center bg-white text-gray-400 rounded-full hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100" title="${t('manage_widgets')}">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
             </button>
             <div id="manage-widgets-popup" class="absolute top-full right-0 mt-2 w-64 bg-white p-4 rounded-xl shadow-xl border border-gray-100 opacity-0 invisible transition-all z-50 transform origin-top-right scale-95">
                 <div class="flex justify-between items-center mb-3">
-                    <p class="text-xs font-bold text-dark">Available Widgets</p>
+                    <p class="text-xs font-bold text-dark">${t('available_widgets')}</p>
                 </div>
                 <div id="manage-widgets-dropzone" class="mb-3 border-2 border-dashed border-primary/20 bg-primary/5 rounded-lg p-3 text-center transition-colors">
-                     <p class="text-[10px] text-primary/60">Drag widget here to remove</p>
+                     <p class="text-[10px] text-primary/60">${t('drag_remove')}</p>
                 </div>
                 <div id="manage-widgets-list" class="max-h-48 overflow-y-auto custom-scrollbar"></div>
             </div>
@@ -870,11 +893,11 @@ export function renderDashboard(element) {
             <div id="settings-modal" class="absolute top-full right-0 mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-100 opacity-0 invisible transition-all z-50 transform origin-top-right scale-95 overflow-hidden">
                 <!-- Header Tabs -->
                 <div class="flex border-b border-gray-100 bg-gray-50/50">
-                    <button onclick="switchSettingsTab('general')" data-tab="general" class="settings-tab-btn flex-1 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors">General</button>
-                    <button onclick="switchSettingsTab('profile')" data-tab="profile" class="settings-tab-btn flex-1 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors">Profile</button>
-                    <button onclick="switchSettingsTab('language')" data-tab="language" class="settings-tab-btn flex-1 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors">Language</button>
-                    <button onclick="switchSettingsTab('about')" data-tab="about" class="settings-tab-btn flex-1 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors">About</button>
-                    <button onclick="switchSettingsTab('developer')" data-tab="developer" class="settings-tab-btn flex-1 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors">Dev</button>
+                    <button onclick="switchSettingsTab('general')" data-tab="general" class="settings-tab-btn flex-1 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors">${t('general')}</button>
+                    <button onclick="switchSettingsTab('profile')" data-tab="profile" class="settings-tab-btn flex-1 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors">${t('profile')}</button>
+                    <button onclick="switchSettingsTab('language')" data-tab="language" class="settings-tab-btn flex-1 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors">${t('language')}</button>
+                    <button onclick="switchSettingsTab('about')" data-tab="about" class="settings-tab-btn flex-1 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors">${t('about')}</button>
+                    <button onclick="switchSettingsTab('developer')" data-tab="developer" class="settings-tab-btn flex-1 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors">${t('developer')}</button>
                 </div>
                 
                 <!-- Content Area -->
@@ -902,9 +925,9 @@ export function renderDashboard(element) {
             <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                 <div>
                      <h2 class="text-2xl font-black text-dark flex items-center gap-2">
-                        Upgrade to <span class="text-primary">Premium</span>
+                        ${t('upgrade_to')} <span class="text-primary">${t('premium')}</span>
                     </h2>
-                    <p class="text-gray-500 text-sm">Unlock the full potential of your study workflow.</p>
+                    <p class="text-gray-500 text-sm">${t('unlock_potential')}</p>
                 </div>
                 <button onclick="togglePremiumModal()" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 flex items-center justify-center transition-colors">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -919,32 +942,32 @@ export function renderDashboard(element) {
                         <div class="mb-6">
                             <h3 class="text-xl font-bold text-gray-600 mb-2">Basic</h3>
                             <div class="flex items-end gap-1">
-                                <span class="text-4xl font-black text-dark">Free</span>
-                                <span class="text-gray-400 mb-1">/ forever</span>
+                                <span class="text-4xl font-black text-dark">${t('free')}</span>
+                                <span class="text-gray-400 mb-1">${t('forever')}</span>
                             </div>
-                            <p class="text-sm text-gray-400 mt-2">Essential tools for everyday studying.</p>
+                            <p class="text-sm text-gray-400 mt-2">${t('essential_tools')}</p>
                         </div>
                         
                         <div class="space-y-4 mb-8 flex-1">
                              <div class="flex items-center gap-3">
                                 <svg class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                                <span class="text-gray-600 font-medium">Standard Dashboard</span>
+                                <span class="text-gray-600 font-medium">${t('standard_dashboard')}</span>
                             </div>
                             <div class="flex items-center gap-3">
                                 <svg class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                                <span class="text-gray-600 font-medium">Basic Analytics</span>
+                                <span class="text-gray-600 font-medium">${t('basic_analytics')}</span>
                             </div>
                             <div class="flex items-center gap-3">
                                 <svg class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                                <span class="text-gray-600 font-medium">Limited AI Assistance</span>
+                                <span class="text-gray-600 font-medium">${t('limited_ai')}</span>
                             </div>
                              <div class="flex items-center gap-3 opacity-50">
                                 <svg class="w-5 h-5 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                                <span class="text-gray-400">Cloud Sync & Backup</span>
+                                <span class="text-gray-400">${t('cloud_sync_backup')}</span>
                             </div>
                             <div class="flex items-center gap-3 opacity-50">
                                 <svg class="w-5 h-5 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                                <span class="text-gray-400">Advanced Customization</span>
+                                <span class="text-gray-400">${t('advanced_customization')}</span>
                             </div>
                         </div>
 
@@ -954,19 +977,19 @@ export function renderDashboard(element) {
                     <!-- Premium Plan -->
                     <div class="rounded-3xl border-2 border-primary/20 bg-primary/5 p-6 flex flex-col relative overflow-hidden group">
                         <div class="absolute top-0 right-0 bg-primary text-white text-[10px] font-bold px-3 py-1 rounded-bl-2xl uppercase tracking-wider shadow-lg shadow-primary/20">
-                            Recommended
+                            ${t('recommended')}
                         </div>
 
                         <div class="mb-6">
                             <h3 class="text-xl font-bold text-primary mb-2 flex items-center gap-2">
-                                Premium
+                                ${t('premium')}
                                 <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
                             </h3>
                             <div class="flex items-end gap-1">
                                 <span class="text-4xl font-black text-dark">$4.99</span>
-                                <span class="text-gray-400 mb-1">/ month</span>
+                                <span class="text-gray-400 mb-1">${t('per_month')}</span>
                             </div>
-                            <p class="text-sm text-gray-500 mt-2">For serious students who want the best.</p>
+                            <p class="text-sm text-gray-500 mt-2">${t('premium_desc')}</p>
                         </div>
                         
                         <div class="space-y-4 mb-8 flex-1">
@@ -974,31 +997,31 @@ export function renderDashboard(element) {
                                 <div class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center text-green-500 shrink-0">
                                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
                                 </div>
-                                <span class="text-dark font-bold">Unlimited AI Tutor</span>
+                                <span class="text-dark font-bold">${t('unlimited_ai')}</span>
                             </div>
                             <div class="flex items-center gap-3">
                                 <div class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center text-green-500 shrink-0">
                                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
                                 </div>
-                                <span class="text-dark font-bold">Cloud Sync & Multi-Device</span>
+                                <span class="text-dark font-bold">${t('cloud_sync_multi')}</span>
                             </div>
                             <div class="flex items-center gap-3">
                                  <div class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center text-green-500 shrink-0">
                                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
                                 </div>
-                                <span class="text-dark font-medium">Advanced Performance Analytics</span>
+                                <span class="text-dark font-medium">${t('advanced_analytics')}</span>
                             </div>
                              <div class="flex items-center gap-3">
                                  <div class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center text-green-500 shrink-0">
                                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
                                 </div>
-                                <span class="text-dark font-medium">Custom Themes & Icons</span>
+                                <span class="text-dark font-medium">${t('custom_themes')}</span>
                             </div>
 
                         </div>
 
                         <button class="w-full py-4 bg-primary text-white font-bold rounded-2xl shadow-lg shadow-primary/30 hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all text-lg">
-                            Upgrade Now
+                            ${t('upgrade_now')}
                         </button>
                     </div>
                 </div>
@@ -1008,7 +1031,7 @@ export function renderDashboard(element) {
                 <div class="mt-8 flex flex-col items-center justify-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
                     <div class="flex items-center justify-center gap-2 text-xs text-gray-500 font-medium">
                         <svg class="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
-                        <span>Secure payment processed by Stripe. Cancel anytime.</span>
+                        <span>${t('secure_payment')}</span>
                     </div>
                 </div>
             </div>
@@ -1278,31 +1301,55 @@ export function renderDashboard(element) {
         }
     };
 
-    window.toggleResetConfirm = () => {
-        // Now handled inside renderSettingsContent logic directly if needed, 
-        // but since we replaced it with a direct function call in the new HTML, we can simplify/remove usage.
-        // However, user might want a confirm. 
-        // In the new Settings HTML I put `onclick="confirmResetLayout()"` directly for simplicity as per common settings UX,
-        // but if a confirmation is needed, I should add a simple browser confirm or a mini-state in the modal.
-        // Let's use a browser confirm for the "Reset" in settings to keep it simple but safe.
-        // Re-defining confirmResetLayout to include the check.
-        if (confirm("Are you sure you want to reset the dashboard layout to default?")) {
+    // Consolidating confirm logic
+    window.confirmResetLayout = () => {
+        // Custom Modal for Web
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 z-[60] flex items-center justify-center bg-dark/50 backdrop-blur-sm opacity-0 transition-opacity duration-300';
+
+        modal.innerHTML = `
+            <div class="bg-white rounded-3xl p-6 w-full max-w-sm shadow-2xl transform scale-95 transition-transform duration-300">
+                <div class="flex flex-col items-center text-center">
+                     <div class="mb-4 bg-primary/10 p-4 rounded-full">
+                        <svg class="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                     </div>
+                     <h3 class="text-xl font-bold text-dark mb-2">${t('reset_layout')}?</h3>
+                     <p class="text-sm text-gray-500 mb-6 leading-relaxed">${t('reset_layout_confirm')}</p>
+                     
+                     <div class="flex gap-3 w-full">
+                         <button id="cancel-reset-layout" class="flex-1 py-3 rounded-xl font-bold text-gray-500 hover:bg-gray-100 transition-colors">${t('no')}</button>
+                         <button id="confirm-reset-layout-btn" class="flex-1 py-3 rounded-xl font-bold text-white bg-primary hover:opacity-90 shadow-lg shadow-primary/30 transition-all">${t('yes')}</button>
+                     </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        // Animate In
+        requestAnimationFrame(() => {
+            modal.classList.remove('opacity-0');
+            modal.querySelector('div').classList.remove('scale-95');
+            modal.querySelector('div').classList.add('scale-100');
+        });
+
+        // Handlers
+        const close = () => {
+            modal.classList.add('opacity-0');
+            modal.querySelector('div').classList.remove('scale-100');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => modal.remove(), 300);
+        };
+
+        modal.querySelector('#cancel-reset-layout').onclick = close;
+        modal.onclick = (e) => {
+            if (e.target === modal) close();
+        };
+
+        modal.querySelector('#confirm-reset-layout-btn').onclick = () => {
             localStorage.removeItem('dashboardLayout');
             location.reload();
-        }
-    };
-
-    window.confirmResetLayout = () => {
-        // Consolidating
-        if (confirm("Are you sure you want to reset the dashboard layout to default?")) {
-            localStorage.removeItem('dashboardLayout');
-            location.reload();
-        }
-    };
-
-    window.confirmResetLayout = () => {
-        localStorage.removeItem('dashboardLayout');
-        location.reload();
+        };
     };
 
 
@@ -1450,7 +1497,7 @@ export function renderDashboard(element) {
     // Profile Update Listener
     const handleProfileUpdate = () => {
         const header = document.getElementById('header-greeting');
-        if (header) header.innerText = `Hello, ${data.user.name}!`;
+        if (header) header.innerText = `${t('hello')}, ${data.user.name}!`;
     };
     document.removeEventListener('profileUpdated', handleProfileUpdate);
     document.addEventListener('profileUpdated', handleProfileUpdate);

@@ -1,4 +1,6 @@
 
+import { t } from '../translations.js';
+
 export function renderGradeCalculator(container) {
     if (!container) return;
 
@@ -6,8 +8,8 @@ export function renderGradeCalculator(container) {
     let assessments = JSON.parse(localStorage.getItem('grade_calc_data') || '[]');
     if (assessments.length === 0) {
         assessments = [
-            { id: 1, name: 'Midterm', grade: '', weight: 40 },
-            { id: 2, name: 'Final', grade: '', weight: 60 }
+            { id: 1, name: t('midterm'), grade: '', weight: 40 },
+            { id: 2, name: t('final_exam'), grade: '', weight: 60 }
         ];
     }
 
@@ -38,9 +40,9 @@ export function renderGradeCalculator(container) {
         let resultHTML = '';
 
         if (currentWeight > 0) {
-            resultHTML = `<div class="text-sm">Current Avg: <span class="font-bold text-primary text-lg">${currentAvg}</span></div>`;
+            resultHTML = `<div class="text-sm">${t('current_avg')}: <span class="font-bold text-primary text-lg">${currentAvg}</span></div>`;
         } else {
-            resultHTML = `<div class="text-sm text-gray-400">Enter grades to calculate</div>`;
+            resultHTML = `<div class="text-sm text-gray-400">${t('enter_grades_msg')}</div>`;
         }
 
         // Calculate needed for Final (if final is empty)
@@ -60,11 +62,11 @@ export function renderGradeCalculator(container) {
             const neededGrade = ((target * totalWeight - weightedSum) / emptyFinal.weight).toFixed(1);
 
             if (neededGrade > 0 && neededGrade <= 100) {
-                resultHTML += `<div class="text-xs text-gray-500 mt-1">Need <b class="text-dark">${neededGrade}</b> on ${emptyFinal.name} for ${target}</div>`;
+                resultHTML += `<div class="text-xs text-gray-500 mt-1">${t('need_score_msg')} <b class="text-dark">${neededGrade}</b> ${t('on_msg')} ${emptyFinal.name} ${t('for_msg')} ${target}</div>`;
             } else if (neededGrade > 100) {
-                resultHTML += `<div class="text-xs text-primary mt-1">Need ${neededGrade}... Impossible?</div>`;
+                resultHTML += `<div class="text-xs text-primary mt-1">${t('need_score_msg')} ${neededGrade}... ${t('impossible')}</div>`;
             } else if (neededGrade <= 0) {
-                resultHTML += `<div class="text-xs text-green-500 mt-1">You passed!</div>`;
+                resultHTML += `<div class="text-xs text-green-500 mt-1">${t('passed_msg')}</div>`;
             }
         }
 
@@ -79,8 +81,8 @@ export function renderGradeCalculator(container) {
             const row = document.createElement('div');
             row.className = 'flex items-center gap-2 mb-2';
             row.innerHTML = `
-                <input type="text" placeholder="Name" class="w-full bg-gray-50 rounded-lg px-2 py-1 text-xs border border-transparent focus:bg-white focus:border-primary focus:outline-none transition-colors" value="${item.name}" data-idx="${index}" data-key="name">
-                <input type="number" placeholder="Gr" class="w-16 bg-gray-50 rounded-lg px-2 py-1 text-xs border border-transparent focus:bg-white focus:border-primary focus:outline-none transition-colors text-center" value="${item.grade}" data-idx="${index}" data-key="grade">
+                <input type="text" placeholder="${t('assessment_name')}" class="w-full bg-gray-50 rounded-lg px-2 py-1 text-xs border border-transparent focus:bg-white focus:border-primary focus:outline-none transition-colors" value="${item.name}" data-idx="${index}" data-key="name">
+                <input type="number" placeholder="${t('grade')}" class="w-16 bg-gray-50 rounded-lg px-2 py-1 text-xs border border-transparent focus:bg-white focus:border-primary focus:outline-none transition-colors text-center" value="${item.grade}" data-idx="${index}" data-key="grade">
                 <input type="number" placeholder="%" class="w-12 bg-gray-50 rounded-lg px-2 py-1 text-xs border border-transparent focus:bg-white focus:border-primary focus:outline-none transition-colors text-center" value="${item.weight}" data-idx="${index}" data-key="weight">
                 <button class="text-gray-300 hover:text-primary transition-colors" data-idx="${index}">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -117,7 +119,7 @@ export function renderGradeCalculator(container) {
                     <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                     </svg>
-                    Grade Calculation
+                    ${t('grade_calc')}
                 </h3>
                 <button id="gc-add-btn" class="p-1.5 bg-primary text-white rounded-lg hover:opacity-90 transition-colors shadow-lg shadow-primary/30">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
@@ -125,8 +127,8 @@ export function renderGradeCalculator(container) {
             </div>
             
             <div class="flex text-[10px] text-gray-400 font-bold mb-1 px-1">
-                <span class="flex-1">ASSESSMENT</span>
-                <span class="w-16 text-center">GRADE</span>
+                <span class="flex-1">${t('assessment')}</span>
+                <span class="w-16 text-center">${t('grade')}</span>
                 <span class="w-12 text-center mr-6">%</span>
             </div>
             
@@ -138,10 +140,10 @@ export function renderGradeCalculator(container) {
 
             <div class="flex gap-2 mt-auto pt-2 border-t border-gray-100">
                 <button id="gc-calc-btn" class="flex-1 bg-primary text-white py-2 rounded-xl text-sm font-bold hover:opacity-90 transition-colors shadow-lg shadow-primary/30">
-                    Calculate
+                    ${t('calculate')}
                 </button>
                 <button id="gc-reset-btn" class="px-4 bg-gray-100 text-gray-500 py-2 rounded-xl text-sm font-bold hover:bg-gray-200 transition-colors">
-                    Reset
+                    ${t('reset')}
                 </button>
             </div>
         </div>
@@ -152,7 +154,7 @@ export function renderGradeCalculator(container) {
 
     // Add Button Logic
     container.querySelector('#gc-add-btn').onclick = () => {
-        assessments.push({ id: Date.now(), name: 'New', grade: '', weight: 10 });
+        assessments.push({ id: Date.now(), name: t('new_assessment'), grade: '', weight: 10 });
         saveState();
         renderRows();
     };

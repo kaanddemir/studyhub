@@ -1,5 +1,6 @@
 import './style.css'
 import { data, saveData } from './data.js'
+import { t } from './translations.js'
 import { renderSidebar } from './components/Sidebar.js'
 import { renderDashboard } from './components/Dashboard.js'
 import { renderOnboarding } from './components/Onboarding.js'
@@ -100,12 +101,12 @@ window.logout = () => {
                 <div class="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
                 </div>
-                <h3 class="text-xl font-bold text-dark text-center mb-2">Log Out?</h3>
-                <p class="text-gray-500 text-center text-sm mb-6">Are you sure you want to exit? You will return to the setup screen.</p>
+                <h3 class="text-xl font-bold text-dark text-center mb-2">${t('logout_confirmation_title')}</h3>
+                <p class="text-gray-500 text-center text-sm mb-6">${t('logout_confirmation_desc')}</p>
                 
                 <div class="flex gap-3">
-                    <button id="btn-cancel-logout" class="flex-1 py-2.5 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-sm">Cancel</button>
-                    <button id="btn-confirm-logout" class="flex-1 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-sm">Log Out</button>
+                    <button id="btn-cancel-logout" class="flex-1 py-2.5 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-sm">${t('cancel')}</button>
+                    <button id="btn-confirm-logout" class="flex-1 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-sm">${t('logout')}</button>
                 </div>
             </div>
         </div>

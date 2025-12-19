@@ -1,4 +1,5 @@
 import { data, saveData } from '../data.js';
+import { t } from '../translations.js';
 
 export function renderWeeklySchedule(element) {
     const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -16,10 +17,10 @@ export function renderWeeklySchedule(element) {
                     <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
-                    Weekly Schedule
+                    ${t('weekly_schedule')}
                 </h3>
                 <div class="flex items-center gap-1">
-                    <button id="reset-schedule-btn" class="p-1.5 text-gray-400 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors" title="Clear Schedule">
+                    <button id="reset-schedule-btn" class="p-1.5 text-gray-400 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors" title="${t('clear_schedule')}">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                     </button>
                 </div>
@@ -49,7 +50,7 @@ export function renderWeeklySchedule(element) {
                 <table class="w-full border-collapse sticky-table">
                     <thead>
                         <tr>
-                            <th class="p-2 border-b border-gray-100 text-[10px] text-gray-400 font-bold uppercase w-12 sticky left-0 bg-white z-20">Time</th>
+                            <th class="p-2 border-b border-gray-100 text-[10px] text-gray-400 font-bold uppercase w-12 sticky left-0 bg-white z-20">${t('time')}</th>
                             ${days.map(d => `<th class="p-2 border-b border-gray-100 text-[10px] text-gray-400 font-bold uppercase text-center">${d}</th>`).join('')}
                         </tr>
                     </thead>
@@ -84,11 +85,11 @@ export function renderWeeklySchedule(element) {
                      <div class="mb-3 text-primary bg-primary/10 w-10 h-10 rounded-full flex items-center justify-center mx-auto">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 0 00-1 1v3M4 7h16" /></svg>
                      </div>
-                     <h4 class="text-sm font-bold text-dark mb-1">Clear All?</h4>
-                     <p class="text-[10px] text-gray-400 mb-4 leading-tight">This will remove all entries.</p>
+                     <h4 class="text-sm font-bold text-dark mb-1">${t('clear_all_q')}</h4>
+                     <p class="text-[10px] text-gray-400 mb-4 leading-tight">${t('clear_all_desc')}</p>
                      <div class="flex gap-2 justify-center">
-                         <button id="cancel-schedule-reset" class="px-3 py-1.5 text-xs font-bold text-gray-500 hover:bg-gray-100 rounded-lg transition-colors">No</button>
-                          <button id="confirm-schedule-reset" class="px-3 py-1.5 text-xs font-bold text-white bg-primary hover:opacity-90 rounded-lg transition-colors shadow-lg shadow-primary/30">Yes</button>
+                         <button id="cancel-schedule-reset" class="px-3 py-1.5 text-xs font-bold text-gray-500 hover:bg-gray-100 rounded-lg transition-colors">${t('no')}</button>
+                          <button id="confirm-schedule-reset" class="px-3 py-1.5 text-xs font-bold text-white bg-primary hover:opacity-90 rounded-lg transition-colors shadow-lg shadow-primary/30">${t('yes')}</button>
                      </div>
                 </div>
             </div>

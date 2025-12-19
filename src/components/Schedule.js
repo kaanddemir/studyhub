@@ -1,3 +1,5 @@
+import { t } from '../translations.js';
+
 export function renderCalendar(element, todos, exams = []) {
     const today = new Date();
     let currentMonth = today.getMonth();
@@ -6,10 +8,10 @@ export function renderCalendar(element, todos, exams = []) {
     let selectedDateStr = null;
 
     const render = () => {
-        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const monthNames = t('months');
         const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
         const firstDay = new Date(currentYear, currentMonth, 1).getDay(); // 0 = Sun
-        const dayHeaders = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const dayHeaders = t('days_short');
 
         // Prepare events map
         const eventsMap = {};
@@ -73,9 +75,9 @@ export function renderCalendar(element, todos, exams = []) {
             detailsHtml = `
                 <div class="mt-6 border-t border-gray-100 pt-4 animate-fade-in">
                     <div class="flex justify-between items-center mb-3">
-                        <h4 class="text-sm font-bold text-dark">Events on ${selectedDateStr.split('-').reverse().join('/')}</h4>
+                        <h4 class="text-sm font-bold text-dark">${t('events_on')} ${selectedDateStr.split('-').reverse().join('/')}</h4>
                     </div>
-                    ${dayEvents.length === 0 ? '<p class="text-xs text-gray-400 italic">No events scheduled.</p>' : `
+                    ${dayEvents.length === 0 ? `<p class="text-xs text-gray-400 italic">${t('no_events')}</p>` : `
                         <div class="space-y-2">
                              ${dayEvents.map(event => {
                 if (event.isExam) {
@@ -87,7 +89,7 @@ export function renderCalendar(element, todos, exams = []) {
                                                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" /></svg>
                                                     ${event.code} <span class="text-[10px] opacity-75 font-medium uppercase border border-red-200 px-1 rounded">${event.type}</span>
                                                 </div>
-                                                <div class="text-[10px] text-red-400 font-medium pl-5">${event.location || 'TBD'} • ${new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                                <div class="text-[10px] text-red-400 font-medium pl-5">${event.location || t('tbd')} • ${new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                                             </div>
                                         </div>
                                      `;
@@ -117,7 +119,7 @@ export function renderCalendar(element, todos, exams = []) {
            <div class="flex justify-between items-center mb-4 shrink-0">
             <h3 class="text-lg font-bold text-dark flex items-center gap-2">
                 <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                Calendar
+                ${t('calendar')}
             </h3>
             <div class="flex items-center gap-2">
                 <button class="p-1 hover:bg-gray-50 rounded-full" onclick="changeMonth(-1)">
@@ -159,7 +161,7 @@ export function renderCalendar(element, todos, exams = []) {
 
         element.addEvent = (date) => {
             const formattedDate = date.split('-').reverse().join('/');
-            const title = prompt(`Add Task for ${formattedDate}:`);
+            const title = prompt(`${t('add_task_prompt')} ${formattedDate}:`);
             if (title) {
                 todos.push({
                     title,
@@ -197,14 +199,14 @@ export function renderTodoList(element, todos, editingIndex = null, deletingInde
             <div class="flex justify-between items-center mb-4 shrink-0">
                 <h3 class="text-lg font-bold text-dark flex items-center gap-2">
                     <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
-                    Todo list
+                    ${t('todo_list')}
                 </h3>
-                <span class="text-xs font-bold text-gray-400 bg-gray-50 px-2 py-1 rounded-lg">${todos.length} Tasks</span>
+                <span class="text-xs font-bold text-gray-400 bg-gray-50 px-2 py-1 rounded-lg">${todos.length} ${t('tasks_count')}</span>
             </div>
             
             <!-- Inline Add Todo -->
             <div class="flex gap-2 mb-4 shrink-0">
-                <input type="text" id="new-todo-input" placeholder="Add a new task..." 
+                <input type="text" id="new-todo-input" placeholder="${t('add_new_task_placeholder')}" 
                     class="flex-1 bg-gray-50 border border-gray-100 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                     onkeydown="if(event.key === 'Enter') addTodoFromInput()">
                 <button onclick="addTodoFromInput()" class="bg-primary text-white p-2 rounded-xl hover:opacity-90 transition-colors shadow-lg shadow-primary/30 active:scale-95">
@@ -221,8 +223,8 @@ export function renderTodoList(element, todos, editingIndex = null, deletingInde
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                                 </svg>
                             </div>
-                            <p class="text-sm font-bold text-gray-500">No tasks yet</p>
-                            <p class="text-xs text-gray-400 mt-1">Add one above to get started</p>
+                            <p class="text-sm font-bold text-gray-500">${t('no_tasks_yet')}</p>
+                            <p class="text-xs text-gray-400 mt-1">${t('add_one_to_start')}</p>
                         </div>
                     ` : ''}
                     ${todos.map((todo, index) => {
@@ -230,10 +232,10 @@ export function renderTodoList(element, todos, editingIndex = null, deletingInde
             // Delete Confirmation Mode
             return `
                                 <li class="flex flex-col gap-2 bg-primary/5 p-3 rounded-xl border border-primary/20 animate-fade-in text-center" data-index="${index}">
-                                    <p class="text-sm font-bold text-primary mb-2">Delete this task?</p>
+                                    <p class="text-sm font-bold text-primary mb-2">${t('delete_task_confirm')}</p>
                                     <div class="flex justify-center gap-2">
-                                         <button onclick="cancelDeleteTodo()" class="px-3 py-1 text-xs font-bold text-gray-500 hover:bg-gray-200 rounded-lg transition-colors">Cancel</button>
-                                         <button onclick="confirmDeleteTodo(${index})" class="px-3 py-1 text-xs font-bold text-white bg-primary hover:opacity-90 rounded-lg transition-colors shadow-lg shadow-primary/30">Delete</button>
+                                         <button onclick="cancelDeleteTodo()" class="px-3 py-1 text-xs font-bold text-gray-500 hover:bg-gray-200 rounded-lg transition-colors">${t('cancel')}</button>
+                                         <button onclick="confirmDeleteTodo(${index})" class="px-3 py-1 text-xs font-bold text-white bg-primary hover:opacity-90 rounded-lg transition-colors shadow-lg shadow-primary/30">${t('delete')}</button>
                                     </div>
                                 </li>
                             `;
@@ -241,14 +243,14 @@ export function renderTodoList(element, todos, editingIndex = null, deletingInde
             // Edit Mode
             return `
                                 <li class="flex flex-col gap-2 bg-gray-50 p-3 rounded-xl border border-primary/20 animate-fade-in" data-index="${index}">
-                                    <input type="text" id="edit-title-${index}" value="${todo.title}" class="w-full bg-white border border-gray-200 rounded-lg px-2 py-1 text-sm font-bold text-dark focus:border-primary outline-none" placeholder="Task Name">
+                                    <input type="text" id="edit-title-${index}" value="${todo.title}" class="w-full bg-white border border-gray-200 rounded-lg px-2 py-1 text-sm font-bold text-dark focus:border-primary outline-none" placeholder="${t('task_name_placeholder')}">
                                     <div class="flex gap-2">
                                         <input type="date" id="edit-date-${index}" value="${todo.date || ''}" class="flex-1 bg-white border border-gray-200 rounded-lg px-2 py-1 text-xs text-gray-500 focus:border-primary outline-none">
                                         <input id="edit-time-${index}" value="${todo.time || ''}" class="flex-1 bg-white border border-gray-200 rounded-lg px-2 py-1 text-xs text-gray-500 focus:border-primary outline-none" type="time">
                                     </div>
                                     <div class="flex justify-end gap-2 mt-1">
-                                        <button onclick="cancelEditTodo()" class="px-3 py-1 text-xs font-bold text-gray-500 hover:bg-gray-200 rounded-lg transition-colors">Cancel</button>
-                                        <button onclick="saveEditTodo(${index})" class="px-3 py-1 text-xs font-bold text-white bg-primary hover:opacity-90 rounded-lg transition-colors shadow-lg shadow-primary/30">Save</button>
+                                        <button onclick="cancelEditTodo()" class="px-3 py-1 text-xs font-bold text-gray-500 hover:bg-gray-200 rounded-lg transition-colors">${t('cancel')}</button>
+                                        <button onclick="saveEditTodo(${index})" class="px-3 py-1 text-xs font-bold text-white bg-primary hover:opacity-90 rounded-lg transition-colors shadow-lg shadow-primary/30">${t('save')}</button>
                                     </div>
                                 </li>
                             `;

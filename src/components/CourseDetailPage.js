@@ -1,4 +1,5 @@
 import { data, saveData } from '../data.js';
+import { t } from '../translations.js';
 
 // Simple markdown parser helper
 const parseMarkdown = (text) => {
@@ -15,8 +16,8 @@ export function renderCourseDetailPage(element, courseId) {
     if (!course) {
         element.innerHTML = `
             <div class="flex flex-col items-center justify-center h-full">
-                <h2 class="text-2xl font-bold text-gray-400">Course not found</h2>
-                <button onclick="window.navigateTo('courses')" class="mt-4 text-primary hover:underline">Back to Courses</button>
+                <h2 class="text-2xl font-bold text-gray-400">${t('course_not_found')}</h2>
+                <button onclick="window.navigateTo('courses')" class="mt-4 text-primary hover:underline">${t('back_to_courses')}</button>
             </div>
         `;
         return;
@@ -99,10 +100,10 @@ export function renderCourseDetailPage(element, courseId) {
                 <!-- Course Info Cards (3 Columns) -->
                 <div class="mb-8">
                     <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider">Course Info</h3>
+                        <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider">${t('course_info')}</h3>
                         <button id="edit-info-btn" class="text-xs font-bold text-primary hover:text-primary-dark transition-colors flex items-center gap-1 bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-lg transition-colors">
                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
-                            Edit
+                            ${t('edit')}
                         </button>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -112,8 +113,8 @@ export function renderCourseDetailPage(element, courseId) {
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                              </div>
                              <div class="min-w-0">
-                                <p class="text-[10px] text-gray-400 font-bold uppercase mb-0.5">Instructor</p>
-                                <p class="text-dark font-bold text-sm truncate" title="${course.instructor || ''}">${course.instructor || '<span class="text-gray-300 font-normal italic">Not set</span>'}</p>
+                                <p class="text-[10px] text-gray-400 font-bold uppercase mb-0.5">${t('instructor')}</p>
+                                <p class="text-dark font-bold text-sm truncate" title="${course.instructor || ''}">${course.instructor || `<span class="text-gray-300 font-normal italic">${t('not_set')}</span>`}</p>
                                 ${course.email ? `<a href="mailto:${course.email}" class="text-xs text-blue-500 hover:underline cursor-pointer truncate block" title="${course.email}">${course.email}</a>` : ''}
                              </div>
                         </div>
@@ -124,8 +125,8 @@ export function renderCourseDetailPage(element, courseId) {
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                              </div>
                              <div class="min-w-0">
-                                <p class="text-[10px] text-gray-400 font-bold uppercase mb-0.5">Schedule</p>
-                                <p class="text-dark font-bold text-sm truncate" title="${course.schedule || ''}">${course.schedule || '<span class="text-gray-300 font-normal italic">Not set</span>'}</p>
+                                <p class="text-[10px] text-gray-400 font-bold uppercase mb-0.5">${t('schedule_time')}</p>
+                                <p class="text-dark font-bold text-sm truncate" title="${course.schedule || ''}">${course.schedule || `<span class="text-gray-300 font-normal italic">${t('not_set')}</span>`}</p>
                              </div>
                         </div>
 
@@ -135,8 +136,8 @@ export function renderCourseDetailPage(element, courseId) {
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                              </div>
                              <div class="min-w-0">
-                                 <p class="text-[10px] text-gray-400 font-bold uppercase mb-0.5">Location</p>
-                                 <p class="text-dark font-bold text-sm truncate" title="${course.location || ''}">${course.location || '<span class="text-gray-300 font-normal italic">Not set</span>'}</p>
+                                 <p class="text-[10px] text-gray-400 font-bold uppercase mb-0.5">${t('location_platform')}</p>
+                                 <p class="text-dark font-bold text-sm truncate" title="${course.location || ''}">${course.location || `<span class="text-gray-300 font-normal italic">${t('not_set')}</span>`}</p>
                              </div>
                         </div>
                     </div>
@@ -148,7 +149,7 @@ export function renderCourseDetailPage(element, courseId) {
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="text-lg font-bold text-dark flex items-center gap-2">
                                 <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
-                                Resources
+                                ${t('resources')}
                             </h3>
                             <button id="add-resource-btn" class="p-1.5 text-primary hover:bg-primary/10 rounded-lg transition-colors" title="Add File">
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
@@ -159,7 +160,7 @@ export function renderCourseDetailPage(element, courseId) {
                         <div class="flex-1 overflow-y-auto custom-scrollbar max-h-60">
                              ${course.resources.length === 0 ? `
                                 <div class="flex flex-col items-center justify-center py-8 text-gray-400 text-sm h-full">
-                                    No resources yet
+                                    ${t('no_resources_yet')}
                                 </div>
                              ` : `
                                 <ul class="space-y-2">
@@ -171,7 +172,7 @@ export function renderCourseDetailPage(element, courseId) {
                                                 </div>
                                                 <div class="truncate">
                                                     <p class="text-sm font-bold text-dark truncate">${res.name}</p>
-                                                    <p class="text-xs text-gray-400 truncate">${res.type || 'File'}</p>
+                                                    <p class="text-xs text-gray-400 truncate">${res.type || t('unknown_type')}</p>
                                                 </div>
                                             </div>
                                              <button class="delete-resource-btn text-gray-300 hover:text-primary p-1 transition-colors opacity-0 group-hover:opacity-100" data-id="${res.id}">
@@ -195,7 +196,7 @@ export function renderCourseDetailPage(element, courseId) {
                                  <div class="flex flex-col">
                                      <h3 class="text-lg font-bold text-dark flex items-center gap-2">StudyAl</h3>
                                      <div class="flex items-center gap-1.5">
-                                         <span class="text-xs font-medium text-gray-500">Gemini Powered</span>
+                                         <span class="text-xs font-medium text-gray-500">${t('gemini_powered')}</span>
                                      </div>
                                  </div>
                              </div>
@@ -225,7 +226,7 @@ export function renderCourseDetailPage(element, courseId) {
                              <form id="chat-form" class="relative items-end gap-2 flex">
                                  <input type="text" id="chat-input" 
                                      class="w-full bg-white border border-gray-200 rounded-xl pl-4 pr-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-sm placeholder-gray-400" 
-                                     placeholder="Ask a question about ${course.name}..."
+                                     placeholder="${t('ask_question_placeholder')} ${course.name}..."
                                      autocomplete="off">
                                  
                                  <button type="submit" class="absolute right-2 top-1.5 p-1.5 bg-primary text-white rounded-lg hover:opacity-90 transition-colors shadow-lg shadow-primary/30 disabled:opacity-50 disabled:cursor-not-allowed">
@@ -233,7 +234,7 @@ export function renderCourseDetailPage(element, courseId) {
                                  </button>
                              </form>
                              <div class="text-center mt-2">
-                                 <p class="text-[10px] text-gray-400">AI can make mistakes. Verify important info.</p>
+                                 <p class="text-[10px] text-gray-400">${t('ai_mistakes_disclaimer')}</p>
                              </div>
                          </div>
 
@@ -244,7 +245,7 @@ export function renderCourseDetailPage(element, courseId) {
                         <!-- History Sidebar (Slide In) -->
                         <div id="history-sidebar" class="absolute inset-y-0 left-0 w-64 bg-white shadow-xl border-r border-gray-100 transform -translate-x-full transition-transform duration-300 z-40 p-4 flex flex-col">
                             <div class="flex justify-between items-center mb-4">
-                                <h3 class="font-bold text-dark text-sm">Chat History</h3>
+                                <h3 class="font-bold text-dark text-sm">${t('chat_history')}</h3>
                                 <button id="close-history-btn" class="p-1 text-gray-400 hover:text-dark transition-colors">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                                 </button>
@@ -274,12 +275,12 @@ export function renderCourseDetailPage(element, courseId) {
                                 <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
                                     <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                                 </div>
-                                <h3 class="text-base font-bold text-dark mb-1">Clear History?</h3>
-                                <p class="text-xs text-gray-400 mb-5">Chats will be permanently lost.</p>
+                                <h3 class="text-base font-bold text-dark mb-1">${t('clear_history_confirm')}</h3>
+                                <p class="text-xs text-gray-400 mb-5">${t('chats_lost_desc')}</p>
                                 
                                 <div class="flex gap-2">
-                                    <button id="cancel-clear-chat-btn" class="flex-1 py-2 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-xs">Cancel</button>
-                                    <button id="confirm-clear-chat-btn" class="flex-1 py-2 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-xs">Clear</button>
+                                    <button id="cancel-clear-chat-btn" class="flex-1 py-2 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-xs">${t('cancel')}</button>
+                                    <button id="confirm-clear-chat-btn" class="flex-1 py-2 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-xs">${t('delete')}</button>
                                 </div>
                             </div>
                         </div>
@@ -289,12 +290,12 @@ export function renderCourseDetailPage(element, courseId) {
                                 <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
                                     <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                                 </div>
-                                <h3 class="text-base font-bold text-dark mb-1">Delete Chat?</h3>
-                                <p class="text-xs text-gray-400 mb-5">This chat session will be deleted.</p>
+                                <h3 class="text-base font-bold text-dark mb-1">${t('delete_session_confirm')}</h3>
+                                <p class="text-xs text-gray-400 mb-5">${t('session_deleted_desc')}</p>
                                 
                                 <div class="flex gap-2">
-                                    <button id="cancel-delete-session-btn" class="flex-1 py-2 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-xs">Cancel</button>
-                                    <button id="confirm-delete-session-btn" class="flex-1 py-2 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-xs">Delete</button>
+                                    <button id="cancel-delete-session-btn" class="flex-1 py-2 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-xs">${t('cancel')}</button>
+                                    <button id="confirm-delete-session-btn" class="flex-1 py-2 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-xs">${t('delete')}</button>
                                 </div>
                             </div>
                         </div>
@@ -307,15 +308,15 @@ export function renderCourseDetailPage(element, courseId) {
                     <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                     </div>
-                     <h3 class="text-lg font-bold text-dark mb-1">Delete Resource?</h3>
-                     <p class="text-sm text-gray-400 mb-6">This action cannot be undone.</p>
+                     <h3 class="text-lg font-bold text-dark mb-1">${t('delete_resource_confirm')}</h3>
+                     <p class="text-sm text-gray-400 mb-6">${t('action_undone')}</p>
                      
                      <div class="flex gap-3">
                         <button id="cancel-delete-res-btn" class="flex-1 py-2.5 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-sm">
-                            Cancel
+                            ${t('cancel')}
                         </button>
                         <button id="confirm-delete-res-btn" class="flex-1 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-sm">
-                            Delete
+                            ${t('delete')}
                         </button>
                      </div>
                 </div>
@@ -326,12 +327,12 @@ export function renderCourseDetailPage(element, courseId) {
                     <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                     </div>
-                    <h3 class="text-lg font-bold text-dark mb-1">Delete Course?</h3>
-                    <p class="text-sm text-gray-400 mb-6">This action cannot be undone.</p>
+                    <h3 class="text-lg font-bold text-dark mb-1">${t('delete_course_confirm')}</h3>
+                    <p class="text-sm text-gray-400 mb-6">${t('action_undone')}</p>
                     
                     <div class="flex gap-3">
-                         <button id="cancel-delete-course-detail-btn" class="flex-1 py-2.5 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-sm">Cancel</button>
-                         <button id="confirm-delete-course-detail-btn" class="flex-1 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-sm">Delete</button>
+                         <button id="cancel-delete-course-detail-btn" class="flex-1 py-2.5 bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-colors text-sm">${t('cancel')}</button>
+                         <button id="confirm-delete-course-detail-btn" class="flex-1 py-2.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all text-sm">${t('delete')}</button>
                     </div>
                 </div>
             </div>
@@ -340,7 +341,7 @@ export function renderCourseDetailPage(element, courseId) {
             <div id="edit-info-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300">
                 <div class="bg-white p-6 rounded-3xl shadow-2xl border border-gray-100 w-full max-w-sm transform scale-95 transition-all duration-300">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-xl font-bold text-dark">Edit Course Info</h3>
+                        <h3 class="text-xl font-bold text-dark">${t('edit_course_setup')}</h3>
                         <button id="close-edit-info-btn" class="p-1 rounded-full hover:bg-gray-100 text-gray-400 transition-colors">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                         </button>
@@ -348,26 +349,26 @@ export function renderCourseDetailPage(element, courseId) {
                     
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Instructor Name</label>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('instructor_name')}</label>
                             <input type="text" id="info-instructor" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300" placeholder="e.g. Dr. Jane Smith" value="${course.instructor || ''}">
                         </div>
                          <div>
-                            <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Email</label>
+                            <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('email')}</label>
                             <input type="email" id="info-email" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300" placeholder="e.g. jane.smith@uni.edu" value="${course.email || ''}">
                         </div>
                          <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Schedule</label>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('schedule_time')}</label>
                                 <input type="text" id="info-schedule" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300" placeholder="e.g. Mon 10:30" value="${course.schedule || ''}">
                             </div>
                             <div>
-                                 <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">Location</label>
+                                 <label class="block text-xs font-bold text-gray-400 uppercase mb-1.5 ml-1">${t('location_platform')}</label>
                                 <input type="text" id="info-location" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium placeholder-gray-300" placeholder="e.g. Room 301" value="${course.location || ''}">
                             </div>
                          </div>
                         
                         <button id="save-info-btn" class="w-full py-3 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:opacity-90 transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-sm mt-2">
-                            Save Changes
+                            ${t('save_changes_btn')}
                         </button>
                     </div>
                 </div>
@@ -479,7 +480,7 @@ export function renderCourseDetailPage(element, courseId) {
                 newChatBtn.addEventListener('click', () => {
                     const newSession = {
                         id: Date.now(),
-                        title: 'New Conversation',
+                        title: t('new_conversation'),
                         messages: [
                             { sender: 'ai', text: `Hi! I'm StudyAl. Start a new topic for **${course.name}**!` }
                         ],

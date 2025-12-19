@@ -1,3 +1,5 @@
+import { t } from '../translations.js';
+
 export function renderSidebar(element, activePage = 'dashboard') {
     const menuItems = [
         { icon: 'grid', page: 'dashboard' },
@@ -42,7 +44,7 @@ export function renderSidebar(element, activePage = 'dashboard') {
                 </ul>
                 
                  <div class="mt-auto flex flex-col gap-3 w-full items-center pt-3 border-t border-gray-200/30">
-                    <button onclick="window.logout()" class="p-2.5 text-gray-400 hover:text-primary transition-colors rounded-full hover:bg-white/50" title="Logout">
+                    <button onclick="window.logout()" class="p-2.5 text-gray-400 hover:text-primary transition-colors rounded-full hover:bg-white/50" title="${t('logout')}">
                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
                     </button>
                 </div>

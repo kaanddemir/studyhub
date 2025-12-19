@@ -40,6 +40,7 @@ export function renderLiveClass(element) {
 }
 
 import { saveData } from '../data.js';
+import { t } from '../translations.js';
 
 export function renderProfile(element, user) {
     // Default values if missing
@@ -51,7 +52,7 @@ export function renderProfile(element, user) {
             <!-- Decorative Modern Gradient Backgrounds Removed -->
             
             <!-- Edit Button -->
-            <button class="edit-profile-btn absolute top-4 right-4 p-2 text-gray-400 hover:text-primary transition-all z-20 bg-white/80 backdrop-blur-md rounded-full shadow-sm hover:shadow-md hover:scale-105" title="Edit Profile">
+            <button class="edit-profile-btn absolute top-4 right-4 p-2 text-gray-400 hover:text-primary transition-all z-20 bg-white/80 backdrop-blur-md rounded-full shadow-sm hover:shadow-md hover:scale-105" title="${t('edit_profile')}">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
             </button>
             
@@ -111,28 +112,28 @@ function showEditProfileModal(currentUser, onSave) {
 
     modal.innerHTML = `
         <div class="bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl transform scale-95 transition-transform duration-300">
-            <h3 class="text-xl font-bold text-dark mb-6 text-center">Edit Profile</h3>
+            <h3 class="text-xl font-bold text-dark mb-6 text-center">${t('edit_profile')}</h3>
             
             <div class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 mb-1 ml-1">Name</label>
+                    <label class="block text-xs font-bold text-gray-500 mb-1 ml-1">${t('name_label')}</label>
                     <input type="text" id="edit-name" value="${currentUser.name}" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
                 </div>
                 
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 mb-1 ml-1">University</label>
+                    <label class="block text-xs font-bold text-gray-500 mb-1 ml-1">${t('university_label')}</label>
                     <input type="text" id="edit-university" value="${currentUser.university}" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
                 </div>
                 
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 mb-1 ml-1">Department</label>
+                    <label class="block text-xs font-bold text-gray-500 mb-1 ml-1">${t('department_label')}</label>
                     <input type="text" id="edit-department" value="${currentUser.department}" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
                 </div>
             </div>
 
             <div class="flex gap-3 mt-8">
-                <button id="cancel-edit-profile" class="flex-1 py-3 rounded-xl font-bold text-gray-500 hover:bg-gray-100 transition-colors">Cancel</button>
-                <button id="save-edit-profile" class="flex-1 py-3 rounded-xl font-bold text-white bg-primary hover:bg-[#2C5F58] shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all">Save Changes</button>
+                <button id="cancel-edit-profile" class="flex-1 py-3 rounded-xl font-bold text-gray-500 hover:bg-gray-100 transition-colors">${t('cancel')}</button>
+                <button id="save-edit-profile" class="flex-1 py-3 rounded-xl font-bold text-white bg-primary hover:bg-[#2C5F58] shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all">${t('save_changes')}</button>
             </div>
         </div>
     `;
@@ -168,7 +169,7 @@ function showEditProfileModal(currentUser, onSave) {
             onSave({ name, university, department });
             close();
         } else {
-            alert("Please fill in all fields");
+            alert(t('fill_all_fields'));
         }
     };
 

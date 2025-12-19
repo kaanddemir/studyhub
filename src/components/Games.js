@@ -1,4 +1,6 @@
 
+import { t } from '../translations.js';
+
 export function renderGames(container) {
     if (!container) return;
 
@@ -15,7 +17,7 @@ export function renderGames(container) {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            Mini Games
+                            ${t('mini_games')}
                         </h3>
                     </div>
                     <div class="flex-1 overflow-y-auto custom-scrollbar flex flex-col items-center gap-3 pr-2">
@@ -25,8 +27,8 @@ export function renderGames(container) {
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                              </div>
                              <div class="text-left">
-                                <span class="block font-bold text-dark text-sm">Yes / No</span>
-                                <span class="block text-xs text-gray-400">Decision maker</span>
+                                <span class="block font-bold text-dark text-sm">${t('yes_no')}</span>
+                                <span class="block text-xs text-gray-400">${t('decision_maker')}</span>
                              </div>
                              <svg class="w-4 h-4 text-gray-300 ml-auto group-hover:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
                         </button>
@@ -37,8 +39,8 @@ export function renderGames(container) {
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
                              </div>
                              <div class="text-left">
-                                <span class="block font-bold text-dark text-sm">Random Picker</span>
-                                <span class="block text-xs text-gray-400">Choice generator</span>
+                                <span class="block font-bold text-dark text-sm">${t('random_picker')}</span>
+                                <span class="block text-xs text-gray-400">${t('choice_generator')}</span>
                              </div>
                              <svg class="w-4 h-4 text-gray-300 ml-auto group-hover:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
                         </button>
@@ -56,14 +58,14 @@ export function renderGames(container) {
                         <button id="btn-back" class="text-gray-400 hover:text-dark transition-colors">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                         </button>
-                        <h3 class="text-lg font-bold text-dark">Yes / No</h3>
+                        <h3 class="text-lg font-bold text-dark">${t('yes_no')}</h3>
                     </div>
                     
                     <div class="flex-1 flex flex-col items-center justify-center text-center">
                         <div id="yn-result" class="text-4xl font-bold text-gray-300 mb-4 min-h-[3rem] tracking-widest">???</div>
                         
                         <button id="yn-decide" class="px-6 py-2 bg-primary text-white font-bold rounded-xl hover:opacity-90 transition-all shadow-sm w-32 text-sm">
-                            Decide
+                            ${t('decide')}
                         </button>
                     </div>
                 </div>
@@ -77,13 +79,13 @@ export function renderGames(container) {
                 container.querySelector('#yn-decide').disabled = true;
 
                 setTimeout(() => {
-                    const answers = ["YES", "NO", "MAYBE", "NO", "YES"];
+                    const answers = [t('ans_yes'), t('ans_no'), t('maybe'), t('ans_no'), t('ans_yes')];
                     const choice = answers[Math.floor(Math.random() * answers.length)];
 
                     resultEl.innerText = choice;
 
-                    if (choice === "YES") resultEl.className = "text-5xl font-bold text-primary mb-4 min-h-[3rem] tracking-wider";
-                    else if (choice === "NO") resultEl.className = "text-5xl font-bold text-red-500 mb-4 min-h-[3rem] tracking-wider";
+                    if (choice === t('ans_yes')) resultEl.className = "text-5xl font-bold text-primary mb-4 min-h-[3rem] tracking-wider";
+                    else if (choice === t('ans_no')) resultEl.className = "text-5xl font-bold text-red-500 mb-4 min-h-[3rem] tracking-wider";
                     else resultEl.className = "text-5xl font-bold text-gray-500 mb-4 min-h-[3rem] tracking-wider";
 
                     container.querySelector('#yn-decide').disabled = false;
@@ -91,7 +93,7 @@ export function renderGames(container) {
             };
         }
         else if (activeGame === 'picker') {
-            if (pickerItems.length === 0) pickerItems = ["Option A", "Option B"];
+            if (pickerItems.length === 0) pickerItems = [t('option_a'), t('option_b')];
 
             container.innerHTML = `
                 <div class="h-full flex flex-col p-5">
@@ -99,11 +101,11 @@ export function renderGames(container) {
                         <button id="btn-back" class="text-gray-400 hover:text-dark transition-colors">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                         </button>
-                        <h3 class="text-lg font-bold text-dark">Random Picker</h3>
+                        <h3 class="text-lg font-bold text-dark">${t('random_picker')}</h3>
                     </div>
                     
                     <div class="flex gap-2 mb-3 mt-2">
-                        <input type="text" id="rp-input" class="flex-1 bg-gray-50 border-none rounded-lg px-3 py-2 text-xs focus:ring-1 focus:ring-gray-200" placeholder="Add option...">
+                        <input type="text" id="rp-input" class="flex-1 bg-gray-50 border-none rounded-lg px-3 py-2 text-xs focus:ring-1 focus:ring-gray-200" placeholder="${t('add_option_placeholder')}">
                         <button id="rp-add" class="bg-gray-100 hover:bg-gray-200 text-dark px-3 rounded-lg text-xs font-bold">+</button>
                     </div>
 
@@ -119,12 +121,12 @@ export function renderGames(container) {
                     </div>
 
                     <button id="rp-spin" class="w-full py-2 bg-primary text-white font-bold rounded-xl shadow-sm hover:opacity-90 transition-colors text-sm">
-                        Pick Random
+                        ${t('pick_random')}
                     </button>
                     
                     <div id="rp-result-overlay" class="absolute inset-0 bg-white/95 flex flex-col items-center justify-center z-20 hidden rounded-3xl">
-                        <div class="text-2xl font-bold text-dark mb-4" id="rp-winner">Winner</div>
-                        <button id="rp-close-result" class="px-6 py-2 bg-gray-100 rounded-lg text-xs font-bold text-gray-500 hover:bg-gray-200">Again</button>
+                        <div class="text-2xl font-bold text-dark mb-4" id="rp-winner">${t('winner')}</div>
+                        <button id="rp-close-result" class="px-6 py-2 bg-gray-100 rounded-lg text-xs font-bold text-gray-500 hover:bg-gray-200">${t('again')}</button>
                     </div>
                 </div>
             `;

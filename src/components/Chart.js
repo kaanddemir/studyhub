@@ -1,4 +1,5 @@
 import { data as globalData, saveData } from '../data.js';
+import { t } from '../translations.js';
 
 export function renderChart(element) {
   // Always use latest global data
@@ -18,13 +19,13 @@ export function renderChart(element) {
         <div class="w-full flex-1 flex flex-col justify-end relative rounded-xl overflow-hidden bg-gray-50 hover:bg-gray-100 transition-colors">
             <!-- Tooltip -->
             <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-dark text-white text-[10px] font-bold py-1 px-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity z-20 whitespace-nowrap pointer-events-none shadow-xl border border-gray-700">
-              ${d.study}hrs
+              ${d.study}${t('hour_unit')}
             </div>
             
             ${d.exam > 0 ? `<div style="height: ${examHeight}%" class="w-full bg-primary/30 pattern-diagonal-lines"></div>` : ''}
             <div style="height: ${studyHeight}%" class="w-full bg-primary rounded-t-sm transition-all duration-500"></div>
         </div>
-        <span class="text-xs text-gray-400 font-medium group-hover:text-primary transition-colors">${d.day}</span>
+        <span class="text-xs text-gray-400 font-medium group-hover:text-primary transition-colors">${t('days_short')[['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(d.day)]}</span>
       </div>
     `
   }).join('');
@@ -34,7 +35,7 @@ export function renderChart(element) {
       <div class="flex justify-between items-center mb-6 shrink-0">
         <h3 class="text-lg font-bold text-dark flex items-center gap-2">
             <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            Hours Spent 
+            ${t('hours_spent')} 
         </h3>
         <!-- Add Icon -->
         <button id="btn-add-hours" class="w-8 h-8 flex items-center justify-center bg-gray-50 text-gray-400 rounded-full hover:bg-primary hover:text-white transition-all shadow-sm hover:shadow-md transform hover:scale-110 active:scale-95">
@@ -44,10 +45,10 @@ export function renderChart(element) {
       
       <div class="flex-1 flex gap-3 items-end min-h-0">
          <div class="flex flex-col justify-between h-full text-xs text-gray-400 py-1 pr-2 uppercase font-bold tracking-wider text-[10px]">
-             <span>${customRound(maxVal)}h</span>
-             <span>${customRound(maxVal * 0.66)}h</span>
-             <span>${customRound(maxVal * 0.33)}h</span>
-             <span>0h</span>
+             <span>${customRound(maxVal)}${t('hour_unit')}</span>
+             <span>${customRound(maxVal * 0.66)}${t('hour_unit')}</span>
+             <span>${customRound(maxVal * 0.33)}${t('hour_unit')}</span>
+             <span>0${t('hour_unit')}</span>
          </div>
          <div class="flex-1 flex justify-between gap-2 h-full pb-1 border-b border-dashed border-gray-200">
             ${barsHtml}
@@ -71,8 +72,8 @@ export function renderChart(element) {
                 <!-- Header -->
                 <div class="flex justify-between items-start shrink-0">
                      <div>
-                        <h4 class="text-2xl font-bold text-dark tracking-tight">Log Flow</h4>
-                        <p class="text-xs text-gray-400 font-medium mt-1">Record your study session.</p>
+                        <h4 class="text-2xl font-bold text-dark tracking-tight">${t('log_flow')}</h4>
+                        <p class="text-xs text-gray-400 font-medium mt-1">${t('record_session')}</p>
                      </div>
                      <button id="close-log-hours" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:text-dark hover:bg-gray-100 transition-colors">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -83,7 +84,7 @@ export function renderChart(element) {
                 <div class="flex-1 flex flex-col items-center justify-center relative">
                      <div class="relative flex justify-center items-baseline">
                         <input type="number" id="input-hours" class="w-32 bg-transparent text-center text-7xl font-extrabold text-dark focus:outline-none placeholder-gray-200" placeholder="0" min="0" max="24">
-                        <span class="absolute left-full ml-2 bottom-2 text-xl font-bold text-gray-300">hrs</span>
+                        <span class="absolute left-full ml-2 bottom-2 text-xl font-bold text-gray-300">${t('hour_unit')}</span>
                      </div>
                      <div class="h-1 w-24 bg-gray-100 rounded-full mt-4 mx-auto"></div>
                 </div>
@@ -91,7 +92,7 @@ export function renderChart(element) {
                 <!-- Footer Action -->
                 <div class="shrink-0">
                     <button id="btn-save-hours" class="w-full py-4 bg-primary text-white font-bold rounded-2xl shadow-xl shadow-primary/30 hover:shadow-2xl hover:scale-[1.02] active:scale-95 transition-all text-lg flex items-center justify-center gap-2 group">
-                        <span>Save Entry</span>
+                        <span>${t('save_entry')}</span>
                         <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                     </button>
                 </div>

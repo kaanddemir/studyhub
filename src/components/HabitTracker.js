@@ -1,4 +1,6 @@
 
+import { t } from '../translations.js';
+
 export function renderHabitTracker(container) {
     if (!container) return;
 
@@ -38,7 +40,7 @@ export function renderHabitTracker(container) {
         const text = container.querySelector('#hb-progress-text');
 
         if (bar) bar.style.width = `${percent}%`;
-        if (text) text.innerText = `${percent}% Done`;
+        if (text) text.innerText = `${percent}% ${t('done')}`;
     };
 
     const renderList = () => {
@@ -51,7 +53,7 @@ export function renderHabitTracker(container) {
                     <svg class="w-8 h-8 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
-                    <span class="text-xs">No habits defined. Add one!</span>
+                    <span class="text-xs">${t('no_habits_msg')}</span>
                 </div>
             `;
             return;
@@ -118,10 +120,10 @@ export function renderHabitTracker(container) {
                     <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    Daily Habits
+                    ${t('daily_habits')}
                 </h3>
                 <div class="flex items-center gap-2">
-                     <span id="hb-progress-text" class="text-xs font-bold text-gray-400">0% Done</span>
+                     <span id="hb-progress-text" class="text-xs font-bold text-gray-400">0% ${t('done')}</span>
                 </div>
             </div>
             
@@ -137,7 +139,7 @@ export function renderHabitTracker(container) {
 
             <!-- Add Input -->
             <div class="mt-3 pt-3 border-t border-gray-100 flex gap-2 shrink-0">
-                <input type="text" id="hb-input" class="flex-1 bg-gray-50 border-none rounded-xl px-3 py-2 text-xs focus:ring-1 focus:ring-primary focus:bg-white transition-all" placeholder="New habit...">
+                <input type="text" id="hb-input" class="flex-1 bg-gray-50 border-none rounded-xl px-3 py-2 text-xs focus:ring-1 focus:ring-primary focus:bg-white transition-all" placeholder="${t('new_habit_placeholder')}">
                 <button id="hb-add-btn" class="bg-primary text-white p-2 rounded-xl shadow-lg shadow-primary/30 hover:opacity-90 transition-opacity">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
                 </button>
