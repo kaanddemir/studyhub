@@ -6,7 +6,13 @@ export function renderHabitTracker(container) {
 
     // Load state
     const today = new Date().toLocaleDateString();
-    let data = JSON.parse(localStorage.getItem('habit_tracker_data_v3') || '{}');
+    let data;
+    try {
+        data = JSON.parse(localStorage.getItem('habit_tracker_data_v3') || '{}');
+    } catch (e) {
+        console.error('Failed to parse habit data:', e);
+        data = {};
+    }
 
     // Reset if it's a new day
     if (data.date !== today) {
@@ -20,12 +26,20 @@ export function renderHabitTracker(container) {
             date: today,
             habits: resetHabits
         };
-        localStorage.setItem('habit_tracker_data_v3', JSON.stringify(data));
+        try {
+            localStorage.setItem('habit_tracker_data_v3', JSON.stringify(data));
+        } catch (e) {
+            console.error('Failed to save habit data:', e);
+        }
     }
 
     const saveState = () => {
         data.date = new Date().toLocaleDateString(); // Ensure date is current
-        localStorage.setItem('habit_tracker_data_v3', JSON.stringify(data));
+        try {
+            localStorage.setItem('habit_tracker_data_v3', JSON.stringify(data));
+        } catch (e) {
+            console.error('Failed to save habit state:', e);
+        }
         updateProgress();
         // Dispatch event for other components (e.g. Stats Cards) to update
         document.dispatchEvent(new Event('dataChanged'));

@@ -386,11 +386,11 @@ export const translations = {
         "recommended": "Recommended",
         "per_month": "/ month",
         "premium_desc": "For serious students who want the best.",
-        "unlimited_ai": "Unlimited AI Tutor",
+        "unlimited_ai": "Extended AI Tutor",
         "cloud_sync_multi": "Cloud Sync & Multi-Device",
         "advanced_analytics": "Advanced Performance Analytics",
         "custom_themes": "Custom Themes & Icons",
-        "upgrade_now": "Upgrade Now",
+        "upgrade_now": "Coming Soon",
         "secure_payment": "Secure payment processed by Stripe. Cancel anytime.",
 
         // Logout
@@ -406,6 +406,7 @@ export const translations = {
         "no_active_challenges": "No active challenges",
         "no_streak_yet": "No streak yet",
         "student_role": "Student",
+        "security_lock": "Access Dev",
     },
     tr: {
         // Sidebar
@@ -791,11 +792,11 @@ export const translations = {
         "recommended": "Önerilen",
         "per_month": "/ ay",
         "premium_desc": "En iyisini isteyen ciddi öğrenciler için.",
-        "unlimited_ai": "Sınırsız YZ Eğitmeni",
+        "unlimited_ai": "Genişletilmiş YZ Eğitmeni",
         "cloud_sync_multi": "Bulut Senk. & Çoklu Cihaz",
         "advanced_analytics": "Gelişmiş Performans Analizi",
         "custom_themes": "Özel Temalar & İkonlar",
-        "upgrade_now": "Şimdi Yükselt",
+        "upgrade_now": "Çok Yakında",
         "secure_payment": "Stripe ile güvenli ödeme. İstediğin zaman iptal et.",
 
         // Logout
@@ -813,6 +814,7 @@ export const translations = {
         "no_active_challenges": "Aktif görev yok",
         "no_streak_yet": "Henüz seri yok",
         "student_role": "Öğrenci",
+        "security_lock": "Geliştirici Erişimi",
     }
 };
 

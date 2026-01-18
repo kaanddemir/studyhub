@@ -50,8 +50,7 @@ const defaultData = {
 };
 
 // Load from local storage or use default
-// Load from local storage or use default
-const storedData = localStorage.getItem('studentDashboardData_v2');
+const storedData = localStorage.getItem('studyhub_data');
 let loadedData = defaultData;
 
 if (storedData) {
@@ -70,5 +69,13 @@ if (storedData) {
 export const data = loadedData;
 
 export function saveData() {
-    localStorage.setItem('studentDashboardData_v2', JSON.stringify(data));
+    try {
+        localStorage.setItem('studyhub_data', JSON.stringify(data));
+    } catch (e) {
+        console.error('Failed to save data to localStorage:', e);
+        // Handle quota exceeded error
+        if (e.name === 'QuotaExceededError') {
+            console.warn('LocalStorage quota exceeded. Consider clearing old data.');
+        }
+    }
 }

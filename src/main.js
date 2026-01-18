@@ -140,7 +140,7 @@ window.logout = () => {
 
   document.getElementById('btn-confirm-logout').addEventListener('click', () => {
     // Factory Reset
-    localStorage.removeItem('studentDashboardData_v2');
+    localStorage.removeItem('studyhub_data');
     localStorage.removeItem('dashboardLayout');
     localStorage.removeItem('coursesLayout');
     localStorage.removeItem('cheatsheetsLayout');

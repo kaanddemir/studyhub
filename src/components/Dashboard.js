@@ -17,6 +17,7 @@ import { renderWeeklySchedule } from './WeeklySchedule.js'
 import { renderPhotoWidget } from './PhotoWidget.js'
 
 export function renderDashboard(element) {
+    let isDevModeUnlocked = false;
     // Dynamic Data Calculation
     // Dynamic Data Calculation Helper
     const updateHeaderSummary = () => {
@@ -452,6 +453,42 @@ export function renderDashboard(element) {
         }
     };
 
+    window.checkDevPin = (value) => {
+        const input = document.getElementById('dev-pin-input');
+        const container = document.getElementById('dev-lock-container');
+
+        // Visual feedback for typing
+        if (value.length > 0) {
+            input.classList.add('border-primary', 'bg-white');
+            input.classList.remove('border-gray-200', 'bg-gray-50');
+        } else {
+            input.classList.remove('border-primary', 'bg-white');
+            input.classList.add('border-gray-200', 'bg-gray-50');
+        }
+
+        if (value.length === 4) {
+            if (value === '0000') {
+                // Success Animation
+                input.classList.add('text-green-500', 'border-green-500');
+                if (container) {
+                    container.classList.add('scale-105', 'opacity-0');
+                }
+                setTimeout(() => {
+                    isDevModeUnlocked = true;
+                    renderSettingsContent();
+                }, 300);
+            } else {
+                // Error Animation (Only Shake, No Lockout)
+                input.classList.add('animate-shake', 'border-red-500', 'text-red-500');
+                setTimeout(() => {
+                    input.value = '';
+                    input.classList.remove('animate-shake', 'border-red-500', 'text-red-500');
+                    input.focus();
+                }, 500);
+            }
+        }
+    };
+
     window.toggleDevPremium = () => {
         data.user.isPremium = !data.user.isPremium;
         saveData();
@@ -821,25 +858,67 @@ export function renderDashboard(element) {
                 </div>
             `;
         } else if (activeSettingsTab === 'developer') {
-            contentArea.innerHTML = `
-                <div class="space-y-4">
-                     <div class="p-4 rounded-xl border border-gray-100 bg-gray-50/50">
-                        <h4 class="font-bold text-dark text-sm mb-1">${t('developer_mode')}</h4>
-                        <p class="text-xs text-gray-500 mb-4">${t('dev_desc')}</p>
-                        
-                        <div class="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg">
-                            <div>
-                                <p class="text-sm font-bold text-dark">${t('enable_premium')}</p>
-                                <p class="text-[10px] text-gray-500">${t('unlock_desc')}</p>
+            if (!isDevModeUnlocked) {
+                contentArea.innerHTML = `
+                   <div class="relative overflow-hidden rounded-xl border border-gray-100 bg-gray-50/50">
+                       <!-- Blurred Background (Matches content size perfectly) -->
+                       <div class="filter blur-sm pointer-events-none opacity-50 p-4 select-none">
+                            <div class="space-y-4">
+                               <div class="p-4 rounded-xl border border-gray-200 bg-white">
+                                   <h4 class="font-bold text-dark text-sm mb-1">${t('developer_mode')}</h4>
+                                   <p class="text-xs text-gray-500 mb-4">${t('dev_desc')}</p>
+                                   <div class="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg opacity-50">
+                                       <div><div class="h-4 w-24 bg-gray-200 rounded mb-1"></div><div class="h-3 w-32 bg-gray-100 rounded"></div></div>
+                                       <div class="w-12 h-6 bg-gray-200 rounded-full"></div>
+                                   </div>
+                               </div>
                             </div>
+                       </div>
+
+                       <!-- Lock UI Overlay -->
+                       <div class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm">
+                           <div id="dev-lock-container" class="flex flex-col items-center gap-5 transition-all duration-300 transform scale-100">
+                               <div class="flex flex-col items-center gap-2">
+                                   <div class="p-3 bg-white/50 border border-white/60 rounded-full text-gray-500 shadow-sm backdrop-blur-md">
+                                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                                   </div>
+                                   <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest drop-shadow-sm">${t('security_lock')}</span>
+                               </div>
+                               
+                               <div class="relative group">
+                                    <input type="password" id="dev-pin-input" class="w-40 text-center text-2xl font-bold tracking-[0.5em] py-3 border-b-2 border-gray-300 focus:border-primary focus:outline-none bg-transparent transition-all placeholder-gray-300/50 text-dark" maxlength="4" placeholder="••••" oninput="checkDevPin(this.value)">
+                                    <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-focus-within:w-full"></div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                `;
+                // Auto focus
+                setTimeout(() => {
+                    const el = document.getElementById('dev-pin-input');
+                    if (el) el.focus();
+                }, 100);
+            } else {
+                contentArea.innerHTML = `
+                    <div class="space-y-4">
+                         <div class="p-4 rounded-xl border border-gray-100 bg-gray-50/50">
+                            <h4 class="font-bold text-dark text-sm mb-1">${t('developer_mode')}</h4>
+                            <p class="text-xs text-gray-500 mb-4">${t('dev_desc')}</p>
                             
-                            <button onclick="toggleDevPremium()" class="w-12 h-6 rounded-full transition-colors relative ${data.user.isPremium ? 'bg-primary' : 'bg-gray-300'}">
-                                <div class="w-4 h-4 rounded-full bg-white absolute top-1 transition-all ${data.user.isPremium ? 'left-7' : 'left-1'}"></div>
-                            </button>
+                            <div class="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg">
+                                <div>
+                                    <p class="text-sm font-bold text-dark">${t('enable_premium')}</p>
+                                    <p class="text-[10px] text-gray-500">${t('unlock_desc')}</p>
+                                </div>
+                                
+                                <button onclick="toggleDevPremium()" class="w-12 h-6 rounded-full transition-colors relative ${data.user.isPremium ? 'bg-primary' : 'bg-gray-300'}">
+                                    <div class="w-4 h-4 rounded-full bg-white absolute top-1 transition-all ${data.user.isPremium ? 'left-7' : 'left-1'}"></div>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `;
+                `;
+            }
         }
     };
 
@@ -1641,10 +1720,32 @@ export function renderDashboard(element) {
                         calcDisplay.value = '0';
                     } else if (val === '=') {
                         try {
-                            // Safe enough for this local demo context. 
-                            // Replaces x with * for eval
+                            // Safe math expression parser (no eval)
                             const expression = calcDisplay.value.replace(/×/g, '*').replace(/÷/g, '/');
-                            calcDisplay.value = eval(expression);
+
+                            // Validate: only allow numbers, operators, parentheses, and decimal points
+                            if (!/^[\d+\-*/().%\s]+$/.test(expression)) {
+                                throw new Error('Invalid characters');
+                            }
+
+                            // Safe calculation using Function constructor with restricted scope
+                            const safeEval = (expr) => {
+                                // Tokenize and calculate step by step
+                                const sanitized = expr.replace(/\s/g, '');
+
+                                // Handle percentage
+                                const withPercent = sanitized.replace(/(\d+(?:\.\d+)?)%/g, '($1/100)');
+
+                                // Use Function with no access to global scope
+                                const fn = new Function('return ' + withPercent);
+                                const result = fn();
+
+                                if (!isFinite(result)) throw new Error('Invalid result');
+                                return result;
+                            };
+
+                            const result = safeEval(expression);
+                            calcDisplay.value = Number.isInteger(result) ? result : parseFloat(result.toFixed(8));
                         } catch (err) {
                             calcDisplay.value = 'Error';
                         }

@@ -2,7 +2,13 @@ import { t } from '../translations.js';
 
 export function renderNotes(element) {
     // Load notes list
-    let notes = JSON.parse(localStorage.getItem('dashboard_notes_list') || '[]');
+    let notes;
+    try {
+        notes = JSON.parse(localStorage.getItem('dashboard_notes_list') || '[]');
+    } catch (e) {
+        console.error('Failed to parse notes data:', e);
+        notes = [];
+    }
     let currentNoteIndex = -1; // -1 means new note
     let showingList = false;
 
@@ -88,7 +94,11 @@ export function renderNotes(element) {
                     notes[currentNoteIndex] = content;
                 }
 
-                localStorage.setItem('dashboard_notes_list', JSON.stringify(notes));
+                try {
+                    localStorage.setItem('dashboard_notes_list', JSON.stringify(notes));
+                } catch (e) {
+                    console.error('Failed to save notes:', e);
+                }
                 status.textContent = t('saved_msg');
                 status.classList.add('text-primary');
 
@@ -128,7 +138,11 @@ export function renderNotes(element) {
                 const idx = parseInt(btn.parentElement.dataset.index);
                 // Delete immediately
                 notes.splice(idx, 1);
-                localStorage.setItem('dashboard_notes_list', JSON.stringify(notes));
+                try {
+                    localStorage.setItem('dashboard_notes_list', JSON.stringify(notes));
+                } catch (e) {
+                    console.error('Failed to save notes:', e);
+                }
                 if (currentNoteIndex === idx) currentNoteIndex = -1;
                 else if (currentNoteIndex > idx) currentNoteIndex--;
                 refreshRender();

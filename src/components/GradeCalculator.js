@@ -5,7 +5,13 @@ export function renderGradeCalculator(container) {
     if (!container) return;
 
     // Load state or default
-    let assessments = JSON.parse(localStorage.getItem('grade_calc_data') || '[]');
+    let assessments;
+    try {
+        assessments = JSON.parse(localStorage.getItem('grade_calc_data') || '[]');
+    } catch (e) {
+        console.error('Failed to parse grade data:', e);
+        assessments = [];
+    }
     if (assessments.length === 0) {
         assessments = [
             { id: 1, name: t('midterm'), grade: '', weight: 40 },
@@ -14,7 +20,11 @@ export function renderGradeCalculator(container) {
     }
 
     const saveState = () => {
-        localStorage.setItem('grade_calc_data', JSON.stringify(assessments));
+        try {
+            localStorage.setItem('grade_calc_data', JSON.stringify(assessments));
+        } catch (e) {
+            console.error('Failed to save grade data:', e);
+        }
     };
 
     const calculate = () => {
