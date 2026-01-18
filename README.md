@@ -2,6 +2,15 @@
 
 A personal study dashboard designed to help students track habits, manage courses, calculate grades, and boost productivity.
 
+> **Note:** This is a prototype version. Some features are still in development and not fully functional.
+
+## Current Limitations
+
+- **AI Tutor** - Not functional (UI only, no backend integration)
+- **Premium Features** - Not available (coming soon)
+- **Cloud Sync** - Not available (data is stored locally only)
+- **Mobile App** - Web only (no native app yet)
+
 ## Features
 
 - **Dashboard** - Customizable widget-based layout with drag-and-drop support
