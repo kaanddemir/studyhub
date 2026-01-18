@@ -104,4 +104,4 @@ MIT License
 
 ## Author
 
-StudyHub Team
+[HeyKaan.dev](https://heykaan.dev)
