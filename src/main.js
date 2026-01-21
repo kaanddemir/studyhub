@@ -12,8 +12,9 @@ import { renderCheatsheetDetailPage } from './components/CheatsheetDetailPage.js
 import { renderNotebookPage } from './components/NotebookPage.js'
 
 document.querySelector('#app').innerHTML = `
-  <nav id="sidebar" class="w-16 h-full bg-white border-r border-gray-200 flex flex-col items-center py-6 shrink-0 transition-all duration-300"></nav>
-  <main id="dashboard" class="flex-1 h-full overflow-y-auto relative"></main>
+  <nav id="sidebar" class="hidden lg:flex w-16 h-full bg-white border-r border-gray-200 flex-col items-center py-6 shrink-0 transition-all duration-300"></nav>
+  <main id="dashboard" class="flex-1 h-full overflow-y-auto relative pb-20 lg:pb-0"></main> <!-- pb-20 for bottom nav space -->
+  <nav id="mobile-nav" class="lg:hidden fixed bottom-6 left-0 right-0 z-50 h-[4.5rem] w-full pointer-events-none flex justify-center px-4"></nav>
   <div id="modal-container"></div>
 `
 
@@ -53,7 +54,40 @@ window.navigateTo = (page, params = {}) => {
 
   // Update Sidebar Active State
   const sidebarPage = (page === 'course-detail') ? 'courses' : page;
+
+  // Render Desktop Sidebar
   renderSidebar(document.querySelector('#sidebar'), sidebarPage);
+
+  // Render Mobile Nav
+  // We need to import it first, but since we are in main.js module, we can import at top. 
+  // Wait, I need to add the import statement at the top of the file as well.
+  // I will assume the import is added in a separate edit or I should have added it.
+  // Actually, I can use dynamic import or just expect the update.
+  // Let's modify the imports in a separate 'replace' call or check if I can do valid multi-edit. 
+  // I'll stick to this replacement and then add the import.
+  // Actually, wait, I can't double edit.
+  // I will assume I'll add the import in the next step.
+  // For now I will assume renderMobileNav is available or I will add it to window in Sidebar.js? 
+  // No, proper import. I'll add import in next step.
+
+  import('./components/Sidebar.js').then(module => {
+    if (module.renderMobileNav) {
+      // Enable pointer events for the inner container only, handled in CSS/HTML structure
+      const mobileNav = document.querySelector('#mobile-nav');
+      if (mobileNav) {
+        // We need to ensure children have pointer events
+        mobileNav.innerHTML = ''; // clear
+        module.renderMobileNav(mobileNav, sidebarPage);
+        // The container is pointer-events-none to let clicks pass through to content behind it (except the nav itself)
+        // The nav items inside renderMobileNav should have pointer-events-auto
+        // I'll fix the pointers in CSS or the render function.
+        // Looking at my renderMobileNav implementation, the wrapper has 'glass' class. 
+        // I should make sure that 'glass' or the wrapper has pointer-events-auto.
+        const wrapper = mobileNav.querySelector('.glass');
+        if (wrapper) wrapper.classList.add('pointer-events-auto');
+      }
+    }
+  });
 
   container.innerHTML = ''; // Clear current view
 

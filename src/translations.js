@@ -11,6 +11,8 @@ export const translations = {
         "cheatsheets": "Cheatsheets",
         "pomodoro": "Pomodoro",
         "settings": "Settings",
+        "notes": "Notes",
+        "cheats": "Cheats",
 
         // Header
         "hello": "Hello",
@@ -410,7 +412,7 @@ export const translations = {
     },
     tr: {
         // Sidebar
-        "dashboard": "Kontrol Paneli",
+        "dashboard": "Panel",
         "schedule": "Takvim",
         "courses": "Dersler",
         "exams": "Sınavlar",
@@ -418,6 +420,8 @@ export const translations = {
         "cheatsheets": "Kopyalar",
         "pomodoro": "Pomodoro",
         "settings": "Ayarlar",
+        "notes": "Notlar",
+        "cheats": "Kopyalar",
 
         // Header
         "hello": "Merhaba",

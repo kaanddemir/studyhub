@@ -13,16 +13,16 @@ A personal study dashboard designed to help students track habits, manage course
 
 ## Features
 
-- **Dashboard** - Customizable widget-based layout with drag-and-drop support
-- **Habit Tracker** - Daily habit tracking with progress visualization
-- **Grade Calculator** - Calculate weighted averages and predict final grades
-- **Pomodoro Timer** - Focus timer with customizable work/break intervals
-- **Course Management** - Organize courses, notes, and materials
-- **Weekly Schedule** - Plan your study sessions
-- **Quick Notes** - Fast note-taking for ideas and reminders
-- **Cheatsheets** - Store and organize study cheatsheets
-- **Notebook** - Rich text note editor
-- **Calculator** - Quick calculations without leaving the app
+- **Dashboard** - Customizable widget-based layout with drag-and-drop support.
+- **Responsive Design** - Fully optimized for Desktop, Tablet (iPad), and Mobile (iPhone) with adaptive layouts.
+- **Habit Tracker** - Daily habit tracking with streak counters and progress bars.
+- **Digital Notebook** - Rich text editor with multiple paper styles (lined, grid), infinite scrolling pages, and realistic spiral binding aesthetics.
+- **Course Management** - Organize courses, syllabus content, and track assignment deadlines.
+- **Grade Calculator** - Calculate weighted averages and project final grades.
+- **Focus Tools** - Built-in Pomodoro Timer and Stopwatch.
+- **Cheatsheets** - Create and organize Markdown-supported study notes and formula sheets.
+- **Personalization** - Theme engine with multiple color presets, dark/light modes (system), and premium glassmorphism UI.
+- **Localization** - Full Turkish and English language support.
 
 ## Tech Stack
 

@@ -12,23 +12,23 @@ export function renderExamsPage(container) {
         const exams = [...(data.exams || [])].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
         container.innerHTML = `
-            <div class="p-8 h-full flex flex-col relative">
-                <header class="flex justify-between items-center mb-8 shrink-0">
-                    <div class="flex items-center gap-4">
-                        <button onclick="window.navigateTo('dashboard')" class="p-2 bg-white text-gray-500 rounded-xl hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100">
+            <div class="p-4 md:p-8 h-full flex flex-col relative">
+                <header class="flex flex-col md:flex-row justify-between items-center mb-6 md:mb-8 shrink-0 gap-4">
+                    <div class="flex items-center gap-4 w-full md:w-auto">
+                        <button onclick="window.navigateTo('dashboard')" class="p-2 bg-white text-gray-500 rounded-xl hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100 shrink-0">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                         </button>
-                        <h1 class="text-3xl font-bold text-dark">${t('exams_title')}</h1>
+                        <h1 class="text-2xl md:text-3xl font-bold text-dark truncate">${t('exams_title')}</h1>
                     </div>
-                    <button id="add-exam-btn" class="px-4 py-2 bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors font-bold text-sm shadow-lg shadow-primary/30 flex items-center gap-2 transform hover:-translate-y-0.5 active:translate-y-0">
+                    <button id="add-exam-btn" class="w-full md:w-auto px-4 py-2 bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors font-bold text-sm shadow-lg shadow-primary/30 flex items-center justify-center gap-2 transform hover:-translate-y-0.5 active:translate-y-0">
                          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
                         ${t('add_exam')}
                     </button>
                 </header>
 
-                <div class="flex-1 overflow-y-auto custom-scrollbar pr-2">
+                <div class="flex-1 overflow-y-auto custom-scrollbar pr-2 pb-20 md:pb-0">
                     ${exams.length === 0 ? `
-                        <div class="h-full flex flex-col items-center justify-center p-10 border-2 border-dashed border-gray-200 rounded-3xl">
+                        <div class="h-full flex flex-col items-center justify-center p-10 border-2 border-dashed border-gray-200 rounded-3xl mx-2 md:mx-0">
                             <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-4">
                                 <svg class="w-10 h-10 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />

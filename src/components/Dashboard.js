@@ -501,16 +501,16 @@ export function renderDashboard(element) {
                 headerBtn.classList.remove('bg-primary', 'text-white', 'shadow-primary/30');
                 headerBtn.classList.add('bg-amber-100', 'text-amber-600', 'border-amber-200', 'shadow-amber-500/10');
                 headerBtn.innerHTML = `
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
-                    <span>${t('premium_active')}</span>
+                    <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
+                    <span class="hidden md:inline">${t('premium_active')}</span>
                 `;
                 headerBtn.onclick = null; // Disable modal on click or redirect to settings
             } else {
                 headerBtn.classList.add('bg-primary', 'text-white', 'shadow-primary/30');
                 headerBtn.classList.remove('bg-amber-100', 'text-amber-600', 'border-amber-200', 'shadow-amber-500/10');
                 headerBtn.innerHTML = `
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
-                    <span>${t('premium')}</span>
+                    <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
+                    <span class="hidden md:inline">${t('premium')}</span>
                  `;
                 headerBtn.onclick = window.togglePremiumModal;
             }
@@ -852,7 +852,7 @@ export function renderDashboard(element) {
         } else if (activeSettingsTab === 'about') {
             contentArea.innerHTML = `
                 <div class="p-4 bg-gray-50/50 rounded-xl border border-gray-100 text-center">
-                    <img src="/logo.png" class="w-16 h-16 mx-auto mb-3 rounded-2xl shadow-sm hover:scale-105 transition-transform duration-300" alt="StudyHub Logo">
+                    <img src="logo.png" class="w-16 h-16 mx-auto mb-3 rounded-2xl shadow-sm hover:scale-105 transition-transform duration-300" alt="StudyHub Logo">
                     <h4 class="font-bold text-dark text-lg mb-1">StudyHub</h4>
                     <p class="text-xs text-gray-500 mb-4">${t('version')} 1.0.0 • ${t('basic_edition')}</p>
                 </div>
@@ -925,16 +925,25 @@ export function renderDashboard(element) {
 
     element.innerHTML = `
     <!-- Header -->
-    <header class="sticky top-0 z-30 bg-transparent backdrop-blur-xl px-8 pt-8 pb-4 flex flex-col md:flex-row justify-between items-center mb-2 gap-4 border-b border-transparent transition-all">
-      <div class="w-full md:w-auto">
-        <h1 id="header-greeting" class="text-3xl font-bold text-dark">${t('hello')}, ${data.user.name}!</h1>
-        <p id="header-summary" class="text-gray-500 mt-1">${t('loading_summary')}</p>
+    <header class="sticky top-0 z-30 bg-white/80 md:bg-transparent backdrop-blur-xl px-4 md:px-8 pt-4 md:pt-8 pb-3 md:pb-4 flex flex-row flex-wrap md:flex-nowrap justify-between items-center mb-2 md:mb-4 gap-3 md:gap-4 border-b md:border-b-0 border-gray-100 transition-all">
+      
+      <!-- Left: Greeting -->
+      <div class="flex-1 min-w-[200px]">
+        <h1 id="header-greeting" class="text-2xl md:text-3xl font-bold text-dark truncate">${t('hello')}, ${data.user.name}!</h1>
+        <p id="header-summary" class="text-xs md:text-sm text-gray-500 mt-0.5 md:mt-1 truncate">${t('loading_summary')}</p>
       </div>
-      <div class="flex items-center gap-4 w-full md:w-auto justify-end">
+
+      <!-- Right: Actions -->
+      <div class="flex items-center gap-2 md:gap-4 shrink-0">
         
-        <!-- Manage Widgets Button -->
+        <!-- Mobile Logout Button -->
+        <button onclick="window.logout()" class="lg:hidden w-10 h-10 flex items-center justify-center bg-white text-gray-400 rounded-full hover:bg-red-50 hover:text-red-500 transition-colors border border-gray-100 shadow-sm" title="${t('logout')}">
+             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+        </button>
+
+        <!-- Manage Widgets Button (Mobile: Smaller) -->
         <div class="relative">
-            <button id="manage-widgets-btn" onclick="toggleManageDropdown()" class="w-12 h-12 flex items-center justify-center bg-white text-gray-400 rounded-full hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100" title="${t('manage_widgets')}">
+            <button id="manage-widgets-btn" onclick="toggleManageDropdown()" class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white text-gray-400 rounded-full hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100 shadow-sm" title="${t('manage_widgets')}">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
             </button>
             <div id="manage-widgets-popup" class="absolute top-full right-0 mt-2 w-64 bg-white p-4 rounded-xl shadow-xl border border-gray-100 opacity-0 invisible transition-all z-50 transform origin-top-right scale-95">
@@ -948,39 +957,38 @@ export function renderDashboard(element) {
             </div>
         </div>
 
-        <!-- Premium Button -->
-        <!-- Premium Button -->
+        <!-- Premium Button (Mobile: Icon only or Compact) -->
         ${data.user.isPremium ? `
-             <button id="header-premium-btn" class="px-4 py-2 bg-amber-100 text-amber-600 border border-amber-200 rounded-xl font-bold text-sm shadow-lg shadow-amber-500/10 hover:shadow-amber-500/20 transition-all flex items-center gap-2">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
-                <span>Premium Active</span>
+             <button id="header-premium-btn" class="w-10 h-10 md:w-auto md:h-10 md:px-4 md:py-2 bg-amber-100 text-amber-600 border border-amber-200 rounded-full md:rounded-xl font-bold text-sm shadow-sm md:shadow-lg shadow-amber-500/10 hover:shadow-amber-500/20 transition-all flex items-center justify-center md:justify-start gap-2">
+                <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
+                <span class="hidden md:inline">Premium</span>
             </button>
         ` : `
-            <button id="header-premium-btn" onclick="togglePremiumModal()" class="px-4 py-2 bg-primary text-white rounded-xl font-bold text-sm shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all flex items-center gap-2">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
-                <span>Premium</span>
+            <button id="header-premium-btn" onclick="togglePremiumModal()" class="w-10 h-10 md:w-auto md:h-10 md:px-4 md:py-2 bg-primary text-white rounded-full md:rounded-xl font-bold text-sm shadow-sm md:shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all flex items-center justify-center md:justify-start gap-2">
+                <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
+                <span class="hidden md:inline">Premium</span>
             </button>
         `}
 
-        <!-- Settings Button -->
+        <!-- Settings Button (Mobile: Smaller) -->
         <div class="relative">
-             <button id="settings-btn" onclick="toggleSettingsModal()" class="w-12 h-12 flex items-center justify-center bg-white text-gray-400 rounded-full hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100" title="Settings">
+             <button id="settings-btn" onclick="toggleSettingsModal()" class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white text-gray-400 rounded-full hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100 shadow-sm" title="Settings">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             </button>
             
             <!-- Settings Modal (Dropdown Style but larger) -->
-            <div id="settings-modal" class="absolute top-full right-0 mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-100 opacity-0 invisible transition-all z-50 transform origin-top-right scale-95 overflow-hidden">
+            <div id="settings-modal" class="absolute top-full right-0 mt-2 w-[88vw] md:w-96 max-w-[400px] bg-white rounded-2xl shadow-xl border border-gray-100 opacity-0 invisible transition-all z-50 transform origin-top-right scale-95 overflow-hidden">
                 <!-- Header Tabs -->
-                <div class="flex border-b border-gray-100 bg-gray-50/50">
-                    <button onclick="switchSettingsTab('general')" data-tab="general" class="settings-tab-btn flex-1 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors">${t('general')}</button>
-                    <button onclick="switchSettingsTab('profile')" data-tab="profile" class="settings-tab-btn flex-1 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors">${t('profile')}</button>
-                    <button onclick="switchSettingsTab('language')" data-tab="language" class="settings-tab-btn flex-1 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors">${t('language')}</button>
-                    <button onclick="switchSettingsTab('about')" data-tab="about" class="settings-tab-btn flex-1 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors">${t('about')}</button>
-                    <button onclick="switchSettingsTab('developer')" data-tab="developer" class="settings-tab-btn flex-1 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors">${t('developer')}</button>
+                <div class="flex overflow-x-auto border-b border-gray-100 bg-gray-50/50 no-scrollbar touch-pan-x">
+                    <button onclick="switchSettingsTab('general')" data-tab="general" class="settings-tab-btn flex-none px-4 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors whitespace-nowrap">${t('general')}</button>
+                    <button onclick="switchSettingsTab('profile')" data-tab="profile" class="settings-tab-btn flex-none px-4 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors whitespace-nowrap">${t('profile')}</button>
+                    <button onclick="switchSettingsTab('language')" data-tab="language" class="settings-tab-btn flex-none px-4 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors whitespace-nowrap">${t('language')}</button>
+                    <button onclick="switchSettingsTab('about')" data-tab="about" class="settings-tab-btn flex-none px-4 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors whitespace-nowrap">${t('about')}</button>
+                    <button onclick="switchSettingsTab('developer')" data-tab="developer" class="settings-tab-btn flex-none px-4 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors whitespace-nowrap">${t('developer')}</button>
                 </div>
                 
                 <!-- Content Area -->
-                <div id="settings-content-area" class="p-4">
+                <div id="settings-content-area" class="p-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
                     <!-- Default Content (General) -->
                     <!-- Injected by renderSettingsContent() -->
                 </div>
@@ -992,7 +1000,7 @@ export function renderDashboard(element) {
 
     
     <!-- Main Widget Grid -->
-    <div id="dashboard-grid" class="px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-10">
+    <div id="dashboard-grid" class="px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-20 md:pb-10">
         <!-- Grid content will be populated by JavaScript to ensure correct order and structural integrity -->
     </div>
 

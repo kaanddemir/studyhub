@@ -20,32 +20,33 @@ export function renderCheatsheetDetailPage(element, id) {
         <div class="h-full flex flex-col relative bg-white overflow-hidden">
             <!-- Header -->
             <!-- Header -->
-            <header class="flex items-center justify-start gap-6 px-8 py-6 border-b border-gray-100 bg-white z-10 shrink-0">
-                <button id="back-btn" class="p-2 bg-white text-gray-500 rounded-xl hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100 shrink-0">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-                </button>
-                
-                <div class="flex items-center gap-2">
-                    <!-- Title Display -->
-                    <h1 id="display-title" class="text-3xl font-bold text-dark truncate max-w-xl cursor-default">${sheet.title}</h1>
-                    
-                    <!-- Title Input (Hidden by default) -->
-                    <input type="text" id="title-input" value="${sheet.title}" class="hidden text-3xl font-bold text-dark bg-transparent border-b-2 border-primary outline-none focus:ring-0 placeholder-gray-300 min-w-[200px]" placeholder="${t('untitled_note')}">
-                    
-
-
-                    <!-- Delete Button -->
-                    <button id="delete-btn" class="p-2 text-gray-300 hover:text-primary hover:bg-primary/5 rounded-xl transition-colors ml-2" title="${t('delete')}">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+            <!-- Header -->
+            <header class="flex flex-row items-center justify-between gap-4 px-4 py-4 md:px-8 md:py-6 border-b border-gray-100 bg-white z-10 shrink-0">
+                <div class="flex items-center gap-4 flex-1 min-w-0">
+                    <button id="back-btn" class="p-2 bg-white text-gray-500 rounded-xl hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100 shrink-0">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                     </button>
+                    
+                    <div class="flex-1 flex items-center gap-2 overflow-hidden min-w-0">
+                        <!-- Title Display -->
+                        <h1 id="display-title" class="text-2xl md:text-3xl font-bold text-dark truncate cursor-default">${sheet.title}</h1>
+                        
+                        <!-- Title Input (Hidden by default) -->
+                        <input type="text" id="title-input" value="${sheet.title}" class="hidden text-2xl md:text-3xl font-bold text-dark bg-transparent border-b-2 border-primary outline-none focus:ring-0 placeholder-gray-300 w-full min-w-[100px]" placeholder="${t('untitled_note')}">
+                    </div>
                 </div>
+
+                <!-- Delete Button -->
+                <button id="delete-btn" class="p-2 text-gray-300 hover:text-primary hover:bg-primary/5 rounded-xl transition-colors shrink-0" title="${t('delete')}">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                </button>
             </header>
 
             <!-- Main Split Content -->
-            <div id="split-container" class="flex-1 flex overflow-hidden relative">
+            <div id="split-container" class="flex-1 flex flex-col md:flex-row overflow-hidden relative">
                 
                 <!-- LEFT PANE: Editor -->
-                <div id="left-pane" class="w-1/2 flex flex-col p-8 bg-white" style="min-width: 300px;">
+                <div id="left-pane" class="w-full md:w-1/2 flex flex-col p-4 md:p-8 bg-white h-1/2 md:h-auto" style="">
                     <div class="flex justify-between items-center mb-4 shrink-0">
                         <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">${t('markdown_editor')}</span>
                         <span class="text-xs text-gray-300">${t('supports_md')}</span>
@@ -54,12 +55,12 @@ export function renderCheatsheetDetailPage(element, id) {
                 </div>
 
                 <!-- RESIZER -->
-                <div id="resizer" class="w-1.5 bg-gray-100 hover:bg-primary/50 cursor-col-resize transition-colors z-20 flex items-center justify-center group shrink-0 relative">
+                <div id="resizer" class="hidden md:flex w-1.5 bg-gray-100 hover:bg-primary/50 cursor-col-resize transition-colors z-20 items-center justify-center group shrink-0 relative">
                      <div class="w-0.5 h-8 bg-gray-300 group-hover:bg-white rounded-full pointer-events-none"></div>
                 </div>
 
                 <!-- RIGHT PANE: Attachments -->
-                <div id="right-pane" class="flex-1 flex flex-col p-8 bg-gray-50 overflow-y-auto custom-scrollbar" style="min-width: 280px;">
+                <div id="right-pane" class="w-full md:flex-1 flex flex-col p-4 md:p-8 bg-gray-50 overflow-y-auto custom-scrollbar h-1/2 md:h-auto" style="">
                     <div class="flex justify-between items-center mb-6 shrink-0 whitespace-nowrap gap-4">
                         <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider overflow-hidden text-ellipsis">${t('attachments_title')}</h3>
                          <button id="add-img-btn" class="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-200 text-gray-600 rounded-lg hover:border-primary hover:text-primary transition-all text-xs font-bold shadow-sm shrink-0">
@@ -81,7 +82,7 @@ export function renderCheatsheetDetailPage(element, id) {
                             `).join('')}
                         </div>
                     ` : `
-                        <div class="flex-1 flex flex-col items-center justify-center text-gray-400 border-2 border-dashed border-gray-200 rounded-3xl m-4 pb-20">
+                        <div class="flex-1 flex flex-col items-center justify-center text-gray-400 border-2 border-dashed border-gray-200 rounded-3xl m-4">
                             <svg class="w-12 h-12 mb-2 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                             <p class="text-sm font-medium opacity-50">${t('no_images_yet')}</p>
                         </div>

@@ -52,3 +52,42 @@ export function renderSidebar(element, activePage = 'dashboard') {
         </div>
     `;
 }
+
+export function renderMobileNav(element, activePage = 'dashboard') {
+    const menuItems = [
+        { icon: 'grid', page: 'dashboard', label: t('dashboard') },
+        { icon: 'book', page: 'courses', label: t('courses') },
+        { icon: 'notebook', page: 'notebook', label: t('notes') },
+        { icon: 'ticket', page: 'exams', label: t('exams') },
+        { icon: 'collection', page: 'cheatsheets', label: t('cheats') }
+    ];
+
+    const icons = {
+        grid: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />`,
+        book: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />`,
+        notebook: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />`,
+        collection: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />`,
+        ticket: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />`
+    };
+
+    const itemsHtml = menuItems.map(item => {
+        const isActive = item.page === activePage;
+        return `
+        <li onclick="window.navigateTo('${item.page}')" class="flex-1 cursor-pointer p-2 rounded-xl transition-all duration-300 flex flex-col items-center justify-center gap-1 ${isActive ? 'text-primary' : 'text-gray-400 hover:text-gray-600'}">
+            <svg class="w-6 h-6 ${isActive ? 'fill-primary/10 stroke-primary' : ''}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                ${icons[item.icon]}
+            </svg>
+            <span class="text-[10px] font-bold ${isActive ? 'opacity-100' : 'opacity-0 h-0 hidden'} transition-all">${item.label || ''}</span>
+        </li>
+    `}).join('');
+
+    element.innerHTML = `
+        <div class="h-full w-full flex items-center justify-center px-4">
+             <div class="glass w-full rounded-2xl py-2 px-1 flex items-center justify-between border border-white/50 shadow-xl bg-white/90 backdrop-blur-xl">
+                <ul class="flex w-full items-center justify-between gap-1">
+                    ${itemsHtml}
+                </ul>
+            </div>
+        </div>
+    `;
+}
