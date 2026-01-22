@@ -1213,16 +1213,16 @@ export function renderDashboard(element) {
 
     element.innerHTML = `
     <!-- Header -->
-    <header class="sticky top-0 z-30 bg-white/80 md:bg-transparent backdrop-blur-xl px-4 md:px-8 pt-4 md:pt-8 pb-3 md:pb-4 flex flex-row flex-wrap md:flex-nowrap justify-between items-center mb-2 md:mb-4 gap-3 md:gap-4 border-b md:border-b-0 border-gray-100 transition-all">
+    <header class="sticky top-0 z-30 bg-white/80 md:bg-transparent backdrop-blur-xl px-4 md:px-8 pt-4 md:pt-8 pb-3 md:pb-4 flex flex-col md:flex-row flex-wrap md:flex-nowrap justify-between items-start md:items-center mb-2 md:mb-4 gap-0 md:gap-4 border-b md:border-b-0 border-gray-100 transition-all">
       
       <!-- Left: Greeting -->
-      <div class="flex-1 min-w-[200px]">
+      <div class="w-full md:w-auto md:flex-1 min-w-[200px] mb-4 md:mb-0">
         <h1 id="header-greeting" class="text-2xl md:text-3xl font-bold text-dark truncate">${t('hello')}, ${data.user.name}!</h1>
         <p id="header-summary" class="text-xs md:text-sm text-gray-500 mt-0.5 md:mt-1 truncate">${t('loading_summary')}</p>
       </div>
 
       <!-- Right: Actions -->
-      <div class="flex items-center gap-2 md:gap-4 shrink-0">
+      <div class="flex items-center gap-2 md:gap-4 shrink-0 w-full md:w-auto justify-start md:justify-end">
         
         <!-- Mobile Logout Button -->
         <button onclick="window.logout()" class="lg:hidden w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white text-gray-400 rounded-full hover:bg-red-50 hover:text-red-500 transition-colors border border-gray-100 shadow-sm" title="${t('logout')}">

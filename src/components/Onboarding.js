@@ -45,14 +45,14 @@ export function renderOnboarding(element, onComplete) {
         element.innerHTML = `
         <div class="fixed inset-0 z-[100] flex items-center justify-center bg-white bg-gradient-to-br from-primary/40 via-gray-50 to-primary/20 backdrop-blur-md transition-all duration-500">
             
-            <div class="relative w-full max-w-2xl bg-white rounded-[2rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] transition-all transform duration-500 border border-white/50">
+            <div class="relative w-[90%] md:w-full max-w-2xl bg-white rounded-[2rem] shadow-2xl overflow-hidden flex flex-col max-h-[85vh] md:max-h-[90vh] transition-all transform duration-500 border border-white/50">
                 
                 <!-- Decorative Header Background -->
                 <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-r from-primary/10 to-primary/5 -z-10"></div>
                 <div class="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
                 
                 <!-- Header -->
-                <div class="px-10 pt-10 pb-4 flex justify-between items-center">
+                <div class="px-6 pt-10 pb-6 md:px-10 md:pt-10 md:pb-4 flex justify-between items-center">
                     <div>
                         <h1 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-dark to-gray-600 tracking-tight">StudyHub</h1>
                         <p class="text-gray-400 text-sm font-medium mt-1">Your personal academic dashboard</p>
@@ -67,7 +67,7 @@ export function renderOnboarding(element, onComplete) {
                 </div>
 
                 <!-- Content Body -->
-                <div class="flex-1 px-10 py-6 overflow-y-auto custom-scrollbar">
+                <div class="flex-1 px-6 py-4 md:px-10 md:py-6 overflow-y-auto custom-scrollbar">
                     
                     <!-- Step 1: Profile -->
                     <div class="step-content ${currentStep === 1 ? 'block animate-fade-in-right' : 'hidden'}">
@@ -175,7 +175,7 @@ export function renderOnboarding(element, onComplete) {
                 </div>
 
                 <!-- Footer / Navigation -->
-                <div class="px-10 py-6 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
+                <div class="px-6 py-4 md:px-10 md:py-6 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
                     <button id="btn-back" class="px-6 py-2.5 rounded-xl font-bold text-gray-400 hover:text-dark hover:bg-white transition-all ${currentStep === 1 ? 'invisible' : ''}">
                         ${t('back')}
                     </button>
