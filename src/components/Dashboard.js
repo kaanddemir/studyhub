@@ -1254,13 +1254,13 @@ export function renderDashboard(element) {
         ` : `
             <button id="header-premium-btn" onclick="togglePremiumModal()" class="w-10 h-10 md:w-auto md:h-10 md:px-4 md:py-2 bg-primary text-white rounded-full md:rounded-xl font-bold text-sm shadow-sm md:shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all flex items-center justify-center md:justify-start gap-2">
                 <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
-                <span class="hidden md:inline">Premium</span>
+                <span class="hidden md:inline">${t('premium')}</span>
             </button>
         `}
 
         <!-- Settings Button (Mobile: Smaller) -->
         <div class="relative">
-             <button id="settings-btn" onclick="toggleSettingsModal()" class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white text-gray-400 rounded-full hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100 shadow-sm" title="Settings">
+             <button id="settings-btn" onclick="toggleSettingsModal()" class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white text-gray-400 rounded-full hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100 shadow-sm" title="${t('settings')}">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             </button>
             
@@ -1322,7 +1322,7 @@ export function renderDashboard(element) {
                     <!-- Basic Plan -->
                     <div class="rounded-3xl border-2 border-gray-100 p-6 flex flex-col relative overflow-hidden">
                         <div class="mb-6">
-                            <h3 class="text-xl font-bold text-gray-600 mb-2">Basic</h3>
+                            <h3 class="text-xl font-bold text-gray-600 mb-2">${t('basic')}</h3>
                             <div class="flex items-end gap-1">
                                 <span class="text-4xl font-black text-dark">${t('free')}</span>
                                 <span class="text-gray-400 mb-1">${t('forever')}</span>
@@ -1353,7 +1353,7 @@ export function renderDashboard(element) {
                             </div>
                         </div>
 
-                        <button class="w-full py-4 bg-gray-100 text-gray-500 font-bold rounded-2xl cursor-default">Current Plan</button>
+                        <button class="w-full py-4 bg-gray-100 text-gray-500 font-bold rounded-2xl cursor-default">${t('current_plan')}</button>
                     </div>
 
                     <!-- Premium Plan -->
@@ -1927,7 +1927,7 @@ export function renderDashboard(element) {
 
                         <!-- Input Area -->
                         <div class="p-4 bg-white border-t border-gray-100 flex gap-2">
-                             <input type="text" id="ai-chat-input" class="flex-1 bg-gray-50 border-none rounded-xl px-4 focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all" placeholder="Ask me anything..." onkeypress="if(event.key === 'Enter') window.sendAiMessage()">
+                             <input type="text" id="ai-chat-input" class="flex-1 bg-gray-50 border-none rounded-xl px-4 focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all" placeholder="${t('ask_me_anything')}" onkeypress="if(event.key === 'Enter') window.sendAiMessage()">
                              <button onclick="window.sendAiMessage()" class="p-3 bg-primary text-white rounded-xl shadow-lg shadow-primary/30 hover:opacity-90 transition-all hover:scale-105 active:scale-95">
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
                              </button>
@@ -1977,14 +1977,14 @@ export function renderDashboard(element) {
                 // Fake AI Response (Simulated Delay)
                 setTimeout(() => {
                     // Simple response logic for demo
-                    let reply = "That is a great question. I am currently in demo mode, but imagine I just gave you a brilliant, personalized answer to help you ace your exams.";
+                    let reply = t('ai_resp_default');
 
                     if (msg.toLowerCase().includes('schedule') || msg.toLowerCase().includes('plan')) {
-                        reply = "I can help you organize that. Let us break it down into smaller tasks. Check your Todo List and try to allocate 25-minute focus blocks for each.";
+                        reply = t('ai_resp_schedule');
                     } else if (msg.toLowerCase().includes('motivat')) {
-                        reply = "You got this. Remember why you started. Every small step counts. Take a deep breath and crush it.";
+                        reply = t('ai_resp_motivation');
                     } else if (msg.toLowerCase().includes('help')) {
-                        reply = "I am here for you. Try asking me about a specific subject, or tell me what you are struggling with.";
+                        reply = t('ai_resp_help');
                     }
 
                     const aiHTML = `

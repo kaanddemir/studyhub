@@ -144,6 +144,15 @@ export const translations = {
         "add_task_prompt": "Add Task for",
         "logout": "Logout",
         "hour_unit": "hrs",
+        "personal": "Personal",
+        "all_day": "All Day",
+        "basic": "Basic",
+        "current_plan": "Current Plan",
+        "ask_me_anything": "Ask me anything...",
+        "ai_resp_default": "That is a great question. I am currently in demo mode, but imagine I just gave you a brilliant, personalized answer to help you ace your exams.",
+        "ai_resp_schedule": "I can help you organize that. Let us break it down into smaller tasks. Check your Todo List and try to allocate 25-minute focus blocks for each.",
+        "ai_resp_motivation": "You got this. Remember why you started. Every small step counts. Take a deep breath and crush it.",
+        "ai_resp_help": "I am here for you. Try asking me about a specific subject, or tell me what you are struggling with.",
 
         // Exams
         "exams_title": "Exams",
@@ -585,6 +594,15 @@ export const translations = {
         "task_name_placeholder": "Görev Adı",
         "add_task_prompt": "Tarihi için görev ekle",
         "hour_unit": "saat",
+        "personal": "Kişisel",
+        "all_day": "Tüm Gün",
+        "basic": "Temel",
+        "current_plan": "Mevcut Plan",
+        "ask_me_anything": "Bana her şeyi sorabilirsin...",
+        "ai_resp_default": "Bu harika bir soru. Şu an demo modundayım, ancak sınavlarında başarılı olman için sana harika ve kişiselleştirilmiş bir cevap verdiğimi hayal et.",
+        "ai_resp_schedule": "Bunu organize etmene yardımcı olabilirim. Haydi küçük görevlere bölelim. Yapılacaklar listeni kontrol et ve her biri için 25 dakikalık odaklanma blokları ayırmayı dene.",
+        "ai_resp_motivation": "Bunu yapabilirsin. Neden başladığını hatırla. Her küçük adım önemlidir. Derin bir nefes al ve başla!",
+        "ai_resp_help": "Senin için buradayım. Belirli bir ders hakkında soru sormayı dene veya ne yazık ki zorlandığın konuyu anlat.",
 
         // Exams
         "exams_title": "Sınavlar",

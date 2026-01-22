@@ -165,8 +165,8 @@ export function renderCalendar(element, todos, exams = []) {
             if (title) {
                 todos.push({
                     title,
-                    subject: 'Personal',
-                    time: 'All Day',
+                    subject: t('personal'),
+                    time: t('all_day'),
                     completed: false,
                     date: date
                 });
