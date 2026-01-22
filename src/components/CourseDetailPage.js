@@ -39,7 +39,7 @@ export function renderCourseDetailPage(element, courseId) {
     if (!course.aiSessions) {
         // Migrate old single chatHistory if exists
         const initialMessages = course.chatHistory || [
-            { sender: 'ai', text: `Hi! I'm StudyAl, your personal AI assistant for **${course.name}**. Ask me anything about the course materials, exams, or topics!` }
+            { sender: 'ai', text: t('studyai_intro').replace('{name}', course.name) }
         ];
 
         course.aiSessions = [{
@@ -185,7 +185,7 @@ export function renderCourseDetailPage(element, courseId) {
                         </div>
                     </div>
 
-                    <!-- StudyAl AI Assistant -->
+                    <!-- StudyAI AI Assistant -->
                      <div class="border border-gray-100 rounded-2xl p-6 flex flex-col h-[500px] bg-gradient-to-br from-primary/5 via-white to-primary/10 relative overflow-hidden">
                          <!-- Header -->
                          <div class="flex justify-between items-start mb-4 z-10">
@@ -194,7 +194,7 @@ export function renderCourseDetailPage(element, courseId) {
                                      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
                                  </div>
                                  <div class="flex flex-col">
-                                     <h3 class="text-lg font-bold text-dark flex items-center gap-2">StudyAl</h3>
+                                     <h3 class="text-lg font-bold text-dark flex items-center gap-2">StudyAI</h3>
                                      <div class="flex items-center gap-1.5">
                                          <span class="text-xs font-medium text-gray-500">${t('gemini_powered')}</span>
                                      </div>
@@ -303,7 +303,7 @@ export function renderCourseDetailPage(element, courseId) {
                  </div>
             </div>
             <!-- Delete Resource Confirmation Modal -->
-            <div id="delete-resource-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300">
+            <div id="delete-resource-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300 px-4">
                 <div class="bg-white p-6 rounded-3xl shadow-2xl border border-gray-100 w-full max-w-xs transform scale-95 transition-all duration-300 text-center">
                     <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
@@ -322,7 +322,7 @@ export function renderCourseDetailPage(element, courseId) {
                 </div>
             </div>
             <!-- Delete Course Confirmation Modal -->
-            <div id="delete-course-detail-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300">
+            <div id="delete-course-detail-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300 px-4">
                 <div class="bg-white p-6 rounded-3xl shadow-2xl border border-gray-100 w-full max-w-xs transform scale-95 transition-all duration-300 text-center">
                     <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
@@ -338,7 +338,7 @@ export function renderCourseDetailPage(element, courseId) {
             </div>
 
             <!-- Edit Info Modal -->
-            <div id="edit-info-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300">
+            <div id="edit-info-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300 px-4">
                 <div class="bg-white p-6 rounded-3xl shadow-2xl border border-gray-100 w-full max-w-sm transform scale-95 transition-all duration-300">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-xl font-bold text-dark">${t('edit_course_setup')}</h3>
@@ -482,7 +482,7 @@ export function renderCourseDetailPage(element, courseId) {
                         id: Date.now(),
                         title: t('new_conversation'),
                         messages: [
-                            { sender: 'ai', text: `Hi! I'm StudyAl. Start a new topic for **${course.name}**!` }
+                            { sender: 'ai', text: t('studyai_new_chat').replace('{name}', course.name) }
                         ],
                         timestamp: Date.now()
                     };
@@ -579,7 +579,7 @@ export function renderCourseDetailPage(element, courseId) {
                             // If no sessions left, create a default one
                             if (!course.aiSessions.length) {
                                 const initialMessages = [
-                                    { sender: 'ai', text: `Hi! I'm StudyAl, your personal AI assistant for **${course.name}**. Ask me anything about the course materials, exams, or topics!` }
+                                    { sender: 'ai', text: t('studyai_intro').replace('{name}', course.name) }
                                 ];
 
                                 const newDefaultInfo = {

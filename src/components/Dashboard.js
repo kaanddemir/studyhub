@@ -22,9 +22,9 @@ export function renderDashboard(element) {
     // Dynamic Data Calculation Helper
     const updateHeaderSummary = () => {
         const todoCount = data.todos.filter(t => !t.completed).length;
-        let upcomingExamText = "No upcoming exams";
+        let upcomingExamText = t('no_upcoming_exams');
         if (data.todos.length > 0) {
-            upcomingExamText = "Check schedule";
+            upcomingExamText = t('check_schedule');
         }
 
         const summaryEl = document.getElementById('header-summary');
@@ -937,7 +937,7 @@ export function renderDashboard(element) {
       <div class="flex items-center gap-2 md:gap-4 shrink-0">
         
         <!-- Mobile Logout Button -->
-        <button onclick="window.logout()" class="lg:hidden w-10 h-10 flex items-center justify-center bg-white text-gray-400 rounded-full hover:bg-red-50 hover:text-red-500 transition-colors border border-gray-100 shadow-sm" title="${t('logout')}">
+        <button onclick="window.logout()" class="lg:hidden w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white text-gray-400 rounded-full hover:bg-red-50 hover:text-red-500 transition-colors border border-gray-100 shadow-sm" title="${t('logout')}">
              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
         </button>
 
@@ -1005,7 +1005,7 @@ export function renderDashboard(element) {
     </div>
 
     <!-- Premium Modal -->
-    <div id="premium-modal" class="fixed inset-0 z-[100] bg-black/30 backdrop-blur-sm flex items-center justify-center invisible opacity-0 transition-all duration-300">
+    <div id="premium-modal" class="fixed inset-0 z-[100] bg-black/30 backdrop-blur-sm flex items-center justify-center invisible opacity-0 transition-all duration-300 px-4">
         <div class="modal-content bg-white w-full max-w-4xl rounded-[2.5rem] shadow-2xl overflow-hidden transform scale-95 transition-all duration-300 flex flex-col max-h-[90vh]">
             
             <!-- Header -->
@@ -1392,7 +1392,7 @@ export function renderDashboard(element) {
     window.confirmResetLayout = () => {
         // Custom Modal for Web
         const modal = document.createElement('div');
-        modal.className = 'fixed inset-0 z-[60] flex items-center justify-center bg-dark/50 backdrop-blur-sm opacity-0 transition-opacity duration-300';
+        modal.className = 'fixed inset-0 z-[60] flex items-center justify-center bg-dark/50 backdrop-blur-sm opacity-0 transition-opacity duration-300 px-4';
 
         modal.innerHTML = `
             <div class="bg-white rounded-3xl p-6 w-full max-w-sm shadow-2xl transform scale-95 transition-transform duration-300">
@@ -1607,8 +1607,8 @@ export function renderDashboard(element) {
                                     <span class="absolute top-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
                                 </div>
                                 <div>
-                                    <h3 class="font-bold text-dark">StudyAl</h3>
-                                    <p class="text-xs text-green-600 font-medium">Always Online</p>
+                                    <h3 class="font-bold text-dark">StudyAI</h3>
+                                    <p class="text-xs text-green-600 font-medium">${t('always_online')}</p>
                                 </div>
                             </div>
                             <button onclick="window.closeAiCoach()" class="p-2 text-gray-400 hover:text-dark hover:bg-white rounded-full transition-all">
@@ -1624,8 +1624,7 @@ export function renderDashboard(element) {
                                     <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
                                 </div>
                                 <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm text-sm text-gray-700 border border-gray-100">
-                                    Hello! I am StudyAl. How can I help you with your studies today? 
-                                    <br><br>I can help you plan your schedule, explain complex topics, or just give you motivation.
+                                    ${t('studyai_dashboard_intro')}
                                 </div>
                             </div>
                         </div>

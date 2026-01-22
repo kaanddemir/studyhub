@@ -409,6 +409,12 @@ export const translations = {
         "no_streak_yet": "No streak yet",
         "student_role": "Student",
         "security_lock": "Access Dev",
+        "studyai_intro": "Hi! I'm StudyAI, your personal AI assistant for **{name}**. Ask me anything about the course materials, exams, or topics!",
+        "no_upcoming_exams": "No upcoming exams",
+        "check_schedule": "Check schedule",
+        "studyai_new_chat": "Hi! I'm StudyAI. Start a new topic for **{name}**!",
+        "studyai_dashboard_intro": "Hello! I am StudyAI. How can I help you with your studies today?",
+        "always_online": "Always Online",
     },
     tr: {
         // Sidebar
@@ -819,6 +825,12 @@ export const translations = {
         "no_streak_yet": "Henüz seri yok",
         "student_role": "Öğrenci",
         "security_lock": "Geliştirici Erişimi",
+        "studyai_intro": "Merhaba! Ben StudyAI, **{name}** dersi için kişisel asistanınım. Ders materyalleri, sınavlar veya konular hakkında bana her şeyi sorabilirsin!",
+        "no_upcoming_exams": "Yaklaşan sınav yok",
+        "check_schedule": "Takvimi kontrol et",
+        "studyai_new_chat": "Merhaba! Ben StudyAI. **{name}** için yeni bir konu başlat!",
+        "studyai_dashboard_intro": "Merhaba! Ben StudyAI. Bugün derslerinde sana nasıl yardımcı olabilirim?",
+        "always_online": "Her Zaman Çevrimiçi",
     }
 };
 

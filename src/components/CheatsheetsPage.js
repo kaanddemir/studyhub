@@ -183,7 +183,7 @@ export function renderCheatsheetsPage(element) {
             </div>
 
             <!-- Simple New Note Modal -->
-            <div id="add-sheet-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-200">
+            <div id="add-sheet-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-200 px-4">
                 <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 w-full max-w-sm transform scale-95 transition-all duration-200 p-6">
                     <h3 class="text-xl font-bold text-dark mb-1" id="modal-title">${t('new_note')}</h3>
                     <p class="text-sm text-gray-400 mb-6" id="modal-desc">${t('enter_title_start')}</p>
@@ -201,7 +201,7 @@ export function renderCheatsheetsPage(element) {
             </div>
             
              <!-- Delete Confirmation Modal -->
-             <div id="delete-sheet-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300">
+             <div id="delete-sheet-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300 px-4">
                 <div class="bg-white p-6 rounded-3xl shadow-2xl border border-gray-100 w-full max-w-xs transform scale-95 transition-all duration-300 text-center">
                     <div class="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>

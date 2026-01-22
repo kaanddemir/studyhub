@@ -1,7 +1,7 @@
 import './style.css'
 import { data, saveData } from './data.js'
 import { t } from './translations.js'
-import { renderSidebar } from './components/Sidebar.js'
+import { renderSidebar, renderMobileNav } from './components/Sidebar.js'
 import { renderDashboard } from './components/Dashboard.js'
 import { renderOnboarding } from './components/Onboarding.js'
 import { renderCoursesPage } from './components/CoursesPage.js'
@@ -59,35 +59,15 @@ window.navigateTo = (page, params = {}) => {
   renderSidebar(document.querySelector('#sidebar'), sidebarPage);
 
   // Render Mobile Nav
-  // We need to import it first, but since we are in main.js module, we can import at top. 
-  // Wait, I need to add the import statement at the top of the file as well.
-  // I will assume the import is added in a separate edit or I should have added it.
-  // Actually, I can use dynamic import or just expect the update.
-  // Let's modify the imports in a separate 'replace' call or check if I can do valid multi-edit. 
-  // I'll stick to this replacement and then add the import.
-  // Actually, wait, I can't double edit.
-  // I will assume I'll add the import in the next step.
-  // For now I will assume renderMobileNav is available or I will add it to window in Sidebar.js? 
-  // No, proper import. I'll add import in next step.
+  const mobileNav = document.querySelector('#mobile-nav');
+  if (mobileNav) {
+    mobileNav.innerHTML = ''; // clear
+    renderMobileNav(mobileNav, sidebarPage);
 
-  import('./components/Sidebar.js').then(module => {
-    if (module.renderMobileNav) {
-      // Enable pointer events for the inner container only, handled in CSS/HTML structure
-      const mobileNav = document.querySelector('#mobile-nav');
-      if (mobileNav) {
-        // We need to ensure children have pointer events
-        mobileNav.innerHTML = ''; // clear
-        module.renderMobileNav(mobileNav, sidebarPage);
-        // The container is pointer-events-none to let clicks pass through to content behind it (except the nav itself)
-        // The nav items inside renderMobileNav should have pointer-events-auto
-        // I'll fix the pointers in CSS or the render function.
-        // Looking at my renderMobileNav implementation, the wrapper has 'glass' class. 
-        // I should make sure that 'glass' or the wrapper has pointer-events-auto.
-        const wrapper = mobileNav.querySelector('.glass');
-        if (wrapper) wrapper.classList.add('pointer-events-auto');
-      }
-    }
-  });
+    // Ensure pointer events are correct for interaction
+    const wrapper = mobileNav.querySelector('.glass');
+    if (wrapper) wrapper.classList.add('pointer-events-auto');
+  }
 
   container.innerHTML = ''; // Clear current view
 

@@ -195,7 +195,7 @@ export function renderCoursesPage(element) {
             </div>
 
             <!-- Course Setup Wizard Modal -->
-            <div id="add-course-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300">
+            <div id="add-course-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300 px-4">
                 <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 w-full max-w-2xl transform scale-95 transition-all duration-300 overflow-hidden flex flex-col max-h-[90vh]">
                     <!-- Wizard Header -->
                     <div class="bg-gray-50 px-6 py-4 border-b border-gray-100 flex justify-between items-center">
@@ -270,7 +270,7 @@ export function renderCoursesPage(element) {
             </div>
             
             <!-- Delete Confirmation Modal -->
-             <div id="delete-course-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300">
+             <div id="delete-course-modal" class="absolute inset-0 bg-white/10 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300 px-4">
                 <div class="bg-white p-6 rounded-3xl shadow-2xl border border-gray-100 w-full max-w-xs transform scale-95 transition-all duration-300 text-center">
                     <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
@@ -479,7 +479,7 @@ export function renderCoursesPage(element) {
                     id: Date.now(),
                     title: 'General Chat',
                     messages: [
-                        { sender: 'ai', text: `Hi! I'm StudyAl, your personal AI assistant for **${name}**. Ask me anything about the course materials, exams, or topics!` }
+                        { sender: 'ai', text: t('studyai_intro').replace('{name}', name) }
                     ],
                     timestamp: Date.now()
                 });

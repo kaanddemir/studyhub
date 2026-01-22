@@ -80,7 +80,7 @@ export function renderPomodoro(element) {
                     // Timer finished
                     clearInterval(timerId);
                     isRunning = false;
-                    new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg').play().catch(e => console.log('Audio play failed', e));
+                    new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg').play().catch(() => { });
 
                     // Custom Web Notification
                     const msg = mode === 'work' ? t('time_break_msg') : t('break_over_msg');
