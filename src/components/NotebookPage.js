@@ -44,7 +44,7 @@ export function renderNotebookPage(element) {
             <header class="flex flex-wrap lg:flex-nowrap justify-between items-center mb-2 lg:mb-8 shrink-0 gap-3 lg:gap-4">
                  
                  <!-- Top Row Left: Back & Title -->
-                 <div class="flex items-center gap-3 w-auto order-1">
+                 <div class="flex items-center gap-3 w-full lg:w-auto order-1">
                     <button onclick="window.navigateTo('dashboard')" class="p-2 bg-white text-gray-500 rounded-xl hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100 shrink-0">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                     </button>
@@ -52,27 +52,27 @@ export function renderNotebookPage(element) {
                  </div>
 
                  <!-- Top Row Right: Controls (Pagination & Add) -->
-                 <div class="flex items-center gap-2 w-auto order-2 lg:order-3 justify-end ml-auto">
+                 <div class="flex items-center gap-2 w-full lg:w-auto order-2 lg:order-3 justify-start lg:justify-end ml-0 lg:ml-auto mt-2 lg:mt-0">
                       <!-- Page Navigation (Compact) -->
-                      <div class="flex items-center bg-white rounded-xl shadow-sm border border-gray-200 p-1 shrink-0">
-                        <button id="btn-prev-page" class="p-1.5 text-gray-400 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors ${activePageIndex === 0 ? 'opacity-30 cursor-not-allowed' : ''}" ${activePageIndex === 0 ? 'disabled' : ''}>
+                      <div class="flex items-center justify-center flex-1 lg:flex-none bg-white rounded-xl shadow-sm border border-gray-200 p-1 lg:shrink-0">
+                        <button class="btn-prev-page p-1.5 text-gray-400 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors ${activePageIndex === 0 ? 'opacity-30 cursor-not-allowed' : ''}" ${activePageIndex === 0 ? 'disabled' : ''}>
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                         </button>
                         <span class="text-xs font-bold text-gray-500 w-8 lg:w-16 text-center select-none uppercase tracking-wider">${activePageIndex + 1}</span>
-                        <button id="btn-next-page" class="p-1.5 text-gray-400 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors">
+                        <button class="btn-next-page p-1.5 text-gray-400 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
                         </button>
                       </div>
 
                       <!-- New Notebook (Icon only on mobile) -->
-                      <button id="btn-add-note" class="whitespace-nowrap px-3 py-2 lg:px-4 bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors font-bold text-sm shadow-lg shadow-primary/30 flex items-center gap-2 transform hover:-translate-y-0.5 active:translate-y-0 shrink-0">
+                      <button class="btn-add-note whitespace-nowrap px-3 py-2 lg:px-4 bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors font-bold text-sm shadow-lg shadow-primary/30 flex items-center justify-center gap-2 transform hover:-translate-y-0.5 active:translate-y-0 flex-1 lg:flex-none lg:shrink-0">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                        <span class="hidden lg:inline">${t('new_notebook')}</span>
+                        <span>${t('new_notebook')}</span>
                     </button>
                  </div>
                  
                  <!-- Second Row (Mobile): Editor Toolbar -->
-                 <div class="w-full lg:w-auto order-3 lg:order-2 lg:ml-6 lg:pl-6 border-l-0 lg:border-l border-gray-300/50 flex items-center ${activeNote ? '' : 'opacity-50 pointer-events-none'} transition-opacity relative justify-center lg:justify-start">
+                 <div class="w-full lg:w-auto order-3 lg:order-2 lg:ml-6 lg:pl-6 border-l-0 lg:border-l border-gray-300/50 flex items-center mt-2 lg:mt-0 ${activeNote ? '' : 'opacity-50 pointer-events-none'} transition-opacity relative justify-center lg:justify-start">
                       <!-- Unified Toolbar Container -->
                       <div class="flex items-center bg-white rounded-xl border border-gray-200 shadow-sm overflow-x-auto divide-x divide-gray-100 w-full lg:w-auto lg:max-w-none">
                           <!-- Style Buttons -->
@@ -206,7 +206,10 @@ export function renderNotebookPage(element) {
                                     ${currentPageContent}
                                   </div>
                              </div>
+                             
+
                         </div>
+
                     ` : `
                         <!-- Empty State -->
                         <div class="flex-1 flex flex-col items-center justify-center text-gray-300">
@@ -252,9 +255,9 @@ export function renderNotebookPage(element) {
         });
 
         // 2. Add Note
-        const btnAdd = element.querySelector('#btn-add-note');
-        if (btnAdd) {
-            btnAdd.addEventListener('click', () => {
+        const addBtns = element.querySelectorAll('.btn-add-note');
+        addBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
                 const newNote = {
                     id: Date.now(),
                     title: t('new_notebook'),
@@ -268,7 +271,7 @@ export function renderNotebookPage(element) {
                 saveData();
                 render();
             });
-        }
+        });
 
         // 3. Delete Note Logic (Custom Modal)
         const deleteModal = element.querySelector('#delete-note-modal');
@@ -378,9 +381,9 @@ export function renderNotebookPage(element) {
             });
 
             // 7. Next Page Button
-            const btnNext = element.querySelector('#btn-next-page');
-            if (btnNext) {
-                btnNext.addEventListener('click', () => {
+            const nextBtns = element.querySelectorAll('.btn-next-page');
+            nextBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
                     const note = data.notebook.notes.find(n => n.id === activeNoteId);
                     if (!note) return;
 
@@ -395,18 +398,18 @@ export function renderNotebookPage(element) {
                     }
                     render();
                 });
-            }
+            });
 
             // 8. Prev Page Button
-            const btnPrev = element.querySelector('#btn-prev-page');
-            if (btnPrev) {
-                btnPrev.addEventListener('click', () => {
+            const prevBtns = element.querySelectorAll('.btn-prev-page');
+            prevBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
                     if (activePageIndex > 0) {
                         activePageIndex--;
                         render();
                     }
                 });
-            }
+            });
 
             // 9. Color Picker Logic
             const btnColor = element.querySelector('#btn-color-picker');

@@ -12,6 +12,12 @@
   .glass {
     @apply bg-white bg-opacity-70 backdrop-blur-lg border border-white border-opacity-40 shadow-sm;
   }
+  
+  /* Safe screen height for mobile browsers */
+  .h-safe-screen {
+    height: 100vh; /* Fallback */
+    height: 100dvh;
+  }
 }
 
 /* Custom scrollbar for premium feel - Global defaults */
