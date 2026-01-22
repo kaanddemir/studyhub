@@ -234,127 +234,346 @@ export function renderDashboard(element) {
 
     // Manage Widgets Dropdown Logic
     window.toggleManageDropdown = () => {
-        const popup = document.getElementById('manage-widgets-popup');
+        let popup = document.getElementById('manage-widgets-popup');
         const list = document.getElementById('manage-widgets-list');
+        const isMobile = window.innerWidth < 768;
 
         if (popup && list) {
-            if (popup.classList.contains('invisible')) {
-                // OPEN
+            const isOpen = popup.classList.contains('visible');
+
+            if (!isOpen) {
+                // === OPEN ===
                 popup.classList.remove('invisible', 'opacity-0', 'scale-95');
                 popup.classList.add('visible', 'opacity-100', 'scale-100');
 
+                // Clear List
                 list.innerHTML = '';
 
-                // --- SPECIAL: Add Photo Widget Button (Generator) ---
-                const addPhotoItem = document.createElement('div');
-                addPhotoItem.className = 'w-full py-2.5 bg-primary text-white rounded-xl font-bold text-xs shadow-lg shadow-primary/30 flex items-center justify-center gap-2 hover:opacity-90 transition-all mb-3 cursor-pointer';
-                addPhotoItem.draggable = true;
-                addPhotoItem.innerHTML = `
-                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                   ${t('add_photo_widget')}
-                `;
+                // Remove existing header text if present
+                const existingHeader = list.querySelector('.available-widgets-header');
+                if (existingHeader) existingHeader.remove();
 
-                // Generator Click
-                addPhotoItem.onclick = (e) => {
-                    e.preventDefault();
-                    const container = document.getElementById('dashboard-grid');
+                if (isMobile) {
+                    // PORTAL STRATEGY
+                    const placeholder = document.createElement('div');
+                    placeholder.id = 'widgets-popup-placeholder';
+                    placeholder.style.display = 'none';
+                    popup.parentNode.insertBefore(placeholder, popup);
+                    document.body.appendChild(popup);
 
-                    const newId = `photo-widget-${Date.now()}`;
-                    const newWidget = document.createElement('div');
-                    newWidget.id = newId;
-                    newWidget.className = "col-span-1 h-80 bg-white rounded-3xl shadow-sm draggable-item relative group transition-all duration-300 ease-in-out";
-                    newWidget.draggable = true;
+                    // Adjust List Height for Mobile
+                    list.classList.remove('max-h-48');
+                    list.classList.add('max-h-[75vh]');
 
-                    renderPhotoWidget(newWidget, newId);
+                    // Apply Mobile Popup Styles
+                    popup.classList.remove('absolute', 'top-full', 'right-0', 'mt-2', 'origin-top-right', 'scale-95');
+                    popup.classList.add('fixed', 'top-1/2', 'left-1/2', '-translate-x-1/2', '-translate-y-1/2', 'z-[105]');
 
-                    container.appendChild(newWidget);
-                    setupDraggableItem(newWidget);
-                    saveLayout();
+                    popup.style.width = '90vw';
+                    popup.style.maxHeight = '85vh';
+                    popup.style.maxWidth = '400px';
+                    popup.style.margin = '0';
 
-                    // Close popup
-                    popup.classList.add('invisible', 'opacity-0', 'scale-95');
-                };
+                    // Add Backdrop
+                    let backdrop = document.getElementById('widgets-backdrop');
+                    if (!backdrop) {
+                        backdrop = document.createElement('div');
+                        backdrop.id = 'widgets-backdrop';
+                        backdrop.className = 'fixed inset-0 bg-black/40 backdrop-blur-sm z-[100] transition-opacity opacity-0';
+                        backdrop.onclick = window.toggleManageDropdown;
+                        document.body.appendChild(backdrop);
+                        requestAnimationFrame(() => backdrop?.classList.remove('opacity-0'));
+                    }
 
-                // Generator Drag
-                addPhotoItem.addEventListener('dragstart', (e) => {
-                    draggedItem = addPhotoItem;
-                    e.dataTransfer.effectAllowed = 'copy';
-                    e.dataTransfer.setData('source', 'generator');
-                    e.dataTransfer.setData('type', 'photo-widget');
-                    addPhotoItem.classList.add('opacity-50');
-                });
-
-                addPhotoItem.addEventListener('dragend', () => {
-                    addPhotoItem.classList.remove('opacity-50');
-                    draggedItem = null;
-                });
-
-                list.appendChild(addPhotoItem);
-
-                // Active widgets
-                const container = document.getElementById('dashboard-grid');
-                const activeIds = Array.from(container.children).map(c => c.id);
-                // Unused widgets
-                const unusedWidgets = allWidgetDefinitions.filter(def => !activeIds.includes(def.id));
-
-                if (unusedWidgets.length === 0) {
-                    const msg = document.createElement('div');
-                    msg.innerHTML = t('all_widgets_active');
-                    msg.className = 'text-xs text-gray-400 text-center py-2';
-                    list.appendChild(msg);
-                } else {
-                    unusedWidgets.forEach(def => {
-                        const item = document.createElement('div');
-                        item.className = 'flex items-center gap-2 p-2 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors mb-2';
-                        item.draggable = true;
-                        item.dataset.widgetId = def.id;
-                        item.innerHTML = `
-                            <div class="w-2 h-2 rounded-full bg-gray-300"></div>
-                            <span class="text-xs font-bold text-gray-600">${def.name}</span>
+                    // Inject Mobile Header if not exists
+                    if (!document.getElementById('mobile-widgets-header')) {
+                        const header = document.createElement('div');
+                        header.id = 'mobile-widgets-header';
+                        header.className = 'flex md:hidden items-center justify-between px-0 pb-3 mb-2 border-b border-gray-100';
+                        header.innerHTML = `
+                            <h3 class="font-bold text-dark text-lg">${t('available_widgets')}</h3>
+                            <button onclick="toggleManageDropdown()" class="w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:bg-gray-200 hover:text-gray-600 transition-colors">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                            </button>
                         `;
+                        // Insert as first child
+                        popup.insertBefore(header, popup.firstChild);
+                    }
+                }
 
-                        // Click to Add
-                        item.onclick = (e) => {
-                            e.preventDefault();
-                            const container = document.getElementById('dashboard-grid');
-                            const realWidget = widgetCache.get(def.id);
-                            if (realWidget) {
-                                container.appendChild(realWidget);
-                                widgetCache.delete(def.id);
-                                setupDraggableItem(realWidget);
+
+                // --- MOBILE: SELECTION UI (No Drag) ---
+                if (isMobile) {
+                    // Hide Dropzone (It is for drag removal)
+                    const dropzone = document.getElementById('manage-widgets-dropzone');
+                    if (dropzone) dropzone.style.display = 'none';
+
+                    // 1. Add Photo Widget (Generator)
+                    const addPhotoItem = document.createElement('div');
+                    addPhotoItem.className = 'w-full py-3 bg-primary/10 border border-primary/20 text-primary rounded-xl font-bold text-xs shadow-sm flex items-center justify-center gap-2 mb-4 cursor-pointer active:scale-95 transition-all';
+                    addPhotoItem.innerHTML = `
+                       <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                       ${t('add_photo_widget')}
+                    `;
+                    addPhotoItem.onclick = (e) => {
+                        e.preventDefault();
+                        const container = document.getElementById('dashboard-grid');
+                        const newId = `photo-widget-${Date.now()}`;
+                        const newWidget = document.createElement('div');
+                        newWidget.id = newId;
+                        newWidget.className = "col-span-1 h-80 bg-white rounded-3xl shadow-sm draggable-item relative group transition-all duration-300 ease-in-out";
+                        renderPhotoWidget(newWidget, newId);
+                        container.appendChild(newWidget);
+                        setupDraggableItem(newWidget);
+                        saveLayout();
+                        window.toggleManageDropdown(); // Re-render list
+                        // Scroll to bottom
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                    };
+                    list.appendChild(addPhotoItem);
+
+                    // 2. Active Widgets (Click to Remove)
+                    const activeHeader = document.createElement('p');
+                    activeHeader.className = "text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 mt-4 ml-1";
+                    activeHeader.innerText = t('active') || 'ACTIVE';
+                    list.appendChild(activeHeader);
+
+                    const container = document.getElementById('dashboard-grid');
+                    const children = Array.from(container.children);
+
+                    if (children.length === 0) {
+                        const empty = document.createElement('div');
+                        empty.className = "text-xs text-gray-400 italic p-2";
+                        empty.innerText = "No active widgets";
+                        list.appendChild(empty);
+                    } else {
+                        children.forEach(child => {
+                            // Find Name
+                            let name = "Unknown Widget";
+                            const def = allWidgetDefinitions.find(d => d.id === child.id);
+                            if (def) name = def.name;
+                            else if (child.id.startsWith('photo-widget-')) name = t('photo_frame');
+
+                            const item = document.createElement('div');
+                            item.className = 'flex items-center justify-between p-3 bg-white border border-gray-100 rounded-xl mb-2 shadow-sm';
+                            item.innerHTML = `
+                                <div class="flex items-center gap-3">
+                                    <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                                    <span class="text-xs font-bold text-dark">${name}</span>
+                                </div>
+                                <button class="text-gray-400 hover:text-red-500 transition-colors p-1">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                </button>
+                            `;
+                            // Remove Logic
+                            item.onclick = () => {
+                                widgetCache.set(child.id, child);
+                                child.remove();
                                 saveLayout();
-                                item.remove(); // Remove item from list
-                                if (list.children.length === 1) { // 1 because AddPhotoItem is always there
-                                    const msg = document.createElement('div');
-                                    msg.innerHTML = t('all_widgets_active');
-                                    msg.className = 'text-xs text-gray-400 text-center py-2';
-                                    list.appendChild(msg);
-                                }
-                            }
-                        };
-
-                        // Drag Events for "Adding"
-                        item.addEventListener('dragstart', (e) => {
-                            draggedItem = item;
-                            e.dataTransfer.effectAllowed = 'copy';
-                            e.dataTransfer.setData('source', 'picker');
-                            e.dataTransfer.setData('widgetId', def.id);
-                            item.classList.add('opacity-50');
+                                window.toggleManageDropdown(); // Re-render list
+                            };
+                            list.appendChild(item);
                         });
+                    }
 
-                        item.addEventListener('dragend', () => {
-                            item.classList.remove('opacity-50');
-                            draggedItem = null;
-                        });
+                    // 3. Available Widgets (Click to Add)
+                    // (Header removed as per request)
 
-                        list.appendChild(item);
+                    // Calc Unused
+                    const activeIds = children.map(c => c.id);
+                    const unusedDefs = allWidgetDefinitions.filter(d => !activeIds.includes(d.id));
+                    // Also check cache for dynamic photos that were removed
+                    const cachedDynamic = [];
+                    // User requested to NOT show custom photo widgets after removal.
+                    // They are effectively deleted when removed from dashboard.
+                    /*
+                    widgetCache.forEach((val, key) => {
+                        if (key.startsWith('photo-widget-') && !activeIds.includes(key)) {
+                            cachedDynamic.push({ id: key, name: t('photo_frame') + " (Custom)" });
+                        }
                     });
+                    */
+
+                    const allUnused = [...unusedDefs, ...cachedDynamic];
+
+                    if (allUnused.length > 0) { // Changed to only run if there ARE items
+                        allUnused.forEach(def => {
+                            const item = document.createElement('div');
+                            item.className = 'flex items-center justify-between p-3 bg-gray-50 border border-gray-100 rounded-xl mb-2 opacity-80 hover:opacity-100';
+                            item.innerHTML = `
+                                <div class="flex items-center gap-3">
+                                    <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+                                    <span class="text-xs font-bold text-gray-600">${def.name}</span>
+                                </div>
+                                <button class="text-primary hover:text-primary-dark transition-colors p-1">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                                </button>
+                            `;
+                            // Add Logic
+                            item.onclick = () => {
+                                const realWidget = widgetCache.get(def.id);
+                                if (realWidget) {
+                                    container.appendChild(realWidget);
+                                    widgetCache.delete(def.id);
+                                    setupDraggableItem(realWidget);
+                                    saveLayout();
+                                    window.toggleManageDropdown();
+                                }
+                            };
+                            list.appendChild(item);
+                        });
+                    }
+
+                } else {
+                    // --- DESKTOP: DRAG UI (Original) ---
+                    const dropzone = document.getElementById('manage-widgets-dropzone');
+                    if (dropzone) dropzone.style.display = 'block';
+
+                    // --- SPECIAL: Add Photo Widget Button (Generator) ---
+                    const addPhotoItem = document.createElement('div');
+                    addPhotoItem.className = 'w-full py-2.5 bg-primary text-white rounded-xl font-bold text-xs shadow-lg shadow-primary/30 flex items-center justify-center gap-2 hover:opacity-90 transition-all mb-3 cursor-pointer';
+                    addPhotoItem.draggable = true;
+                    addPhotoItem.innerHTML = `
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                    ${t('add_photo_widget')}
+                    `;
+
+                    // Generator Click
+                    addPhotoItem.onclick = (e) => {
+                        e.preventDefault();
+                        const container = document.getElementById('dashboard-grid');
+
+                        const newId = `photo-widget-${Date.now()}`;
+                        const newWidget = document.createElement('div');
+                        newWidget.id = newId;
+                        newWidget.className = "col-span-1 h-80 bg-white rounded-3xl shadow-sm draggable-item relative group transition-all duration-300 ease-in-out";
+                        newWidget.draggable = true;
+
+                        renderPhotoWidget(newWidget, newId);
+
+                        container.appendChild(newWidget);
+                        setupDraggableItem(newWidget);
+                        saveLayout();
+
+                        // Close popup
+                        popup.classList.add('invisible', 'opacity-0', 'scale-95');
+                    };
+
+                    // Generator Drag
+                    addPhotoItem.addEventListener('dragstart', (e) => {
+                        draggedItem = addPhotoItem;
+                        e.dataTransfer.effectAllowed = 'copy';
+                        e.dataTransfer.setData('source', 'generator');
+                        e.dataTransfer.setData('type', 'photo-widget');
+                        addPhotoItem.classList.add('opacity-50');
+                    });
+
+                    addPhotoItem.addEventListener('dragend', () => {
+                        addPhotoItem.classList.remove('opacity-50');
+                        draggedItem = null;
+                    });
+
+                    list.appendChild(addPhotoItem);
+
+                    // Active widgets
+                    const container = document.getElementById('dashboard-grid');
+                    const activeIds = Array.from(container.children).map(c => c.id);
+                    // Unused widgets
+                    const unusedWidgets = allWidgetDefinitions.filter(def => !activeIds.includes(def.id));
+
+                    if (unusedWidgets.length === 0) {
+                        const msg = document.createElement('div');
+                        msg.innerHTML = t('all_widgets_active');
+                        msg.className = 'text-xs text-gray-400 text-center py-2';
+                        list.appendChild(msg);
+                    } else {
+                        unusedWidgets.forEach(def => {
+                            const item = document.createElement('div');
+                            item.className = 'flex items-center gap-2 p-2 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors mb-2';
+                            item.draggable = true;
+                            item.dataset.widgetId = def.id;
+                            item.innerHTML = `
+                                <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+                                <span class="text-xs font-bold text-gray-600">${def.name}</span>
+                            `;
+
+                            // Click to Add (Desktop)
+                            item.onclick = (e) => {
+                                e.preventDefault();
+                                const container = document.getElementById('dashboard-grid');
+                                const realWidget = widgetCache.get(def.id);
+                                if (realWidget) {
+                                    container.appendChild(realWidget);
+                                    widgetCache.delete(def.id);
+                                    setupDraggableItem(realWidget);
+                                    saveLayout();
+                                    item.remove(); // Remove item from list
+                                    if (list.children.length === 1) { // 1 because AddPhotoItem is always there
+                                        const msg = document.createElement('div');
+                                        msg.innerHTML = t('all_widgets_active');
+                                        msg.className = 'text-xs text-gray-400 text-center py-2';
+                                        list.appendChild(msg);
+                                    }
+                                }
+                            };
+
+                            // Drag Events for "Adding"
+                            item.addEventListener('dragstart', (e) => {
+                                draggedItem = item;
+                                e.dataTransfer.effectAllowed = 'copy';
+                                e.dataTransfer.setData('source', 'picker');
+                                e.dataTransfer.setData('widgetId', def.id);
+                                item.classList.add('opacity-50');
+                            });
+
+                            item.addEventListener('dragend', () => {
+                                item.classList.remove('opacity-50');
+                                draggedItem = null;
+                            });
+
+                            list.appendChild(item);
+                        });
+                    }
                 }
 
             } else {
-                // CLOSE
+                // === CLOSE ===
                 popup.classList.add('invisible', 'opacity-0', 'scale-95');
                 popup.classList.remove('visible', 'opacity-100', 'scale-100');
+
+                // Cleanup Mobile Mode
+                if (popup.parentNode === document.body) {
+                    setTimeout(() => {
+                        const placeholder = document.getElementById('widgets-popup-placeholder');
+                        if (placeholder) {
+                            placeholder.parentNode.insertBefore(popup, placeholder);
+                            placeholder.remove();
+                        }
+
+                        // Remove Header
+                        const header = document.getElementById('mobile-widgets-header');
+                        if (header) header.remove();
+
+                        // Restore Styles
+                        popup.classList.add('absolute', 'top-full', 'right-0', 'mt-2', 'origin-top-right', 'scale-95');
+                        popup.classList.remove('fixed', 'top-1/2', 'left-1/2', '-translate-x-1/2', '-translate-y-1/2', 'z-[105]');
+                        popup.style.width = '';
+                        popup.style.maxHeight = '';
+                        popup.style.maxWidth = '';
+                        popup.style.margin = '';
+
+                        // Restore List Height
+                        list.classList.add('max-h-48');
+                        list.classList.remove('max-h-[75vh]');
+                    }, 300);
+                }
+
+                // Remove Backdrop
+                const backdrop = document.getElementById('widgets-backdrop');
+                if (backdrop) {
+                    backdrop.classList.add('opacity-0');
+                    setTimeout(() => backdrop.remove(), 300);
+                }
             }
         }
     };
@@ -363,17 +582,84 @@ export function renderDashboard(element) {
     let activeSettingsTab = 'general'; // general | language | about | developer
 
     window.toggleSettingsModal = () => {
-        const modal = document.getElementById('settings-modal');
+        let modal = document.getElementById('settings-modal');
+        const isMobile = window.innerWidth < 768;
+
         if (modal) {
-            if (modal.classList.contains('invisible')) {
-                // OPEN
+            // Check visibility to determine state
+            const isOpen = modal.classList.contains('visible');
+
+            if (!isOpen) {
+                // === OPEN ===
+                renderSettingsContent();
                 modal.classList.remove('invisible', 'opacity-0', 'scale-95');
                 modal.classList.add('visible', 'opacity-100', 'scale-100');
-                renderSettingsContent();
+
+                if (isMobile) {
+                    // PORTAL STRATEGY: Move to document.body to avoid z-index/clipping issues
+                    const placeholder = document.createElement('div');
+                    placeholder.id = 'settings-modal-placeholder';
+                    placeholder.style.display = 'none';
+                    modal.parentNode.insertBefore(placeholder, modal);
+                    document.body.appendChild(modal);
+
+                    // Apply Mobile Popup Styles
+                    modal.classList.remove('absolute', 'top-full', 'right-0', 'mt-2', 'origin-top-right', 'scale-95');
+                    modal.classList.add('fixed', 'top-1/2', 'left-1/2', '-translate-x-1/2', '-translate-y-1/2', 'z-[105]');
+
+                    // Inline styles for specificity
+                    modal.style.width = '90vw';
+                    modal.style.maxHeight = '85vh';
+                    modal.style.maxWidth = '400px';
+                    modal.style.margin = '0';
+
+                    // Add Backdrop
+                    let backdrop = document.getElementById('settings-backdrop');
+                    if (!backdrop) {
+                        backdrop = document.createElement('div');
+                        backdrop.id = 'settings-backdrop';
+                        backdrop.className = 'fixed inset-0 bg-black/40 backdrop-blur-sm z-[100] transition-opacity opacity-0';
+                        backdrop.onclick = window.toggleSettingsModal;
+                        document.body.appendChild(backdrop);
+                        // Animate in
+                        requestAnimationFrame(() => backdrop?.classList.remove('opacity-0'));
+                    }
+                }
             } else {
-                // CLOSE
+                // === CLOSE ===
                 modal.classList.add('invisible', 'opacity-0', 'scale-95');
                 modal.classList.remove('visible', 'opacity-100', 'scale-100');
+
+                // If it was moved to body (Mobile Mode cleanup)
+                if (modal.parentNode === document.body) {
+                    setTimeout(() => {
+                        // Restore DOM position
+                        const placeholder = document.getElementById('settings-modal-placeholder');
+                        if (placeholder) {
+                            placeholder.parentNode.insertBefore(modal, placeholder);
+                            placeholder.remove();
+                        } else {
+                            // Fallback if placeholder lost: append back to settings-btn container? 
+                            // Hard to find without placeholder. But placeholder should exist.
+                            // If not found, we might have an issue, but standard flow preserves it.
+                        }
+
+                        // Restore Desktop Styles
+                        modal.classList.add('absolute', 'top-full', 'right-0', 'mt-2', 'origin-top-right');
+                        modal.classList.remove('fixed', 'top-1/2', 'left-1/2', '-translate-x-1/2', '-translate-y-1/2', 'z-[105]');
+                        modal.style.width = '';
+                        modal.style.maxHeight = '';
+                        modal.style.maxWidth = '';
+                        modal.style.margin = '';
+                    }, 300); // Wait for transition
+                }
+
+                // Remove Backdrop
+                const backdrop = document.getElementById('settings-backdrop');
+                if (backdrop) {
+                    backdrop.classList.add('opacity-0');
+                    setTimeout(() => backdrop.remove(), 300);
+                }
             }
         }
     };
@@ -546,6 +832,7 @@ export function renderDashboard(element) {
 
     // Data Management (Premium)
     window.exportData = () => {
+        toggleSettingsModal(); // Close settings
         if (!data.user.isPremium) {
             togglePremiumModal();
             return;
@@ -562,6 +849,7 @@ export function renderDashboard(element) {
     };
 
     window.triggerImportData = () => {
+        toggleSettingsModal(); // Close settings
         if (!data.user.isPremium) {
             togglePremiumModal();
             return;
@@ -838,7 +1126,7 @@ export function renderDashboard(element) {
                                     <span class="px-2 py-0.5 rounded-md bg-gray-200 text-gray-500 text-[10px]">${t('free')}</span>
                                 </p>
                             </div>
-                            <button onclick="togglePremiumModal()" class="px-3 py-1.5 bg-white border border-gray-200 text-xs font-bold text-primary rounded-lg shadow-sm hover:bg-gray-50 transition-all">
+                            <button onclick="toggleSettingsModal(); togglePremiumModal()" class="px-3 py-1.5 bg-white border border-gray-200 text-xs font-bold text-primary rounded-lg shadow-sm hover:bg-gray-50 transition-all">
                                 ${t('upgrade')}
                             </button>
                         </div>
@@ -947,7 +1235,7 @@ export function renderDashboard(element) {
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
             </button>
             <div id="manage-widgets-popup" class="absolute top-full right-0 mt-2 w-64 bg-white p-4 rounded-xl shadow-xl border border-gray-100 opacity-0 invisible transition-all z-50 transform origin-top-right scale-95">
-                <div class="flex justify-between items-center mb-3">
+                <div class="flex justify-between items-center mb-3 hidden md:flex">
                     <p class="text-xs font-bold text-dark">${t('available_widgets')}</p>
                 </div>
                 <div id="manage-widgets-dropzone" class="mb-3 border-2 border-dashed border-primary/20 bg-primary/5 rounded-lg p-3 text-center transition-colors">
@@ -978,6 +1266,13 @@ export function renderDashboard(element) {
             
             <!-- Settings Modal (Dropdown Style but larger) -->
             <div id="settings-modal" class="absolute top-full right-0 mt-2 w-[88vw] md:w-96 max-w-[400px] bg-white rounded-2xl shadow-xl border border-gray-100 opacity-0 invisible transition-all z-50 transform origin-top-right scale-95 overflow-hidden">
+                <!-- Mobile Header -->
+                <div class="flex md:hidden items-center justify-between px-4 py-3 border-b border-gray-100 bg-gray-50/50">
+                    <h3 class="font-bold text-dark text-lg">${t('settings')}</h3>
+                    <button onclick="toggleSettingsModal()" class="w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:bg-gray-200 hover:text-gray-600 transition-colors">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                </div>
                 <!-- Header Tabs -->
                 <div class="flex overflow-x-auto border-b border-gray-100 bg-gray-50/50 no-scrollbar touch-pan-x">
                     <button onclick="switchSettingsTab('general')" data-tab="general" class="settings-tab-btn flex-none px-4 py-3 text-xs font-bold text-gray-500 hover:bg-gray-50 transition-colors whitespace-nowrap">${t('general')}</button>
@@ -1390,6 +1685,7 @@ export function renderDashboard(element) {
 
     // Consolidating confirm logic
     window.confirmResetLayout = () => {
+        toggleSettingsModal(); // Close settings first
         // Custom Modal for Web
         const modal = document.createElement('div');
         modal.className = 'fixed inset-0 z-[60] flex items-center justify-center bg-dark/50 backdrop-blur-sm opacity-0 transition-opacity duration-300 px-4';
