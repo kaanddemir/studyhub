@@ -13,7 +13,7 @@ import { renderNotebookPage } from './components/NotebookPage.js'
 
 document.querySelector('#app').innerHTML = `
   <nav id="sidebar" class="hidden lg:flex w-16 h-full bg-white border-r border-gray-200 flex-col items-center py-6 shrink-0 transition-all duration-300"></nav>
-  <main id="dashboard" class="flex-1 h-full overflow-y-auto relative pb-20 lg:pb-0"></main> <!-- pb-20 for bottom nav space -->
+  <main id="dashboard" class="flex-1 h-full overflow-y-auto relative pb-20 lg:pb-0 pt-[env(safe-area-inset-top)]"></main> <!-- pb-20 for bottom nav space -->
   <nav id="mobile-nav" class="lg:hidden fixed bottom-6 left-0 right-0 z-50 h-[4.5rem] w-full pointer-events-none flex justify-center px-4"></nav>
   <div id="modal-container"></div>
 `
