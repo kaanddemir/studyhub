@@ -105,7 +105,7 @@ export function renderCheatsheetsPage(element) {
 
         element.innerHTML = `
         <div class="p-4 md:p-8 h-full flex flex-col relative">
-            <header class="flex flex-col md:flex-row justify-between items-center mb-2 md:mb-8 shrink-0 gap-4">
+            <header class="flex flex-col md:flex-row justify-between items-center mb-6 md:mb-8 shrink-0 gap-4">
                  <div class="flex items-center gap-4 w-full md:w-auto">
                     <button onclick="window.navigateTo('dashboard')" class="p-2 bg-white text-gray-500 rounded-xl hover:bg-gray-50 hover:text-primary transition-colors border border-gray-100 shrink-0">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>

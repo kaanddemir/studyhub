@@ -1299,7 +1299,7 @@ export function renderDashboard(element) {
         <div class="modal-content bg-white w-full max-w-4xl rounded-[2.5rem] shadow-2xl overflow-hidden transform scale-95 transition-all duration-300 flex flex-col max-h-[90vh]">
             
             <!-- Header -->
-            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                 <div>
                      <h2 class="text-2xl font-black text-dark flex items-center gap-2">
                         ${t('upgrade_to')} <span class="text-primary">${t('premium')}</span>
@@ -1312,11 +1312,11 @@ export function renderDashboard(element) {
             </div>
 
             <!-- Content -->
-            <div class="p-8 overflow-y-auto custom-scrollbar">
+            <div class="px-8 py-6 overflow-y-auto custom-scrollbar">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Basic Plan -->
-                    <div class="rounded-3xl border-2 border-gray-100 p-6 flex flex-col relative overflow-hidden">
-                        <div class="mb-6">
+                    <div class="rounded-3xl border-2 border-gray-100 p-5 flex flex-col relative overflow-hidden">
+                        <div class="mb-4">
                             <h3 class="text-xl font-bold text-gray-600 mb-2">${t('basic')}</h3>
                             <div class="flex items-end gap-1">
                                 <span class="text-4xl font-black text-dark">${t('free')}</span>
@@ -1352,12 +1352,12 @@ export function renderDashboard(element) {
                     </div>
 
                     <!-- Premium Plan -->
-                    <div class="rounded-3xl border-2 border-primary/20 bg-primary/5 p-6 flex flex-col relative overflow-hidden group">
+                    <div class="rounded-3xl border-2 border-primary/20 bg-primary/5 p-5 flex flex-col relative overflow-hidden group">
                         <div class="absolute top-0 right-0 bg-primary text-white text-[10px] font-bold px-3 py-1 rounded-bl-2xl uppercase tracking-wider shadow-lg shadow-primary/20">
                             ${t('recommended')}
                         </div>
 
-                        <div class="mb-6">
+                        <div class="mb-4">
                             <h3 class="text-xl font-bold text-primary mb-2 flex items-center gap-2">
                                 ${t('premium')}
                                 <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
@@ -1406,7 +1406,7 @@ export function renderDashboard(element) {
                  <!-- Security Badge / Footer -->
                 <!-- Security Badge / Footer -->
                 <div class="mt-8 flex flex-col items-center justify-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
-                    <div class="flex items-center justify-center gap-2 text-xs text-gray-500 font-medium">
+                    <div class="flex items-center justify-center gap-2 text-xs text-gray-500 font-medium text-center">
                         <svg class="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                         <span>${t('secure_payment')}</span>
                     </div>

@@ -56,7 +56,7 @@ export function renderOnboarding(element, onComplete) {
                 <div class="px-6 pt-10 pb-6 md:px-10 md:pt-10 md:pb-4 flex justify-between items-center">
                     <div>
                         <h1 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-dark to-gray-600 tracking-tight">StudyHub</h1>
-                        <p class="text-gray-400 text-sm font-medium mt-1">Your personal academic dashboard</p>
+                        <p class="text-gray-400 text-xs md:text-sm font-medium mt-1">Your personal academic dashboard</p>
                     </div>
                     
                     <div class="flex items-center gap-2 whitespace-nowrap">
