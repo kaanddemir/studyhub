@@ -402,7 +402,6 @@ export const translations = {
         "advanced_analytics": "Advanced Performance Analytics",
         "custom_themes": "Custom Themes & Icons",
         "upgrade_now": "Coming Soon",
-        "secure_payment": "Secure payment processed by Stripe. Cancel anytime.",
 
         // Logout
         "logout_confirmation_title": "Log Out?",
@@ -808,7 +807,7 @@ export const translations = {
         "ans_no": "HAYIR",
 
         // Premium Modal
-        "upgrade_to": "",
+        "upgrade_to": "Yükselt:",
         "unlock_potential": "Çalışma akışının tam potansiyelini ortaya çıkar.",
         "forever": "/ ömür boyu",
         "essential_tools": "Günlük çalışma için temel araçlar.",
@@ -825,10 +824,7 @@ export const translations = {
         "advanced_analytics": "Gelişmiş Performans Analizi",
         "custom_themes": "Özel Temalar & İkonlar",
         "upgrade_now": "Çok Yakında",
-        "secure_payment": "Stripe ile güvenli ödeme. İstediğin zaman iptal et.",
 
-        // Logout
-        "logout_confirmation_title": "Çıkış Yapılsın mı?",
         // Logout
         "logout_confirmation_title": "Çıkış Yapılsın mı?",
         "logout_confirmation_desc": "Çıkmak istediğine emin misin? Kurulum ekranına döneceksin.",

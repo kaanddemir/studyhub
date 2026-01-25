@@ -1296,7 +1296,7 @@ export function renderDashboard(element) {
 
     <!-- Premium Modal -->
     <div id="premium-modal" class="fixed inset-0 z-[100] bg-black/30 backdrop-blur-sm flex items-center justify-center invisible opacity-0 transition-all duration-300 px-4">
-        <div class="modal-content bg-white w-[90vw] max-w-[400px] rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-all duration-300 flex flex-col max-h-[85vh]">
+        <div class="modal-content bg-white w-[90vw] md:w-full md:max-w-4xl rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-all duration-300 flex flex-col max-h-[85vh]">
             
             <!-- Header -->
             <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
@@ -1403,14 +1403,7 @@ export function renderDashboard(element) {
                     </div>
                 </div>
                 
-                 <!-- Security Badge / Footer -->
-                <!-- Security Badge / Footer -->
-                <div class="mt-8 flex flex-col items-center justify-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
-                    <div class="flex items-center justify-center gap-2 text-[10px] md:text-xs text-gray-500 font-medium text-center">
-                        <svg class="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
-                        <span>${t('secure_payment')}</span>
-                    </div>
-                </div>
+
             </div>
 
         </div>
