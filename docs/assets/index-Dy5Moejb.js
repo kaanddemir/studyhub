@@ -1482,7 +1482,7 @@
 
     <!-- Premium Modal -->
     <div id="premium-modal" class="fixed inset-0 z-[100] bg-black/30 backdrop-blur-sm flex items-center justify-center invisible opacity-0 transition-all duration-300 px-4">
-        <div class="modal-content bg-white w-full max-w-4xl rounded-[2.5rem] shadow-2xl overflow-hidden transform scale-95 transition-all duration-300 flex flex-col max-h-[90vh]">
+        <div class="modal-content bg-white w-full max-w-4xl rounded-[2.5rem] shadow-2xl overflow-hidden transform scale-95 transition-all duration-300 flex flex-col max-h-[80vh]">
             
             <!-- Header -->
             <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
