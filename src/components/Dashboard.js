@@ -603,9 +603,9 @@ export function renderDashboard(element) {
                     modal.classList.add('fixed', 'top-1/2', 'left-1/2', '-translate-x-1/2', '-translate-y-1/2', 'z-[105]');
 
                     // Inline styles for specificity
-                    modal.style.width = '85vw';
-                    modal.style.maxHeight = '70vh';
-                    modal.style.maxWidth = '360px';
+                    modal.style.width = '90vw';
+                    modal.style.maxHeight = '85vh';
+                    modal.style.maxWidth = '400px';
                     modal.style.margin = '0 auto';
 
                     // Add Backdrop
@@ -1296,7 +1296,7 @@ export function renderDashboard(element) {
 
     <!-- Premium Modal -->
     <div id="premium-modal" class="fixed inset-0 z-[100] bg-black/30 backdrop-blur-sm flex items-center justify-center invisible opacity-0 transition-all duration-300 px-4">
-        <div class="modal-content bg-white w-full max-w-4xl rounded-[2.5rem] shadow-2xl overflow-hidden transform scale-95 transition-all duration-300 flex flex-col max-h-[80vh]">
+        <div class="modal-content bg-white w-[90vw] max-w-[400px] rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-all duration-300 flex flex-col max-h-[85vh]">
             
             <!-- Header -->
             <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
