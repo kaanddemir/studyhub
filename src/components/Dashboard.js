@@ -603,10 +603,10 @@ export function renderDashboard(element) {
                     modal.classList.add('fixed', 'top-1/2', 'left-1/2', '-translate-x-1/2', '-translate-y-1/2', 'z-[105]');
 
                     // Inline styles for specificity
-                    modal.style.width = '90vw';
-                    modal.style.maxHeight = '85vh';
-                    modal.style.maxWidth = '400px';
-                    modal.style.margin = '0';
+                    modal.style.width = '85vw';
+                    modal.style.maxHeight = '70vh';
+                    modal.style.maxWidth = '360px';
+                    modal.style.margin = '0 auto';
 
                     // Add Backdrop
                     let backdrop = document.getElementById('settings-backdrop');

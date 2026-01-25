@@ -151,6 +151,7 @@ export function renderCoursesPage(element) {
                                 class="bg-white rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative border border-gray-100 cursor-pointer draggable-item flex flex-col overflow-hidden h-52"
                             >
                                 <!-- Header Strip -->
+                                <div class="px-6 pt-6 flex justify-between items-start relative z-10">
                                     <div class="w-14 h-14 rounded-2xl bg-white shadow-sm text-primary flex items-center justify-center font-black text-2xl border border-primary/30 z-10">
                                         ${escapeHTML(course.name).charAt(0).toUpperCase()}
                                     </div>
