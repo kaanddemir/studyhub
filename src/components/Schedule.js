@@ -1,4 +1,5 @@
 import { t } from '../translations.js';
+import { escapeHTML } from '../security.js';
 
 export function renderCalendar(element, todos, exams = []) {
     const today = new Date();
@@ -87,9 +88,9 @@ export function renderCalendar(element, todos, exams = []) {
                                             <div>
                                                 <div class="text-xs font-bold text-red-600 flex items-center gap-1.5 mb-0.5">
                                                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" /></svg>
-                                                    ${event.code} <span class="text-[10px] opacity-75 font-medium uppercase border border-red-200 px-1 rounded">${event.type}</span>
+                                                    ${escapeHTML(event.code)} <span class="text-[10px] opacity-75 font-medium uppercase border border-red-200 px-1 rounded">${escapeHTML(event.type)}</span>
                                                 </div>
-                                                <div class="text-[10px] text-red-400 font-medium pl-5">${event.location || t('tbd')} • ${new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                                <div class="text-[10px] text-red-400 font-medium pl-5">${escapeHTML(event.location || t('tbd'))} • ${new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                                             </div>
                                         </div>
                                      `;
@@ -98,10 +99,10 @@ export function renderCalendar(element, todos, exams = []) {
                     return `
                                         <div class="bg-gray-50 p-2 rounded-lg flex items-center justify-between group">
                                             <div class="flex-1">
-                                                <div class="text-xs font-bold text-gray-700 ${event.completed ? 'line-through opacity-50' : ''}">${event.title}</div>
-                                                ${event.subject ? `<div class="text-[10px] text-gray-400">${event.subject}</div>` : ''}
+                                                <div class="text-xs font-bold text-gray-700 ${event.completed ? 'line-through opacity-50' : ''}">${escapeHTML(event.title)}</div>
+                                                ${event.subject ? `<div class="text-[10px] text-gray-400">${escapeHTML(event.subject)}</div>` : ''}
                                             </div>
-                                             <button class="text-gray-300 hover:text-primary p-1 opacity-0 group-hover:opacity-100 transition-opacity" onclick="removeEvent('${event.title}')">
+                                             <button class="text-gray-300 hover:text-primary p-1 opacity-0 group-hover:opacity-100 transition-opacity" onclick="removeEvent('${escapeHTML(event.title)}', true)">
                                                 &times;
                                              </button>
                                         </div>
@@ -243,7 +244,7 @@ export function renderTodoList(element, todos, editingIndex = null, deletingInde
             // Edit Mode
             return `
                                 <li class="flex flex-col gap-2 bg-gray-50 p-3 rounded-xl border border-primary/20 animate-fade-in" data-index="${index}">
-                                    <input type="text" id="edit-title-${index}" value="${todo.title}" class="w-full bg-white border border-gray-200 rounded-lg px-2 py-1 text-sm font-bold text-dark focus:border-primary outline-none" placeholder="${t('task_name_placeholder')}">
+                                    <input type="text" id="edit-title-${index}" value="${escapeHTML(todo.title)}" class="w-full bg-white border border-gray-200 rounded-lg px-2 py-1 text-sm font-bold text-dark focus:border-primary outline-none" placeholder="${t('task_name_placeholder')}">
                                     <div class="flex gap-2">
                                         <input type="date" id="edit-date-${index}" value="${todo.date || ''}" class="flex-1 bg-white border border-gray-200 rounded-lg px-2 py-1 text-xs text-gray-500 focus:border-primary outline-none">
                                         <input id="edit-time-${index}" value="${todo.time || ''}" class="flex-1 bg-white border border-gray-200 rounded-lg px-2 py-1 text-xs text-gray-500 focus:border-primary outline-none" type="time">
@@ -263,10 +264,10 @@ export function renderTodoList(element, todos, editingIndex = null, deletingInde
                                             ${todo.completed ? '<div class="w-3 h-3 bg-primary rounded-full"></div>' : ''}
                                         </div>
                                         <div class="min-w-0">
-                                            <div class="text-sm font-bold text-dark group-hover:text-primary transition-colors cursor-pointer toggle-text truncate ${todo.completed ? 'line-through text-gray-400' : ''}" onclick="editTodo(${index})">${todo.title}</div>
+                                            <div class="text-sm font-bold text-dark group-hover:text-primary transition-colors cursor-pointer toggle-text truncate ${todo.completed ? 'line-through text-gray-400' : ''}" onclick="editTodo(${index})">${escapeHTML(todo.title)}</div>
                                             <div class="flex flex-wrap gap-2 text-xs text-gray-400 mt-1">
-                                                ${todo.date ? `<span class="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded font-medium shrink-0">${todo.date.split('-').reverse().join('/')}</span>` : ''}
-                                                ${todo.time ? `<span class="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded font-medium shrink-0">${todo.time}</span>` : ''}
+                                                ${todo.date ? `<span class="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded font-medium shrink-0">${escapeHTML(todo.date.split('-').reverse().join('/'))}</span>` : ''}
+                                                ${todo.time ? `<span class="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded font-medium shrink-0">${escapeHTML(todo.time)}</span>` : ''}
                                             </div>
                                         </div>
                                     </div>

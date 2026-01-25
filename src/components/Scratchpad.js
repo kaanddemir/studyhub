@@ -79,7 +79,7 @@ export function renderScratchpad(container) {
     const viewGallery = container.querySelector('#sp-view-gallery');
 
     const canvas = container.querySelector('#sp-canvas');
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
     const colorBtns = container.querySelectorAll('.sp-color-btn');
     const btnClear = container.querySelector('#sp-clear-canvas');
     const btnSaveGallery = container.querySelector('#sp-save-gallery');
@@ -270,9 +270,11 @@ export function renderScratchpad(container) {
 
         gallery.forEach(item => {
             const card = document.createElement('div');
-            card.className = 'group relative aspect-square bg-gray-50 rounded-lg border border-gray-100 overflow-hidden cursor-pointer hover:shadow-md transition-all';
+            card.className = 'group relative w-full h-40 bg-gray-50 rounded-xl border border-gray-200 overflow-hidden cursor-pointer hover:shadow-md transition-all shrink-0';
             card.innerHTML = `
-                <img src="${item.data}" class="w-full h-full object-contain pointer-events-none opacity-80 group-hover:opacity-100 mix-blend-multiply" />
+                <div class="absolute inset-0 p-2 flex items-center justify-center">
+                    <img src="${item.data}" class="max-w-full max-h-full object-contain pointer-events-none opacity-90 group-hover:opacity-100" />
+                </div>
                 <div class="absolute bottom-0 left-0 right-0 bg-white/90 p-1 text-[10px] text-center text-gray-500 truncate">
                     ${item.date.split(',')[0]}
                 </div>

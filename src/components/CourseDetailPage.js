@@ -1,5 +1,6 @@
 import { data, saveData } from '../data.js';
 import { t } from '../translations.js';
+import { escapeHTML, sanitizeHTML } from '../security.js';
 
 // Simple markdown parser helper
 const parseMarkdown = (text) => {
@@ -75,9 +76,9 @@ export function renderCourseDetailPage(element, courseId) {
                     </button>
                     <div class="flex items-center gap-3">
                          <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold text-lg">
-                             ${course.name.charAt(0).toUpperCase()}
+                             ${escapeHTML(course.name).charAt(0).toUpperCase()}
                         </div>
-                        <h1 class="text-3xl font-bold text-dark truncate max-w-lg" title="${course.name}">${course.name}</h1>
+                        <h1 class="text-3xl font-bold text-dark truncate max-w-lg" title="${escapeHTML(course.name)}">${escapeHTML(course.name)}</h1>
                     </div>
                 <div class="flex items-center gap-3">
                      <button id="delete-course-detail-btn" class="p-2 text-gray-300 hover:text-primary hover:bg-primary/5 rounded-xl transition-colors" title="Delete Course">
@@ -114,8 +115,8 @@ export function renderCourseDetailPage(element, courseId) {
                              </div>
                              <div class="min-w-0">
                                 <p class="text-[10px] text-gray-400 font-bold uppercase mb-0.5">${t('instructor')}</p>
-                                <p class="text-dark font-bold text-sm truncate" title="${course.instructor || ''}">${course.instructor || `<span class="text-gray-300 font-normal italic">${t('not_set')}</span>`}</p>
-                                ${course.email ? `<a href="mailto:${course.email}" class="text-xs text-blue-500 hover:underline cursor-pointer truncate block" title="${course.email}">${course.email}</a>` : ''}
+                                <p class="text-dark font-bold text-sm truncate" title="${escapeHTML(course.instructor || '')}">${escapeHTML(course.instructor || '') || `<span class="text-gray-300 font-normal italic">${t('not_set')}</span>`}</p>
+                                ${course.email ? `<a href="mailto:${escapeHTML(course.email)}" class="text-xs text-blue-500 hover:underline cursor-pointer truncate block" title="${escapeHTML(course.email)}">${escapeHTML(course.email)}</a>` : ''}
                              </div>
                         </div>
                         
@@ -126,7 +127,7 @@ export function renderCourseDetailPage(element, courseId) {
                              </div>
                              <div class="min-w-0">
                                 <p class="text-[10px] text-gray-400 font-bold uppercase mb-0.5">${t('schedule_time')}</p>
-                                <p class="text-dark font-bold text-sm truncate" title="${course.schedule || ''}">${course.schedule || `<span class="text-gray-300 font-normal italic">${t('not_set')}</span>`}</p>
+                                <p class="text-dark font-bold text-sm truncate" title="${escapeHTML(course.schedule || '')}">${escapeHTML(course.schedule || '') || `<span class="text-gray-300 font-normal italic">${t('not_set')}</span>`}</p>
                              </div>
                         </div>
 
@@ -137,7 +138,7 @@ export function renderCourseDetailPage(element, courseId) {
                              </div>
                              <div class="min-w-0">
                                  <p class="text-[10px] text-gray-400 font-bold uppercase mb-0.5">${t('location_platform')}</p>
-                                 <p class="text-dark font-bold text-sm truncate" title="${course.location || ''}">${course.location || `<span class="text-gray-300 font-normal italic">${t('not_set')}</span>`}</p>
+                                 <p class="text-dark font-bold text-sm truncate" title="${escapeHTML(course.location || '')}">${escapeHTML(course.location || '') || `<span class="text-gray-300 font-normal italic">${t('not_set')}</span>`}</p>
                              </div>
                         </div>
                     </div>
@@ -171,8 +172,8 @@ export function renderCourseDetailPage(element, courseId) {
                                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                                                 </div>
                                                 <div class="truncate">
-                                                    <p class="text-sm font-bold text-dark truncate">${res.name}</p>
-                                                    <p class="text-xs text-gray-400 truncate">${res.type || t('unknown_type')}</p>
+                                                    <p class="text-sm font-bold text-dark truncate">${escapeHTML(res.name)}</p>
+                                                    <p class="text-xs text-gray-400 truncate">${escapeHTML(res.type || t('unknown_type'))}</p>
                                                 </div>
                                             </div>
                                              <button class="delete-resource-btn text-gray-300 hover:text-primary p-1 transition-colors opacity-0 group-hover:opacity-100" data-id="${res.id}">
@@ -215,7 +216,7 @@ export function renderCourseDetailPage(element, courseId) {
                              ${activeSession.messages.map(msg => `
                                  <div class="flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}">
                                      <div class="max-w-[85%] ${msg.sender === 'user' ? 'bg-primary text-white rounded-t-2xl rounded-bl-2xl shadow-lg shadow-primary/20' : 'bg-white border border-gray-100 text-gray-700 rounded-t-2xl rounded-br-2xl shadow-sm'} px-4 py-3 text-sm leading-relaxed">
-                                         ${msg.sender === 'ai' ? parseMarkdown(msg.text) : msg.text}
+                                         ${msg.sender === 'ai' ? sanitizeHTML(parseMarkdown(msg.text)) : escapeHTML(msg.text)}
                                      </div>
                                  </div>
                              `).join('')}
@@ -226,7 +227,7 @@ export function renderCourseDetailPage(element, courseId) {
                              <form id="chat-form" class="relative items-end gap-2 flex">
                                  <input type="text" id="chat-input" 
                                      class="w-full bg-white border border-gray-200 rounded-xl pl-4 pr-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-sm placeholder-gray-400" 
-                                     placeholder="${t('ask_question_placeholder')} ${course.name}..."
+                                     placeholder="${t('ask_question_placeholder')} ${escapeHTML(course.name)}..."
                                      autocomplete="off">
                                  
                                  <button type="submit" class="absolute right-2 top-1.5 p-1.5 bg-primary text-white rounded-lg hover:opacity-90 transition-colors shadow-lg shadow-primary/30 disabled:opacity-50 disabled:cursor-not-allowed">

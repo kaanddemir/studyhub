@@ -21,6 +21,7 @@ A personal study dashboard designed to help students track habits, manage course
 - **Grade Calculator** - Calculate weighted averages and project final grades.
 - **Focus Tools** - Built-in Pomodoro Timer and Stopwatch.
 - **Cheatsheets** - Create and organize Markdown-supported study notes and formula sheets.
+- **Scratchpad** - A built-in drawing tool for quick sketches and handwritten notes.
 - **Personalization** - Theme engine with multiple color presets, dark/light modes (system), and premium glassmorphism UI.
 - **Localization** - Full Turkish and English language support.
 
@@ -42,7 +43,7 @@ A personal study dashboard designed to help students track habits, manage course
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/studyhub.git
+git clone https://github.com/kaanddemir/studyhub.git
 
 # Navigate to project directory
 cd studyhub

@@ -1,5 +1,6 @@
 import { data, saveData } from '../data.js';
 import { t } from '../translations.js';
+import { escapeHTML } from '../security.js';
 
 export function renderCoursesPage(element) {
     // Ensure courses array exists
@@ -150,9 +151,8 @@ export function renderCoursesPage(element) {
                                 class="bg-white rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative border border-gray-100 cursor-pointer draggable-item flex flex-col overflow-hidden h-52"
                             >
                                 <!-- Header Strip -->
-                                <div class="h-24 bg-gradient-to-br from-primary/20 via-primary/15 to-white p-5 flex justify-between items-start shrink-0 relative">
                                     <div class="w-14 h-14 rounded-2xl bg-white shadow-sm text-primary flex items-center justify-center font-black text-2xl border border-primary/30 z-10">
-                                        ${course.name.charAt(0).toUpperCase()}
+                                        ${escapeHTML(course.name).charAt(0).toUpperCase()}
                                     </div>
                                     
                                     <!-- Actions -->
@@ -172,16 +172,16 @@ export function renderCoursesPage(element) {
                                 <!-- Body -->
                                     <div class="px-6 pb-6 pt-2 flex flex-col flex-1">
                                     <div class="flex items-center gap-2 mb-1">
-                                        ${course.code ? `<span class="px-2.5 py-0.5 rounded-md bg-gray-50 text-gray-400 text-[10px] font-bold tracking-wider uppercase border border-gray-100">${course.code}</span>` : ''}
+                                        ${course.code ? `<span class="px-2.5 py-0.5 rounded-md bg-gray-50 text-gray-400 text-[10px] font-bold tracking-wider uppercase border border-gray-100">${escapeHTML(course.code)}</span>` : ''}
                                         <span class="h-1 w-1 rounded-full bg-gray-300"></span>
                                         <span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest">${t('course_caps')}</span>
                                     </div>
                                     
-                                    <h3 class="text-xl font-bold text-dark truncate leading-tight mb-2" title="${course.name}">${course.name}</h3>
+                                    <h3 class="text-xl font-bold text-dark truncate leading-tight mb-2" title="${escapeHTML(course.name)}">${escapeHTML(course.name)}</h3>
                                     
                                     <div class="mt-auto flex items-center justify-between pt-3 border-t border-gray-50/50">
                                         <div class="text-xs text-gray-400 line-clamp-1 max-w-[60%]">
-                                            ${course.note || `<span class="opacity-50 italic">${t('no_details')}</span>`}
+                                            ${escapeHTML(course.note) || `<span class="opacity-50 italic">${t('no_details')}</span>`}
                                         </div>
                                         <span class="text-[10px] font-bold text-primary/60 uppercase tracking-wider group-hover:text-primary transition-colors flex items-center gap-1">
                                             ${t('view_details')} &rarr;

@@ -2,6 +2,7 @@
 
 import { saveData } from '../data.js';
 import { t } from '../translations.js';
+import { escapeHTML } from '../security.js';
 
 export function renderProfile(element, user) {
     // Default values if missing
@@ -21,26 +22,26 @@ export function renderProfile(element, user) {
             <div class="relative mb-6 group-hover:scale-105 transition-transform duration-300">
                 <!-- Glow removed -->
                 <div class="w-28 h-28 rounded-full p-6 bg-white relative z-10 shadow-xl ring-1 ring-gray-100 flex items-center justify-center overflow-hidden">
-                    ${user.avatar ? `<div class="text-6xl">${user.avatar}</div>` :
+                    ${user.avatar ? `<div class="text-6xl">${escapeHTML(user.avatar)}</div>` :
             `<svg class="w-full h-full text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>`}
                 </div>
             </div>
             
             <!-- Info Section -->
             <div class="relative z-10 flex flex-col items-center">
-                <h3 class="text-2xl font-black text-dark mb-2 tracking-tight">${user.name}</h3>
+                <h3 class="text-2xl font-black text-dark mb-2 tracking-tight">${escapeHTML(user.name)}</h3>
                 
                 <div class="flex flex-col items-center gap-2 mt-4 w-full">
                     <div class="flex items-center justify-center gap-2 text-xs font-medium text-gray-600 w-full">
                          <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
-                        <span class="truncate tracking-wide">${user.university}</span>
+                        <span class="truncate tracking-wide">${escapeHTML(user.university)}</span>
                     </div>
                     
                     <div class="w-16 h-px bg-green-900/10 rounded-full"></div>
 
                     <div class="flex items-center justify-center gap-2 text-xs font-medium text-gray-600 w-full">
                          <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                        <span class="truncate tracking-wide">${user.department}</span>
+                        <span class="truncate tracking-wide">${escapeHTML(user.department)}</span>
                     </div>
                 </div>
             </div>
@@ -78,17 +79,17 @@ function showEditProfileModal(currentUser, onSave) {
             <div class="space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-1 ml-1">${t('name_label')}</label>
-                    <input type="text" id="edit-name" value="${currentUser.name}" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                    <input type="text" id="edit-name" value="${escapeHTML(currentUser.name)}" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
                 </div>
                 
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-1 ml-1">${t('university_label')}</label>
-                    <input type="text" id="edit-university" value="${currentUser.university}" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                    <input type="text" id="edit-university" value="${escapeHTML(currentUser.university)}" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
                 </div>
                 
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-1 ml-1">${t('department_label')}</label>
-                    <input type="text" id="edit-department" value="${currentUser.department}" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                    <input type="text" id="edit-department" value="${escapeHTML(currentUser.department)}" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-dark focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
                 </div>
             </div>
 

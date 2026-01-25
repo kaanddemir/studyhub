@@ -1,5 +1,6 @@
 import { data, saveData } from '../data.js';
 import { t } from '../translations.js';
+import { escapeHTML } from '../security.js';
 
 export function renderOnboarding(element, onComplete) {
     let currentStep = 1;
@@ -78,7 +79,7 @@ export function renderOnboarding(element, onComplete) {
                             <!-- Name Input -->
                             <div>
                                 <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">${t('full_name')}</label>
-                                <input type="text" id="input-name" value="${data.user.name || ''}" class="w-full text-lg px-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder-gray-300 font-bold text-dark" placeholder="${t('name_placeholder')}">
+                                <input type="text" id="input-name" value="${escapeHTML(data.user.name || '')}" class="w-full text-lg px-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder-gray-300 font-bold text-dark" placeholder="${t('name_placeholder')}">
                             </div>
                         </div>
                     </div>
@@ -95,7 +96,7 @@ export function renderOnboarding(element, onComplete) {
                                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                         <svg class="w-5 h-5 text-gray-300 group-focus-within:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                                     </div>
-                                    <input type="text" id="input-university" value="${data.user.university || ''}" class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-dark placeholder-gray-300" placeholder="${t('uni_placeholder')}">
+                                    <input type="text" id="input-university" value="${escapeHTML(data.user.university || '')}" class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-dark placeholder-gray-300" placeholder="${t('uni_placeholder')}">
                                 </div>
                             </div>
 
@@ -105,7 +106,7 @@ export function renderOnboarding(element, onComplete) {
                                      <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                         <svg class="w-5 h-5 text-gray-300 group-focus-within:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
                                     </div>
-                                    <input type="text" id="input-dept" value="${data.user.department || ''}" class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-dark placeholder-gray-300" placeholder="${t('dept_placeholder')}">
+                                    <input type="text" id="input-dept" value="${escapeHTML(data.user.department || '')}" class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-dark placeholder-gray-300" placeholder="${t('dept_placeholder')}">
                                 </div>
                             </div>
                         </div>

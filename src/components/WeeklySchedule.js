@@ -1,5 +1,6 @@
 import { data, saveData } from '../data.js';
 import { t } from '../translations.js';
+import { escapeHTML } from '../security.js';
 
 export function renderWeeklySchedule(element) {
     const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -66,7 +67,7 @@ export function renderWeeklySchedule(element) {
                                             <input 
                                                 type="text" 
                                                 class="w-full bg-transparent text-xs text-dark font-medium focus:outline-none focus:bg-white focus:ring-1 focus:ring-primary/50 rounded px-1 py-1 text-center truncate placeholder-gray-200 transition-all schedule-input" 
-                                                value="${val}" 
+                                                value="${escapeHTML(val)}" 
                                                 data-key="${key}"
                                                 placeholder="..."
                                             >
@@ -83,7 +84,7 @@ export function renderWeeklySchedule(element) {
             <div id="schedule-reset-modal" class="absolute inset-0 bg-white/90 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-200 rounded-3xl">
                 <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 transform scale-95 transition-all text-center w-48">
                      <div class="mb-3 text-primary bg-primary/10 w-10 h-10 rounded-full flex items-center justify-center mx-auto">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 0 00-1 1v3M4 7h16" /></svg>
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                      </div>
                      <h4 class="text-sm font-bold text-dark mb-1">${t('clear_all_q')}</h4>
                      <p class="text-[10px] text-gray-400 mb-4 leading-tight">${t('clear_all_desc')}</p>

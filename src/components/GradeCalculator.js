@@ -1,5 +1,6 @@
 
 import { t } from '../translations.js';
+import { escapeHTML } from '../security.js';
 
 export function renderGradeCalculator(container) {
     if (!container) return;
@@ -91,7 +92,7 @@ export function renderGradeCalculator(container) {
             const row = document.createElement('div');
             row.className = 'flex items-center gap-2 mb-2';
             row.innerHTML = `
-                <input type="text" placeholder="${t('assessment_name')}" class="w-full bg-gray-50 rounded-lg px-2 py-1 text-xs border border-transparent focus:bg-white focus:border-primary focus:outline-none transition-colors" value="${item.name}" data-idx="${index}" data-key="name">
+                <input type="text" placeholder="${t('assessment_name')}" class="w-full bg-gray-50 rounded-lg px-2 py-1 text-xs border border-transparent focus:bg-white focus:border-primary focus:outline-none transition-colors" value="${escapeHTML(item.name)}" data-idx="${index}" data-key="name">
                 <input type="number" placeholder="${t('grade')}" class="w-16 bg-gray-50 rounded-lg px-2 py-1 text-xs border border-transparent focus:bg-white focus:border-primary focus:outline-none transition-colors text-center" value="${item.grade}" data-idx="${index}" data-key="grade">
                 <input type="number" placeholder="%" class="w-12 bg-gray-50 rounded-lg px-2 py-1 text-xs border border-transparent focus:bg-white focus:border-primary focus:outline-none transition-colors text-center" value="${item.weight}" data-idx="${index}" data-key="weight">
                 <button class="text-gray-300 hover:text-primary transition-colors" data-idx="${index}">

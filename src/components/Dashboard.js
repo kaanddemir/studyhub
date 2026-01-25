@@ -1,5 +1,6 @@
 import { data, saveData } from '../data.js'
 import { t } from '../translations.js'
+import { verifyDevPin, escapeHTML } from '../security.js'
 import { getStatsCardsHTML } from './StatsCards.js'
 import { renderChart } from './Chart.js'
 import { renderCalendar, renderTodoList } from './Schedule.js'
@@ -386,13 +387,7 @@ export function renderDashboard(element) {
                     const cachedDynamic = [];
                     // User requested to NOT show custom photo widgets after removal.
                     // They are effectively deleted when removed from dashboard.
-                    /*
-                    widgetCache.forEach((val, key) => {
-                        if (key.startsWith('photo-widget-') && !activeIds.includes(key)) {
-                            cachedDynamic.push({ id: key, name: t('photo_frame') + " (Custom)" });
-                        }
-                    });
-                    */
+
 
                     const allUnused = [...unusedDefs, ...cachedDynamic];
 
@@ -722,7 +717,7 @@ export function renderDashboard(element) {
 
         if (field === 'name') {
             const greeting = document.getElementById('header-greeting');
-            if (greeting) greeting.innerHTML = `${t('hello')}, ${value}!`; // Use innerHTML to preserve potential formatting if we add it later, though textContent is safer. existing was text key.
+            if (greeting) greeting.innerHTML = `${t('hello')}, ${escapeHTML(value)}!`;
         }
 
         if (field === 'avatar') {
@@ -753,7 +748,7 @@ export function renderDashboard(element) {
         }
 
         if (value.length === 4) {
-            if (value === '0000') {
+            if (verifyDevPin(value)) {
                 // Success Animation
                 input.classList.add('text-green-500', 'border-green-500');
                 if (container) {

@@ -1,5 +1,6 @@
 import { data, saveData } from '../data.js';
 import { t } from '../translations.js';
+import { sanitizeHTML, escapeHTML } from '../security.js';
 
 export function renderNotebookPage(element) {
     // Ensure notebook data exists
@@ -147,7 +148,7 @@ export function renderNotebookPage(element) {
                     <div class="flex flex-row lg:flex-col flex-1 lg:overflow-y-auto overflow-x-auto lg:overflow-x-hidden p-2 lg:p-3 gap-2 lg:gap-0 lg:space-y-2 custom-scrollbar">
                         ${data.notebook.notes.map(note => `
                             <div class="note-item p-3 lg:p-4 rounded-xl cursor-pointer transition-all border border-transparent min-w-[160px] lg:min-w-0 w-40 lg:w-auto flex-shrink-0 ${note.id === activeNoteId ? 'bg-white shadow-md border-gray-100 ring-1 ring-primary/5' : 'bg-white/40 hover:bg-white/60 hover:border-gray-100 text-gray-500'}" data-id="${note.id}">
-                                <h4 class="font-bold text-dark truncate mb-1 text-sm lg:text-base">${note.title || t('untitled_note')}</h4>
+                                <h4 class="font-bold text-dark truncate mb-1 text-sm lg:text-base">${escapeHTML(note.title) || t('untitled_note')}</h4>
                                 <p class="text-xs text-gray-400 truncate hidden lg:block">${stripHtml(note.pages ? note.pages[0] : (note.content || '')).substring(0, 40) || t('empty_note')}</p>
                                 <div class="mt-1 lg:mt-2 text-[10px] text-gray-300 font-medium tracking-wide flex justify-between items-center">
                                    <span>${new Date(note.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
@@ -195,7 +196,7 @@ export function renderNotebookPage(element) {
 
                              <div class="relative z-10 px-4 pt-14 pb-12 lg:px-16 lg:pt-14 lg:pb-12 min-h-full">
                                   <!-- Title Input -->
-                                  <input type="text" id="note-title-input" class="w-full text-2xl lg:text-3xl font-bold text-dark bg-transparent border-none focus:ring-0 placeholder-gray-300 mb-10 h-10 p-0 font-display leading-[2.5rem]" value="${activeNote.title}" placeholder="${t('page_title_placeholder')}">
+                                  <input type="text" id="note-title-input" class="w-full text-2xl lg:text-3xl font-bold text-dark bg-transparent border-none focus:ring-0 placeholder-gray-300 mb-10 h-10 p-0 font-display leading-[2.5rem]" value="${escapeHTML(activeNote.title)}" placeholder="${t('page_title_placeholder')}">
                                   
                                   <!-- Editor contenteditable -->
                                   <div id="note-editor" 
@@ -203,7 +204,7 @@ export function renderNotebookPage(element) {
                                        contenteditable="true" 
                                        placeholder="${t('start_writing')}"
                                   >
-                                    ${currentPageContent}
+                                    ${sanitizeHTML(currentPageContent)}
                                   </div>
                              </div>
                              
@@ -504,7 +505,7 @@ export function renderNotebookPage(element) {
     // Helper to strip HTML for preview
     const stripHtml = (html) => {
         let tmp = document.createElement("DIV");
-        tmp.innerHTML = html;
+        tmp.innerHTML = sanitizeHTML(html);
         return tmp.textContent || tmp.innerText || "";
     };
 

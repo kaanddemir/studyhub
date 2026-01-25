@@ -1,5 +1,6 @@
 import { data } from '../data.js';
 import { t } from '../translations.js';
+import { escapeHTML } from '../security.js';
 
 export function getStatsCardsHTML(stats) {
   const completedTodos = data.todos ? data.todos.filter(t => t.completed).length : 0;
@@ -52,9 +53,9 @@ export function getStatsCardsHTML(stats) {
             ${data.courses.map(course => `
                 <div onclick="window.navigateTo('course-detail', { id: ${course.id} })" class="flex items-center gap-2 p-2 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors group/course">
                     <div class="w-6 h-6 rounded-lg bg-white text-primary flex items-center justify-center font-bold text-xs shadow-sm border border-gray-100">
-                        ${course.name.charAt(0).toUpperCase()}
+                        ${escapeHTML(course.name).charAt(0).toUpperCase()}
                     </div>
-                    <span class="text-xs font-medium text-gray-600 truncate flex-1 block" title="${course.name}">${course.name}</span>
+                    <span class="text-xs font-medium text-gray-600 truncate flex-1 block" title="${escapeHTML(course.name)}">${escapeHTML(course.name)}</span>
                     <svg class="w-3 h-3 text-gray-300 group-hover/course:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
                 </div>
             `).join('')}

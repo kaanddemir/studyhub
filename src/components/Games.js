@@ -1,5 +1,6 @@
 
 import { t } from '../translations.js';
+import { escapeHTML } from '../security.js';
 
 export function renderGames(container) {
     if (!container) return;
@@ -112,7 +113,7 @@ export function renderGames(container) {
                     <div id="rp-list" class="flex-1 overflow-y-auto flex flex-wrap gap-2 content-start min-h-0 custom-scrollbar mb-3">
                         ${pickerItems.map((item, idx) => `
                             <div class="bg-white border border-gray-100 text-gray-600 px-3 py-1 rounded-lg text-xs flex items-center gap-2 shadow-sm">
-                                ${item}
+                                ${escapeHTML(item)}
                                 <span class="text-gray-300 hover:text-red-400 cursor-pointer pointer-events-auto" data-idx="${idx}">
                                     <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                                 </span>

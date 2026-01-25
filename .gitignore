@@ -1,24 +1,38 @@
 # Dependencies
 node_modules/
 
-# OS files
-.DS_Store
-Thumbs.db
+# Production Build
+dist/
+dist-ssr/
 
-# IDE
+# Environment Variables
+.env
+.env.local
+.env.*.local
+*.env
+
+# IDE / Editor
 .idea/
 .vscode/
 *.swp
 *.swo
+*.swn
+.DS_Store
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
 
 # Logs
+logs
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Environment
-.env
-.env.local
-.env.*.local
+# Testing
+coverage/
 
-# Cache
+# Temporary
 .cache/
+tmp/

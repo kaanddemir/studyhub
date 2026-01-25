@@ -1,4 +1,5 @@
 import { t } from '../translations.js';
+import { escapeHTML } from '../security.js';
 
 export function renderNotes(element) {
     // Load notes list
@@ -16,8 +17,8 @@ export function renderNotes(element) {
         const savedListHtml = notes.map((note, index) => `
             <div class="group flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl cursor-pointer transition-colors border-b border-gray-50 last:border-0" data-index="${index}">
                 <div class="flex-1 truncate text-sm text-gray-600 font-medium pr-2" onclick="loadNote(${index})">
-                    ${note.split('\n')[0] || t('untitled_note')}
-                    <div class="text-xs text-gray-400 font-normal truncate mt-0.5">${note.substring(0, 40)}...</div>
+                    ${escapeHTML(note.split('\n')[0]) || t('untitled_note')}
+                    <div class="text-xs text-gray-400 font-normal truncate mt-0.5">${escapeHTML(note.substring(0, 40))}...</div>
                 </div>
                 <button class="text-gray-300 hover:text-primary transition-colors p-2" onclick="deleteNote(${index}, event)">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
@@ -56,7 +57,7 @@ export function renderNotes(element) {
                 <div class="relative flex-1 min-h-0">
                     <!-- Editor View -->
                     <div class="absolute inset-0 flex flex-col transition-all duration-300 ${showingList ? 'opacity-0 pointer-events-none translate-x-full' : 'opacity-100 translate-x-0'}">
-                         <textarea id="note-area" class="w-full flex-1 bg-gray-50 rounded-xl p-4 text-sm text-gray-600 outline-none border border-transparent focus:border-primary/20 focus:bg-white transition-all resize-none placeholder-gray-400" placeholder="${t('type_ideas')}">${currentNoteIndex !== -1 ? notes[currentNoteIndex] : ''}</textarea>
+                         <textarea id="note-area" class="w-full flex-1 bg-gray-50 rounded-xl p-4 text-sm text-gray-600 outline-none border border-transparent focus:border-primary/20 focus:bg-white transition-all resize-none placeholder-gray-400" placeholder="${t('type_ideas')}">${currentNoteIndex !== -1 ? escapeHTML(notes[currentNoteIndex]) : ''}</textarea>
                          <div class="flex justify-between items-center mt-4">
                             <span id="note-status" class="text-xs text-gray-400 font-medium h-4"></span>
                             <button id="save-note" class="px-6 py-2 bg-primary text-white text-xs font-bold rounded-xl hover:opacity-90 transition-colors shadow-lg shadow-primary/30 active:scale-95 transform">

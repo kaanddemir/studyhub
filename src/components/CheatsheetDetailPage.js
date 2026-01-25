@@ -1,6 +1,7 @@
 
 import { data, saveData } from '../data.js';
 import { t } from '../translations.js';
+import { escapeHTML } from '../security.js';
 
 export function renderCheatsheetDetailPage(element, id) {
     // Ensure id is a number (it comes from params)
@@ -29,10 +30,10 @@ export function renderCheatsheetDetailPage(element, id) {
                     
                     <div class="flex-1 flex items-center gap-2 overflow-hidden min-w-0">
                         <!-- Title Display -->
-                        <h1 id="display-title" class="text-2xl md:text-3xl font-bold text-dark truncate cursor-default">${sheet.title}</h1>
+                        <h1 id="display-title" class="text-2xl md:text-3xl font-bold text-dark truncate cursor-default">${escapeHTML(sheet.title)}</h1>
                         
                         <!-- Title Input (Hidden by default) -->
-                        <input type="text" id="title-input" value="${sheet.title}" class="hidden text-2xl md:text-3xl font-bold text-dark bg-transparent border-b-2 border-primary outline-none focus:ring-0 placeholder-gray-300 w-full min-w-[100px]" placeholder="${t('untitled_note')}">
+                        <input type="text" id="title-input" value="${escapeHTML(sheet.title)}" class="hidden text-2xl md:text-3xl font-bold text-dark bg-transparent border-b-2 border-primary outline-none focus:ring-0 placeholder-gray-300 w-full min-w-[100px]" placeholder="${t('untitled_note')}">
                     </div>
                 </div>
 
@@ -51,7 +52,7 @@ export function renderCheatsheetDetailPage(element, id) {
                         <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">${t('markdown_editor')}</span>
                         <span class="text-xs text-gray-300">${t('supports_md')}</span>
                     </div>
-                    <textarea id="content-editor" class="flex-1 w-full resize-none text-lg text-gray-700 leading-relaxed focus:outline-none placeholder-gray-300 font-medium bg-transparent custom-scrollbar" placeholder="${t('start_typing_placeholder')}">${sheet.content || ''}</textarea>
+                    <textarea id="content-editor" class="flex-1 w-full resize-none text-lg text-gray-700 leading-relaxed focus:outline-none placeholder-gray-300 font-medium bg-transparent custom-scrollbar" placeholder="${t('start_typing_placeholder')}">${escapeHTML(sheet.content || '')}</textarea>
                 </div>
 
                 <!-- RESIZER -->

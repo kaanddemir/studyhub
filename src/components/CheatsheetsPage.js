@@ -1,6 +1,7 @@
 
 import { data, saveData } from '../data.js';
 import { t } from '../translations.js';
+import { escapeHTML } from '../security.js';
 
 export function renderCheatsheetsPage(element) {
     if (!data.cheatsheets) {
@@ -161,7 +162,7 @@ export function renderCheatsheetsPage(element) {
                                         </div>
                                     </div>
                                     
-                                    <h3 class="text-xl font-bold text-dark leading-tight line-clamp-2 mb-4 pr-2">${sheet.title}</h3>
+                                    <h3 class="text-xl font-bold text-dark leading-tight line-clamp-2 mb-4 pr-2">${escapeHTML(sheet.title)}</h3>
 
                                     <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-50">
                                         <div class="flex gap-2">

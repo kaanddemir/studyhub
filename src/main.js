@@ -1,6 +1,7 @@
 import './style.css'
 import { data, saveData } from './data.js'
 import { t } from './translations.js'
+import { escapeHTML } from './security.js'
 import { renderSidebar, renderMobileNav } from './components/Sidebar.js'
 import { renderDashboard } from './components/Dashboard.js'
 import { renderOnboarding } from './components/Onboarding.js'
@@ -95,7 +96,7 @@ window.navigateTo = (page, params = {}) => {
                     </svg>
                 </div>
                 <h2 class="text-3xl font-bold text-dark mb-2">Coming Soon</h2>
-                <p class="text-gray-400 max-w-sm">The <b>${page}</b> page is currently under construction. Stay tuned for updates!</p>
+                <p class="text-gray-400 max-w-sm">The <b>${escapeHTML(page)}</b> page is currently under construction. Stay tuned for updates!</p>
                 <button onclick="window.navigateTo('dashboard')" class="mt-8 px-6 py-2.5 bg-primary text-white font-medium rounded-xl shadow-lg hover:shadow-xl hover:bg-primary-dark transition-all transform hover:-translate-y-0.5">
                     Go to Dashboard
                 </button>

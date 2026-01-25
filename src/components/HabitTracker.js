@@ -1,5 +1,6 @@
 
 import { t } from '../translations.js';
+import { escapeHTML } from '../security.js';
 
 export function renderHabitTracker(container) {
     if (!container) return;
@@ -88,7 +89,7 @@ export function renderHabitTracker(container) {
                         ${habit.icon}
                     </div>
                     <span class="text-sm font-bold truncate ${habit.completed ? 'text-primary line-through opacity-70' : 'text-gray-700'}">
-                        ${habit.name}
+                        ${escapeHTML(habit.name)}
                     </span>
                 </div>
                 

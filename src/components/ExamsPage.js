@@ -1,6 +1,7 @@
 
 import { data, saveData } from '../data.js';
 import { t } from '../translations.js';
+import { escapeHTML } from '../security.js';
 
 export function renderExamsPage(container) {
     if (!container) return;
@@ -76,19 +77,19 @@ export function renderExamsPage(container) {
 
                                     <!-- Center Info -->
                                     <div class="flex-1 flex flex-col items-center justify-center text-center -mt-1">
-                                        <h3 class="text-2xl font-black text-dark tracking-tight leading-none mb-1">${exam.code}</h3>
-                                        <p class="text-sm text-gray-500 font-medium truncate max-w-[180px]">${exam.name}</p>
+                                        <h3 class="text-2xl font-black text-dark tracking-tight leading-none mb-1">${escapeHTML(exam.code)}</h3>
+                                        <p class="text-sm text-gray-500 font-medium truncate max-w-[180px]">${escapeHTML(exam.name)}</p>
                                     </div>
 
                                     <!-- Footer -->
                                     <div class="mt-auto pt-2 border-t border-dashed border-primary/20 flex items-center justify-between w-full">
                                         <div class="flex items-center gap-2">
-                                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-50 text-gray-500 uppercase tracking-wide border border-gray-100">${exam.type}</span>
+                                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-50 text-gray-500 uppercase tracking-wide border border-gray-100">${escapeHTML(exam.type)}</span>
                                             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${statusColor}">${daysLeft > 0 ? `${daysLeft} ${t('days_left')}` : (daysLeft === 0 ? t('today_caps') : t('passed_caps'))}</span>
                                         </div>
                                         <div class="flex items-center gap-1 text-gray-400 text-xs">
                                             <svg class="w-3.5 h-3.5 text-primary/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                                            <span class="font-medium text-gray-500">${exam.location}</span>
+                                            <span class="font-medium text-gray-500">${escapeHTML(exam.location)}</span>
                                         </div>
                                     </div>
                                 </div>
