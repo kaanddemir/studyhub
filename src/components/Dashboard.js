@@ -1313,9 +1313,9 @@ export function renderDashboard(element) {
 
             <!-- Content -->
             <div class="px-8 py-6 overflow-y-auto custom-scrollbar">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 py-2">
                     <!-- Basic Plan -->
-                    <div class="rounded-3xl border-2 border-gray-100 p-5 flex flex-col relative overflow-hidden">
+                    <div class="rounded-3xl border-2 border-gray-100 p-5 flex flex-col relative overflow-hidden my-2">
                         <div class="mb-4">
                             <h3 class="text-xl font-bold text-gray-600 mb-2">${t('basic')}</h3>
                             <div class="flex items-end gap-1">
@@ -1352,7 +1352,7 @@ export function renderDashboard(element) {
                     </div>
 
                     <!-- Premium Plan -->
-                    <div class="rounded-3xl border-2 border-primary/20 bg-primary/5 p-5 flex flex-col relative overflow-hidden group">
+                    <div class="rounded-3xl border-2 border-primary/20 bg-primary/5 p-5 flex flex-col relative overflow-hidden group my-2">
                         <div class="absolute top-0 right-0 bg-primary text-white text-[10px] font-bold px-3 py-1 rounded-bl-2xl uppercase tracking-wider shadow-lg shadow-primary/20">
                             ${t('recommended')}
                         </div>
@@ -1406,7 +1406,7 @@ export function renderDashboard(element) {
                  <!-- Security Badge / Footer -->
                 <!-- Security Badge / Footer -->
                 <div class="mt-8 flex flex-col items-center justify-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
-                    <div class="flex items-center justify-center gap-2 text-xs text-gray-500 font-medium text-center">
+                    <div class="flex items-center justify-center gap-2 text-[10px] md:text-xs text-gray-500 font-medium text-center">
                         <svg class="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                         <span>${t('secure_payment')}</span>
                     </div>
