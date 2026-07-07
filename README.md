@@ -30,7 +30,7 @@ Whether you are tracking exam dates, calculating your GPA, or focusing with a Po
 - **Digital Notebook**: Rich text editor with multiple paper styles (lined, grid) and infinite scrolling.
 
 ### Personalization & UX
-- **Theme Engine**: Choose from curated color presets nor customize your own accent color.
+- **Theme Engine**: Choose from curated color presets or customize your own accent color.
 - **Visuals**: Modern Glassmorphism UI with smooth animations and transitions.
 - **Responsive**: Fully optimized for Desktop, Tablet (iPad), and Mobile.
 - **Dark/Light Mode**: Adapts to system preferences or user settings.
@@ -54,7 +54,6 @@ StudyHub is built for a global audience with full localization support:
 
 ## Getting Started
 
-### Build
 To run StudyHub locally on your machine:
 
 1. **Clone the repository**
