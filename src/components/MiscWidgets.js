@@ -162,20 +162,3 @@ export function renderNotes(element) {
 
     refreshRender();
 }
-
-export function renderMood(element) {
-    const moods = ['😍', '🙂', '😐', '☹️', '😔'];
-    // Assuming first is active for demo
-    element.innerHTML = `
-        <div class="bg-white p-6 rounded-3xl shadow-sm h-full flex flex-col">
-            <h3 class="text-sm font-bold text-dark mb-4">${t('mode_now')}</h3>
-            <div class="flex-1 flex flex-col justify-between items-center gap-2">
-                ${moods.map((emoji, i) => `
-                    <button class="w-10 h-10 rounded-full flex items-center justify-center text-xl hover:bg-gray-50 transition-colors ${i === 1 ? 'bg-yellow-50 border border-yellow-200 shadow-sm scale-110' : 'grayscale opacity-50 hover:opacity-100 hover:grayscale-0'}">
-                        ${emoji}
-                    </button>
-                `).join('')}
-            </div>
-        </div>
-    `
-}

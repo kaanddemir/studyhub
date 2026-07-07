@@ -1,5 +1,5 @@
 import './style.css'
-import { data, saveData } from './data.js'
+import { data } from './data.js'
 import { t } from './translations.js'
 import { escapeHTML } from './security.js'
 import { renderSidebar, renderMobileNav } from './components/Sidebar.js'
