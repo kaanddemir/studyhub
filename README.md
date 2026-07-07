@@ -6,7 +6,7 @@
 
 <div align="center">
 
-**A personal study dashboard for tracking habits, managing courses, calculating grades, and staying focused.**
+**A personal study dashboard designed to help students track habits, manage courses, calculate grades, and boost productivity.**
 
 </div>
 
@@ -16,103 +16,90 @@
 
 ## Overview
 
-StudyHub is a local-first student dashboard built with Vite, Tailwind CSS, and vanilla JavaScript modules. It brings study planning, course tracking, exams, notes, habits, widgets, and focus tools into one lightweight browser app.
+StudyHub is a comprehensive, widget-based dashboard tailored for students. It replaces scattered productivity tools with a single, cohesive interface. Built for performance and aesthetics, it offers a premium glassmorphism-inspired UI that adapts to your personal style.
 
-The app is designed for personal use. Study data, preferences, widget layouts, notes, and other settings are stored in browser `localStorage`.
+Whether you are tracking exam dates, calculating your GPA, or focusing with a Pomodoro timer, StudyHub keeps everything in one beautiful place.
 
 ## Core Features
 
-### Study Dashboard
-- **Customizable Widgets**: Reorder and resize dashboard widgets.
-- **Focus Tools**: Use Pomodoro, stopwatch, quick notes, scratchpad, and bookmarks.
-- **Habit Tracking**: Track daily habits and study streaks.
-- **Schedule Widgets**: Manage calendar items, todos, and weekly schedule entries.
+### Productivity Tools
+- **Dashboard**: Customizable widget-based layout with drag-and-drop support.
+- **Focus Timer**: Built-in Pomodoro timer with work/break intervals.
+- **Stopwatch**: Track pure study time with precision.
+- **Habit Tracker**: Daily habit monitoring with streak counters and progress bars.
+- **Digital Notebook**: Rich text editor with multiple paper styles (lined, grid) and infinite scrolling.
 
-### Courses & Exams
-- **Course Management**: Add courses, instructor details, schedules, notes, and resources.
-- **Exam Tracking**: Store exam dates, times, locations, and logistics.
-- **Grade Calculator**: Calculate current averages and required scores.
-- **Cheatsheets & Notebook**: Keep structured study notes, formulas, and attachments.
+### Personalization & UX
+- **Theme Engine**: Choose from curated color presets nor customize your own accent color.
+- **Visuals**: Modern Glassmorphism UI with smooth animations and transitions.
+- **Responsive**: Fully optimized for Desktop, Tablet (iPad), and Mobile.
+- **Dark/Light Mode**: Adapts to system preferences or user settings.
 
-### Privacy & UX
-- **Local-First Storage**: Data is saved in browser `localStorage`.
-- **No Backend Required**: The app runs as a static Vite frontend.
-- **Responsive App Shell**: Designed for desktop, tablet, and mobile layouts.
-- **Localization**: Includes English and Turkish UI text.
+### Localization
+StudyHub is built for a global audience with full localization support:
+- **English** (en)
+- **Turkish** (tr)
 
 ## Current Limitations
-- **Single-Device Storage**: Data does not sync across devices.
-- **Browser Storage**: Clearing browser storage clears StudyHub data.
-- **Prototype AI Areas**: StudyAI-related UI is currently demo/prototype behavior.
-- **Static Deployment**: Production output is generated into `docs/` for GitHub Pages-style hosting.
+- **AI Tutor**: Currently a UI prototype; backend integration is pending.
+- **Cloud Sync**: Data is stored locally on the device; no cross-device sync yet.
+- **Mobile App**: Available as a web app; native iOS/Android apps are on the roadmap.
 
 ## Tech Stack
 - **Build Tool**: [Vite](https://vitejs.dev/)
-- **Frontend**: Vanilla JavaScript (ES6 modules)
+- **Core**: Vanilla JavaScript (ES6+ Modules)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Icons**: Heroicons / SVG
 - **Storage**: Browser LocalStorage API
 
 ## Getting Started
 
-### Setup
+### Build
+To run StudyHub locally on your machine:
 
-Requires Node.js 18+.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/kaanddemir/studyhub.git
+   cd studyhub
+   ```
 
-1. **Install dependencies**
+2. **Install Dependencies**
    ```bash
    npm install
    ```
 
-2. **Start the development server**
+3. **Start Development Server**
    ```bash
    npm run dev
    ```
 
-3. **Build for production**
+4. **Build for Production**
    ```bash
    npm run build
    ```
-
-4. **Preview the production build**
-   ```bash
-   npm run preview
-   ```
+   The output will be in the `dist` folder.
 
 ## Project Structure
 
-```text
-StudyHub/
-├── docs/                 # GitHub Pages / production build output
-├── public/               # Runtime static assets, logo only for now
+```
+studyhub/
+├── public/             # Static assets (favicon, logos)
 ├── src/
-│   ├── components/       # UI modules
-│   ├── data.js           # Default data and localStorage persistence
-│   ├── main.js           # App shell, routing, and bootstrapping
-│   ├── security.js       # HTML sanitization and escaping helpers
-│   ├── style.css         # Tailwind entry and global styles
-│   └── translations.js   # English and Turkish UI strings
-├── index.html            # HTML entry point
-├── package.json          # npm scripts and dependencies
-├── postcss.config.js
-├── tailwind.config.js
-├── vite.config.js
-├── LICENSE
-└── README.md
+│   ├── components/     # UI Components (Dashboard, Courses, etc.)
+│   ├── data.js         # Data management & LocalStorage logic
+│   ├── translations.js # Localization strings
+│   ├── main.js         # App entry, router, and initialization
+│   └── style.css       # Global styles & Tailwind imports
+├── index.html          # HTML Entry point
+├── tailwind.config.js  # Tailwind configuration
+└── vite.config.js      # Vite configuration
 ```
 
 ## Data Storage
-
-StudyHub is local-first:
-- **Local Storage**: Courses, exams, notebook content, cheatsheets, profile settings, widget layouts, habits, notes, and preferences are stored in browser `localStorage`.
-- **No Backend Database**: The project does not include a backend or server-side persistence.
-- **Manual Control**: Use the in-app export/import tools where available when you want to back up or move data.
-
-## Basic Workflow
-1. Run the app locally with `npm run dev`.
-2. Complete onboarding with your name, school, department, and theme preference.
-3. Add courses, exams, notes, habits, and schedule items.
-4. Customize dashboard widgets to match your study workflow.
-5. Build with `npm run build` when updating the static `docs/` output.
+Your privacy is paramount. StudyHub operates on a **Local-First** basis:
+- **Local Storage**: All data (grades, notes, streaks) is saved directly in your browser's `localStorage`.
+- **No Tracking**: No personal data is sent to external servers.
+- **Backup**: You can manually export/import your data via the Settings panel.
 
 ## License
 This project is open source and available under the **MIT License**.
